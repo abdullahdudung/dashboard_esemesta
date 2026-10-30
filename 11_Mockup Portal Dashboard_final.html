@@ -163,7 +163,7 @@ h2{font-size:16px;font-weight:600;margin:22px 2px 12px}
 /* ============================================================
    KONFIGURASI
    ============================================================ */
-const LS='portalDataV4', SS='portalSession';
+const LS='portalDataV3', SS='portalSession';
 const NEW_DAYS=30; // label BARU tampil bila dashboard ditambahkan ke portal ≤ 30 hari terakhir
 const TYPES=['Big Number','Pie','Donut','Bar','Bar 100%','Column','Line','Funnel','Map','Table'];
 // Kategori diurutkan mengikuti urutan dashboard di dokumen KF
@@ -172,17 +172,17 @@ const COL={Akademik:'#1e88f5',Keuangan:'#f0b429',Kemahasiswaan:'#a78bda','Peneli
 
 // 11 dashboard sesuai urutan KF (KF01–KF11). created = tanggal masuk portal; updated = tanggal mockup/dashboard terakhir diperbarui.
 const SEED_DASH=[
- {id:'akd', kf:'KF01', title:'[AKD] Dashboard Akademik', cat:'Akademik', desc:'PMB Mandiri dan Nasional, mahasiswa, mahasiswa asing, asal sekolah, kebutuhan khusus, daerah 3T, kelulusan, dan akreditasi prodi.', owner:'Akademik Pusat', created:'2026-09-15', updated:'2026-10-30', url:'01_Mockup_Dashboard_Akademik_final.html', active:true},
- {id:'keu', kf:'KF02', title:'[KEU] Dashboard Keuangan Mahasiswa', cat:'Keuangan', desc:'Tagihan dan penerimaan, kelompok UKT, piutang dan cicilan, serta transaksi pembayaran mahasiswa.', owner:'Biro Perencanaan dan Keuangan', created:'2026-09-15', updated:'2026-10-30', url:'02_Mockup_Dashboard_Keuangan_Mahasiswa_final.html', active:true},
- {id:'pre', kf:'KF03', title:'[PRE] Dashboard Prestasi Mahasiswa', cat:'Kemahasiswaan', desc:'Prestasi per tingkat, jenis, dan peringkat, per fakultas, prodi, dan jenjang.', owner:'Kemahasiswaan', created:'2026-09-15', updated:'2026-10-30', url:'03_Mockup_Dashboard_Prestasi_final.html', active:true},
- {id:'kkn', kf:'KF04', title:'[KKN] Dashboard KKN', cat:'Penelitian & PkM', desc:'Peserta, DPL, lokasi, dan kuota per jenis KKN (Reguler, In Campus, Internasional, Tematik), serta tren 2021–2026.', owner:'LP2M', created:'2026-10-29', updated:'2026-10-30', url:'04_Mockup_Dashboard_KKN_final.html', active:true},
- {id:'bea', kf:'KF05', title:'[BEA] Dashboard Beasiswa', cat:'Kemahasiswaan', desc:'Pendaftar, kuota, penerima, nominal, kategori pendaftar, dan sumber beasiswa, serta tren 2021–2026.', owner:'Kemahasiswaan', created:'2026-10-29', updated:'2026-10-30', url:'05_Mockup_Dashboard_Beasiswa_final.html', active:true},
- {id:'alm', kf:'KF06', title:'[ALM] Dashboard Alumni dan Tracer Study', cat:'Alumni', desc:'Responden dan tingkat respon tracer study, status pasca lulus, jenis pekerjaan, dan jalur masuk alumni.', owner:'Alumni dan Karir', created:'2026-09-15', updated:'2026-10-30', url:'06_Mockup_Dashboard_Alumni_final.html', active:true},
- {id:'sdm', kf:'KF07', title:'[SDM] Dashboard Profil Sumber Daya Manusia', cat:'SDM', desc:'Status pegawai, komposisi dosen, tendik, dan nakes per jabatan fungsional, pendidikan, dan unit kerja.', owner:'SDM', created:'2026-09-15', updated:'2026-10-30', url:'07_Mockup_Dashboard_Profil_SDM_final.html', active:true},
- {id:'plo', kf:'KF08', title:'[PLO] Dashboard Persuratan Digital', cat:'Persuratan', desc:'Surat masuk, surat keluar, disposisi, dan tren volume surat per bulan.', owner:'Umum', created:'2026-09-15', updated:'2026-10-30', url:'08_Mockup%20Dashboard%20Persuratan%20Digital_final.html', active:true},
- {id:'aset', kf:'KF09', title:'[ASET] Dashboard Manajemen Aset', cat:'Sarpras', desc:'Aset per jenis dan kondisi, pemeliharaan, mutasi dan penyusutan, serta penggunaan dan sewa.', owner:'Umum', created:'2026-09-15', updated:'2026-10-30', url:'09_Mockup_Dashboard_Aset_final.html', active:true},
- {id:'fin', kf:'KF10', title:'[FIN] Dashboard eFinansi', cat:'Keuangan', desc:'Perencanaan anggaran (IKU-43-03), realisasi anggaran, serta target dan perbandingan pagu vs realisasi.', owner:'Biro Perencanaan dan Keuangan', created:'2026-10-27', updated:'2026-10-30', url:'10_Mockup_Dashboard_eFinansi_final.html', active:true},
- {id:'ris', kf:'KF11', title:'[RIS] Dashboard Riset dan Pengabdian kepada Masyarakat', cat:'Penelitian & PkM', desc:'Penelitian, luaran dan rekognisi, dosen dan pembiayaan, serta tren per tahun.', owner:'Puslitpen, LP2M', created:'2026-09-15', updated:'2026-10-20', url:'12_Mockup%20Dashboard%20Riset_HOLD.html', active:true}
+ {id:'akd', kf:'KF01', title:'[AKD] Dashboard Akademik', cat:'Akademik', desc:'PMB Mandiri dan Nasional, mahasiswa, mahasiswa asing, asal sekolah, kebutuhan khusus, daerah 3T, kelulusan, dan akreditasi prodi.', owner:'Akademik Pusat', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Akademik_final.html', active:true},
+ {id:'keu', kf:'KF02', title:'[KEU] Dashboard Keuangan Mahasiswa', cat:'Keuangan', desc:'Tagihan dan penerimaan, kelompok UKT, piutang dan cicilan, serta transaksi pembayaran mahasiswa.', owner:'Biro Perencanaan dan Keuangan', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Keuangan_Mahasiswa_final.html', active:true},
+ {id:'pre', kf:'KF03', title:'[PRE] Dashboard Prestasi Mahasiswa', cat:'Kemahasiswaan', desc:'Prestasi per tingkat, jenis, dan peringkat, per fakultas, prodi, dan jenjang.', owner:'Kemahasiswaan', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Prestasi_final.html', active:true},
+ {id:'kkn', kf:'KF04', title:'[KKN] Dashboard KKN', cat:'Penelitian & PkM', desc:'Peserta, DPL, lokasi, dan kuota per jenis KKN (Reguler, In Campus, Internasional, Tematik), serta tren 2021–2026.', owner:'LP2M', created:'2026-10-29', updated:'2026-10-30', url:'Mockup_Dashboard_KKN_final.html', active:true},
+ {id:'bea', kf:'KF05', title:'[BEA] Dashboard Beasiswa', cat:'Kemahasiswaan', desc:'Pendaftar, kuota, penerima, nominal, kategori pendaftar, dan sumber beasiswa, serta tren 2021–2026.', owner:'Kemahasiswaan', created:'2026-10-29', updated:'2026-10-30', url:'Mockup_Dashboard_Beasiswa_final.html', active:true},
+ {id:'alm', kf:'KF06', title:'[ALM] Dashboard Alumni dan Tracer Study', cat:'Alumni', desc:'Responden dan tingkat respon tracer study, status pasca lulus, jenis pekerjaan, dan jalur masuk alumni.', owner:'Alumni dan Karir', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Alumni_final.html', active:true},
+ {id:'sdm', kf:'KF07', title:'[SDM] Dashboard Profil Sumber Daya Manusia', cat:'SDM', desc:'Status pegawai, komposisi dosen, tendik, dan nakes per jabatan fungsional, pendidikan, dan unit kerja.', owner:'SDM', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Profil_SDM_final.html', active:true},
+ {id:'plo', kf:'KF08', title:'[PLO] Dashboard Persuratan Digital', cat:'Persuratan', desc:'Surat masuk, surat keluar, disposisi, dan tren volume surat per bulan.', owner:'Umum', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Persuratan_Digital_final.html', active:true},
+ {id:'aset', kf:'KF09', title:'[ASET] Dashboard Manajemen Aset', cat:'Sarpras', desc:'Aset per jenis dan kondisi, pemeliharaan, mutasi dan penyusutan, serta penggunaan dan sewa.', owner:'Umum', created:'2026-09-15', updated:'2026-10-30', url:'Mockup_Dashboard_Aset.html', active:true},
+ {id:'fin', kf:'KF10', title:'[FIN] Dashboard eFinansi', cat:'Keuangan', desc:'Perencanaan anggaran (IKU-43-03), realisasi anggaran, serta target dan perbandingan pagu vs realisasi.', owner:'Biro Perencanaan dan Keuangan', created:'2026-10-27', updated:'2026-10-30', url:'Mockup_Dashboard_eFinansi.html', active:true},
+ {id:'ris', kf:'KF11', title:'[RIS] Dashboard Riset dan Pengabdian kepada Masyarakat', cat:'Penelitian & PkM', desc:'Penelitian, luaran dan rekognisi, dosen dan pembiayaan, serta tren per tahun.', owner:'Puslitpen, LP2M', created:'2026-09-15', updated:'2026-10-20', url:'Mockup_Dashboard_Riset.html', active:true}
 ];
 
 // Chart terhubung ke dashboard asalnya (dash). Hak akses chart mengikuti hak akses dashboard asal.
@@ -250,10 +250,10 @@ function buildSeed(){
  const users=[U('admin','Administrator','admin'),U('pimpinan','Pimpinan Universitas','pimpinan'),U('akademik','Staf Akademik Pusat','akademik'),
    U('pk','Staf Perencanaan dan Keuangan','pk'),U('kemahasiswaan','Staf Kemahasiswaan','kemahasiswaan'),U('lp2m','Staf LP2M','lp2m'),
    U('alumni','Staf Alumni dan Karir','alumni'),U('sdm','Staf SDM','sdm'),U('umum','Staf Umum','umum'),U('puslitpen','Staf Puslitpen','puslitpen')];
- return {dashboards:dash,charts:charts,roles:roles,users:users,version:4};
+ return {dashboards:dash,charts:charts,roles:roles,users:users,version:3};
 }
 function load(){
- try{const s=lsGet(LS);if(s){const d=JSON.parse(s);if(d&&d.dashboards&&d.charts&&d.version===4)return d;}}catch(e){}
+ try{const s=lsGet(LS);if(s){const d=JSON.parse(s);if(d&&d.dashboards&&d.charts&&d.version===3)return d;}}catch(e){}
  const d=buildSeed();lsSet(LS,JSON.stringify(d));return d;
 }
 function save(){lsSet(LS,JSON.stringify(D));}
