@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Persuratan Digital</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--text);font-size:14px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#0c7ea3;color:#fff;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px;cursor:pointer}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer}
+.hint{margin-top:12px;font-size:11px;line-height:1.5;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:0}
+.kpis.k2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kpi{min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.kpi .n{font-size:clamp(26px,2.6vw,40px);font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--kc,var(--text))}
+.kpi .n small{font-size:.5em;font-weight:600;color:var(--mute);margin-left:6px;letter-spacing:0}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative;background:var(--line)}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+.tblwrap{max-height:440px;overflow:auto;margin-top:12px;border:1px solid var(--line)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.t th{color:var(--mute);font-weight:600;position:sticky;top:0;background:var(--panel);z-index:1}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tbody tr:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+@media(max-width:1100px){aside{width:240px}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.row3,.kpis{gap:12px}.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .n{font-size:26px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun</label><select id="f_tahun"></select></div>
+  <div class="f"><label>Unit</label><select id="f_unit"></select></div>
+  <div class="f"><label>Jenis Surat</label><select id="f_doc_type"></select></div>
+  <div class="f"><label>Kategori</label><select id="f_category"></select></div>
+  <div class="f"><label>Sifat (Urgensi)</label><select id="f_urgency"></select></div>
+  <div class="f"><label>Status Draft</label><select id="f_status"></select></div>
+  <div class="f"><label>Klasifikasi</label><select id="f_classification"></select></div>
+  <div class="f"><label>Pegawai</label><select id="f_pegawai"></select></div>
+  <div class="btns"><button class="a" id="apply">APPLY FILTERS</button><button class="c" id="clear">CLEAR ALL</button></div>
+  <div class="hint"><b>Wadah input data manual:</b> buka file ini, cari object <code>DB</code> di dalam &lt;script&gt;. Isi tabel sesuai relasi CSV (FK memakai <code>id</code>). Set <code>USE_DUMMY=false</code> bila memakai data sendiri.</div>
+</aside>
+<main>
+<div class="head"><h1>[PLO] Dashboard Persuratan Digital</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ikhtisar</button><button data-t="t1">Surat Masuk</button><button data-t="t2">Surat Keluar</button><button data-t="t3">Disposisi</button></div>
+
+<section class="panel on" id="t0">
+  <div class="kpis">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Dokumen</h4><div class="n" id="k_doc">0</div></div>
+    <div class="card kpi" style="--kc:#1e88f5"><h4>Surat Masuk</h4><div class="n" id="k_in">0</div></div>
+    <div class="card kpi" style="--kc:#3b8f62"><h4>Surat Keluar</h4><div class="n" id="k_out">0</div></div>
+    <div class="card kpi" style="--kc:#f0b429"><h4>Belum Dibaca</h4><div class="n" id="k_unread">0</div></div>
+    <div class="card kpi" style="--kc:#a78bda"><h4>Menunggu Disposisi</h4><div class="n" id="k_disp">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Dokumen berdasarkan Jenis Surat</h4><div class="pie" id="p_type"><em id="p_typet"></em></div><div class="leg" id="p_typel" style="justify-content:center"></div></div>
+    <div class="card"><h4>Volume Dokumen per Unit (berdasarkan Status Draft)</h4><div class="bars" id="b_unit"></div><div class="leg" id="l_unit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Surat Masuk vs Surat Keluar per Bulan</h4><div id="b_tren"></div><div class="leg" id="l_tren"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Status Proses Surat Masuk</h4><div class="pie" id="p_in"><em id="p_int"></em></div><div class="leg" id="p_inl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Surat Masuk per Unit Tujuan</h4><div class="bars" id="b_inunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Surat Masuk Sudah Dibaca per Unit</h4><div class="bars" id="b_inread"></div><div class="leg" id="l_inread"></div><div class="note">Batang proporsi 100%; angka kanan = jumlah penerima.</div></div>
+    <div class="card"><h4>Tren Surat Masuk per Bulan</h4><div id="b_intren"></div><div class="leg" id="l_intren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Surat Masuk</h4><div class="tools"><input class="q" id="q_tin" placeholder="Cari perihal / jenis / unit..."></div><div class="tblwrap" id="t_tin"></div><div class="note" id="c_tin"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t2">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Komposisi Surat Keluar berdasarkan Kategori</h4><div class="pie" id="p_out"><em id="p_outt"></em></div><div class="leg" id="p_outl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Surat Keluar per Unit</h4><div class="bars" id="b_outunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Surat Keluar Terkirim per Unit</h4><div class="bars" id="b_outsent"></div><div class="leg" id="l_outsent"></div><div class="note">Batang proporsi 100%; angka kanan = jumlah penerima.</div></div>
+    <div class="card"><h4>Tren Surat Keluar per Bulan</h4><div id="b_outtren"></div><div class="leg" id="l_outtren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Surat Keluar</h4><div class="tools"><input class="q" id="q_tout" placeholder="Cari perihal / jenis / unit..."></div><div class="tblwrap" id="t_tout"></div><div class="note" id="c_tout"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t3">
+  <div class="kpis k2">
+    <div class="card kpi" style="--kc:#a78bda"><h4>Total Disposisi</h4><div class="n" id="k_dispn">0</div></div>
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Rata-rata Lama Proses <small>hari</small></h4><div class="n" id="k_avgdisp">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Status Disposisi</h4><div class="pie" id="p_disp"><em id="p_dispt"></em></div><div class="leg" id="p_displ" style="justify-content:center"></div></div>
+    <div class="card"><h4>Disposisi per Unit Tujuan</h4><div class="bars" id="b_dispunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Disposisi per Pegawai (Top 15)</h4><div class="bars" id="b_dispuser"></div></div>
+    <div class="card"><h4>Tren Disposisi per Bulan</h4><div id="b_disptren"></div><div class="leg" id="l_disptren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Disposisi</h4><div class="tools"><input class="q" id="q_tdisp" placeholder="Cari perihal / unit / pegawai..."></div><div class="tblwrap" id="t_tdisp"></div><div class="note" id="c_tdisp"></div></div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+<script>
+/* =====================================================================================
+   WADAH INPUT DATA MANUAL
+   -------------------------------------------------------------------------------------
+   Semua data dibaca dari object DB di bawah. Struktur mengikuti file CSV
+   "strukutur-table-relasi-plo.csv". Relasi antar tabel memakai kolom FK (memakai id):
+
+     drafts            : unit_id -> ref_units, doc_type_id -> ref_doc_types,
+                         doc_category_id -> ref_doc_categories, doc_speed_id -> ref_doc_speeds,
+                         doc_urgency_id -> ref_doc_urgencies,
+                         doc_classification_id -> ref_doc_classifications,
+                         status_draft_id -> ref_status_drafts
+     doc_ins           : draft_id -> drafts, disposition_id -> ref_dispositions,
+                         status_disposition_id -> ref_status_disposisi
+     doc_in_receivers  : doc_in_id -> doc_ins, unit_id -> ref_units, user_id -> users
+     doc_outs          : draft_id -> drafts, doc_in_id -> doc_ins
+     doc_out_receivers : doc_out_id -> doc_outs, unit_id -> ref_units, user_id -> users
+     user_positions    : user_id -> users, unit_id -> ref_units, position_id -> ref_positions
+
+   CARA PAKAI:
+     1) Isi array fact (drafts, doc_ins, doc_in_receivers, doc_outs, doc_out_receivers)
+        secara manual. Isi kolom FK dengan id dari tabel referensi.
+     2) Set USE_DUMMY = false agar data dummy tidak di-generate.
+     3) Bila USE_DUMMY = true dan fact masih kosong, contoh data akan dibuat otomatis.
+   ===================================================================================== */
+
+const USE_DUMMY = true;
+
+const DB = {
+  // ---------- Tabel referensi (silakan edit) ----------
+  ref_units: [
+    {id:"un1", code:"UIN",  name:"Rektorat",                              level:"1", parent_id:null},
+    {id:"un2", code:"BAU",  name:"Biro Administrasi Umum",                level:"2", parent_id:"un1"},
+    {id:"un3", code:"BAK",  name:"Biro Akademik dan Kemahasiswaan",       level:"2", parent_id:"un1"},
+    {id:"un4", code:"BPK",  name:"Biro Perencanaan dan Keuangan",         level:"2", parent_id:"un1"},
+    {id:"un5", code:"FITK", name:"Fakultas Ilmu Tarbiyah dan Keguruan",   level:"2", parent_id:"un1"},
+    {id:"un6", code:"FST",  name:"Fakultas Sains dan Teknologi",          level:"2", parent_id:"un1"},
+    {id:"un7", code:"FEB",  name:"Fakultas Ekonomi dan Bisnis",           level:"2", parent_id:"un1"},
+    {id:"un8", code:"FU",   name:"Fakultas Ushuluddin",                   level:"2", parent_id:"un1"},
+    {id:"un9", code:"FSH",  name:"Fakultas Syariah dan Hukum",            level:"2", parent_id:"un1"},
+    {id:"un10",code:"FDIK", name:"Fakultas Dakwah dan Ilmu Komunikasi",   level:"2", parent_id:"un1"},
+    {id:"un11",code:"FAH",  name:"Fakultas Adab dan Humaniora",           level:"2", parent_id:"un1"},
+    {id:"un12",code:"FPsi", name:"Fakultas Psikologi",                    level:"2", parent_id:"un1"},
+    {id:"un13",code:"FK",   name:"Fakultas Kedokteran",                   level:"2", parent_id:"un1"},
+    {id:"un14",code:"FIKES",name:"Fakultas Ilmu Kesehatan",               level:"2", parent_id:"un1"},
+    {id:"un15",code:"SPs",  name:"Sekolah Pascasarjana",                  level:"2", parent_id:"un1"},
+    {id:"un16",code:"LP2M", name:"Lembaga Penelitian dan Pengabdian",     level:"2", parent_id:"un1"}
+  ],
+  ref_doc_types: [
+    {id:"dt1", code:"SM",  name:"Surat Masuk",          ref_format_numbers_id:null},
+    {id:"dt2", code:"SK",  name:"Surat Keluar",         ref_format_numbers_id:null},
+    {id:"dt3", code:"SU",  name:"Surat Undangan",       ref_format_numbers_id:null},
+    {id:"dt4", code:"SE",  name:"Surat Edaran",         ref_format_numbers_id:null},
+    {id:"dt5", code:"SKp", name:"Surat Keputusan",      ref_format_numbers_id:null},
+    {id:"dt6", code:"ST",  name:"Surat Tugas",          ref_format_numbers_id:null},
+    {id:"dt7", code:"ND",  name:"Nota Dinas",           ref_format_numbers_id:null},
+    {id:"dt8", code:"SKet",name:"Surat Keterangan",     ref_format_numbers_id:null},
+    {id:"dt9", code:"SPm", name:"Surat Permohonan",     ref_format_numbers_id:null},
+    {id:"dt10",code:"SPb", name:"Surat Pemberitahuan",  ref_format_numbers_id:null}
+  ],
+  ref_doc_categories: [
+    {id:"dc1", code:"INT", name:"Internal"},
+    {id:"dc2", code:"EKS", name:"Eksternal"},
+    {id:"dc3", code:"UND", name:"Undangan"},
+    {id:"dc4", code:"KPG", name:"Kepegawaian"},
+    {id:"dc5", code:"KEU", name:"Keuangan"},
+    {id:"dc6", code:"AKD", name:"Akademik"},
+    {id:"dc7", code:"KEM", name:"Kemahasiswaan"},
+    {id:"dc8", code:"KRS", name:"Kerja Sama"}
+  ],
+  ref_doc_speeds: [
+    {id:"ds1", code:"B", name:"Biasa"},
+    {id:"ds2", code:"S", name:"Segera"},
+    {id:"ds3", code:"SS",name:"Sangat Segera"}
+  ],
+  ref_doc_urgencies: [
+    {id:"du1", code:"R", name:"Rendah"},
+    {id:"du2", code:"N", name:"Normal"},
+    {id:"du3", code:"T", name:"Tinggi"},
+    {id:"du4", code:"U", name:"Urgent"}
+  ],
+  ref_doc_classifications: [
+    {id:"dcl1", code:"B", name:"Biasa"},
+    {id:"dcl2", code:"T", name:"Terbatas"},
+    {id:"dcl3", code:"P", name:"Penting"},
+    {id:"dcl4", code:"R", name:"Rahasia"}
+  ],
+  ref_status_drafts: [
+    {id:"st1", code:"DRF", name:"Draft"},
+    {id:"st2", code:"MPS", name:"Menunggu Persetujuan"},
+    {id:"st3", code:"DIS", name:"Disetujui"},
+    {id:"st4", code:"DTL", name:"Ditolak"},
+    {id:"st5", code:"TKR", name:"Terkirim"},
+    {id:"st6", code:"SEL", name:"Selesai"}
+  ],
+  ref_dispositions: [
+    {id:"dp1", code:"DPP", name:"Disposisi Pimpinan"},
+    {id:"dp2", code:"DPS", name:"Disposisi Sekretaris"},
+    {id:"dp3", code:"DPK", name:"Disposisi Kabag"},
+    {id:"dp4", code:"TL",  name:"Tindak Lanjut"}
+  ],
+  ref_status_disposisi: [
+    {id:"sd1", code:"BAR", name:"Baru"},
+    {id:"sd2", code:"PRO", name:"Diproses"},
+    {id:"sd3", code:"DTR", name:"Diteruskan"},
+    {id:"sd4", code:"SEL", name:"Selesai"}
+  ],
+  ref_positions: [
+    {id:"po1", code:"REK", name:"Rektor",          is_leader:true},
+    {id:"po2", code:"WR",  name:"Wakil Rektor",    is_leader:true},
+    {id:"po3", code:"KAB", name:"Kepala Biro",     is_leader:true},
+    {id:"po4", code:"KABG",name:"Kepala Bagian",   is_leader:true},
+    {id:"po5", code:"KSB", name:"Kepala Sub Bagian",is_leader:true},
+    {id:"po6", code:"STF", name:"Staf",            is_leader:false},
+    {id:"po7", code:"SEK", name:"Sekretaris",      is_leader:false}
+  ],
+
+  // ---------- Tabel pengguna ----------
+  users: [],
+  user_positions: [],
+
+  // ---------- Tabel transaksi (isi manual di sini) ----------
+  drafts: [],
+  doc_ins: [],
+  doc_in_receivers: [],
+  doc_outs: [],
+  doc_out_receivers: [],
+  doc_trackings: []
+};
+
+/* ============================ Helper umum ============================ */
+const $ = id => document.getElementById(id);
+const byId = (arr,id) => arr.find(x => x.id === id);
+const nameOf = (arr,id) => { const r = byId(arr,id); return r ? r.name : "(tidak diketahui)"; };
+const nameUnit = id => nameOf(DB.ref_units,id);
+const nameType = id => nameOf(DB.ref_doc_types,id);
+const nameCat  = id => nameOf(DB.ref_doc_categories,id);
+const nameStatus = id => nameOf(DB.ref_status_drafts,id);
+const nameDisp = id => nameOf(DB.ref_dispositions,id);
+const nameStatusDisp = id => nameOf(DB.ref_status_disposisi,id);
+const nameUser = id => { const u = byId(DB.users,id); return u ? u.name : "(pegawai)"; };
+const fmt = n => (n||0).toLocaleString("id-ID");
+
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function pickIdx(w){let s=w.reduce((a,b)=>a+b,0),x=Math.random()*s;for(let i=0;i<w.length;i++){x-=w[i];if(x<0)return i}return w.length-1}
+const pickW=(it,w)=>it[pickIdx(w)];
+
+const pd = s => { const [y,m,d] = s.slice(0,10).split("-").map(Number); return new Date(y,m-1,d); };
+const fmtD = dt => dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const addD = (s,n) => { const d = pd(s); d.setDate(d.getDate()+n); return fmtD(d); };
+const daysBetween = (a,b) => Math.round((pd(b)-pd(a))/86400000);
+const MON = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const mLbl = k => MON[parseInt(k.slice(5,7),10)-1]+" "+k.slice(2,4);
+
+/* ============================ Data dummy ============================ */
+function seedDummy(){
+  const R = rng(20261006);
+  const pick = (it,w) => { let s=w.reduce((a,b)=>a+b,0),x=R()*s; for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]} return it[it.length-1]; };
+  const NAMES = [
+    "Prof. Dr. H. Ahmad Fauzi, M.A.","Dr. Siti Aminah, M.Pd.","Drs. Budi Santoso, M.Si.",
+    "Dra. Nurhayati, M.A.","Dr. Muhammad Ridwan, M.H.","Dewi Lestari, S.Kom.",
+    "Agus Priyanto, S.E.","Rina Marlina, S.Pd.","Hendra Gunawan, M.T.","Fitriani, S.H.",
+    "Yusuf Maulana, M.Kom.","Aisyah Rahmawati, M.Pd.","Dedi Kurniawan, S.Sos.",
+    "Lina Marlina, S.KM.","Rizal Fadillah, M.A.","Nadia Safitri, S.Psi.",
+    "Taufik Hidayat, M.E.","Wulan Sari, S.IP.","Iman Nugroho, M.Farm.","Sari Dewi, S.Hum.",
+    "Bayu Pratama, S.T.","Maya Anggraini, M.Si.","Fajar Ramadhan, S.Ag.","Intan Permata, M.KM."
+  ];
+  const UN = DB.ref_units.map(u=>u.id);
+  const UNW = UN.map((_,i)=> i<4 ? 5 : 6);
+  DB.users = NAMES.map((n,i)=>{
+    const unit = UN[i%UN.length];
+    const pos = i===0?"po1": i<3?"po2": i<6?"po3": i<12?"po4": i<18?"po5":"po6";
+    return {id:"us"+(i+1),username:"user"+(i+1),name:n,unit_id:unit,position_id:pos,is_active:true,is_student:false};
+  });
+  DB.user_positions = DB.users.map((u,i)=>({id:"up"+(i+1),user_id:u.id,unit_id:u.unit_id,position_id:u.position_id}));
+  const UID = DB.users.map(u=>u.id), UIDW = UID.map(()=>1);
+
+  const DT = DB.ref_doc_types.map(x=>x.id),  DTW  = [22,18,14,10,8,7,6,5,5,5];
+  const CAT = DB.ref_doc_categories.map(x=>x.id), CATW = [20,16,12,12,10,12,8,10];
+  const SP = DB.ref_doc_speeds.map(x=>x.id), SPW = [60,30,10];
+  const UG = DB.ref_doc_urgencies.map(x=>x.id), UGW = [20,45,25,10];
+  const CL = DB.ref_doc_classifications.map(x=>x.id), CLW = [55,20,18,7];
+  const ST = DB.ref_status_drafts.map(x=>x.id), STW = [10,20,15,8,30,17];
+  const YR = [2022,2023,2024,2025,2026], YW = [15,18,20,22,25];
+  const MN = [1,2,3,4,5,6,7,8,9,10,11,12], MW = [8,9,10,9,9,8,9,10,10,10,9,8];
+  const DPS = DB.ref_dispositions.map(x=>x.id), DPSW = [30,30,25,15];
+  const SDS = DB.ref_status_disposisi.map(x=>x.id), SDSW = [25,30,20,25];
+
+  for(let i=0;i<1200;i++){
+    const y = pick(YR,YW), m = pick(MN,MW), day = 1+Math.floor(R()*28);
+    DB.drafts.push({
+      id:"dr"+i, title:"Dokumen Persuratan #"+(i+1),
+      unit_id:pick(UN,UNW), doc_type_id:pick(DT,DTW), doc_category_id:pick(CAT,CATW),
+      doc_speed_id:pick(SP,SPW), doc_urgency_id:pick(UG,UGW),
+      doc_classification_id:pick(CL,CLW), status_draft_id:pick(ST,STW),
+      date_draft:`${y}-${String(m).padStart(2,"0")}-${String(day).padStart(2,"0")}`,
+      is_approve:R()<.6
+    });
+  }
+
+  let ni=0,no=0,rc=0;
+  DB.drafts.forEach((d,i)=>{
+    if(i%2===0){
+      const di = {id:"di"+ni, draft_id:d.id, date_receive:addD(d.date_draft,1+Math.floor(R()*6)),
+        is_read:R()<.82, is_confirmation:R()<.72, is_verification:R()<.62, is_done:R()<.5,
+        is_disposition:false, date_disposition:null, disposition_id:null, status_disposition_id:null, note_disposition:""};
+      if(R()<.5){ di.is_disposition=true; di.disposition_id=pick(DPS,DPSW);
+        di.status_disposition_id=pick(SDS,SDSW); di.date_disposition=addD(di.date_receive,1+Math.floor(R()*12)); }
+      DB.doc_ins.push(di);
+      const nr = 1+Math.floor(R()*2);
+      for(let k=0;k<nr;k++){ const rd=R()<.8;
+        DB.doc_in_receivers.push({id:"dir"+(rc++), doc_in_id:di.id, unit_id:pick(UN,UNW),
+          user_id:pick(UID,UIDW), is_tembusan:R()<.2, is_read:rd,
+          date_read: rd ? addD(di.date_receive,1+Math.floor(R()*4)) : null}); }
+      ni++;
+    } else {
+      const doo = {id:"do"+no, draft_id:d.id, date_received:addD(d.date_draft,1+Math.floor(R()*8)), doc_in_id:null};
+      DB.doc_outs.push(doo);
+      const nr = 1+Math.floor(R()*2);
+      for(let k=0;k<nr;k++){ const snt=R()<.85;
+        DB.doc_out_receivers.push({id:"dor"+(rc++), doc_out_id:doo.id, unit_id:pick(UN,UNW),
+          user_id:pick(UID,UIDW), is_sent:snt,
+          date_sent: snt ? addD(doo.date_received,1+Math.floor(R()*5)) : null, is_tembusan:R()<.15}); }
+      no++;
+    }
+  });
+
+  DB.doc_ins.forEach((x,i)=>{ if(i%3===0) DB.doc_trackings.push({id:"tr"+i, draft_id:x.draft_id, doc_in_id:x.id, doc_out_id:null}); });
+}
+
+/* ============================ Filter ============================ */
+const F = {tahun:"",unit:"",doc_type:"",category:"",urgency:"",status:"",classification:"",pegawai:""};
+
+function fillSelect(id, items, allLabel, valFn, labFn){
+  const el = $(id);
+  el.innerHTML = `<option value="">${allLabel}</option>` + items.map(x=>`<option value="${valFn(x)}">${labFn(x)}</option>`).join("");
+  el.onchange = () => { F[id.slice(2)] = el.value; renderAll(); };
+}
+function buildFilters(){
+  const years = Array.from(new Set(DB.drafts.map(d=>d.date_draft.slice(0,4)))).sort();
+  fillSelect("f_tahun", years, "Semua Tahun", y=>y, y=>y);
+  fillSelect("f_unit", DB.ref_units, "Semua Unit", u=>u.id, u=>u.name);
+  fillSelect("f_doc_type", DB.ref_doc_types, "Semua Jenis Surat", x=>x.id, x=>x.name);
+  fillSelect("f_category", DB.ref_doc_categories, "Semua Kategori", x=>x.id, x=>x.name);
+  fillSelect("f_urgency", DB.ref_doc_urgencies, "Semua Sifat", x=>x.id, x=>x.name);
+  fillSelect("f_status", DB.ref_status_drafts, "Semua Status", x=>x.id, x=>x.name);
+  fillSelect("f_classification", DB.ref_doc_classifications, "Semua Klasifikasi", x=>x.id, x=>x.name);
+  fillSelect("f_pegawai", DB.users, "Semua Pegawai", u=>u.id, u=>u.name);
+}
+function clearFilters(){
+  Object.keys(F).forEach(k=>F[k]="");
+  ["f_tahun","f_unit","f_doc_type","f_category","f_urgency","f_status","f_classification","f_pegawai"].forEach(id=>$(id).value="");
+  renderAll();
+}
+
+/* ============================ Primitives ============================ */
+const C10 = ["#1e88f5","#3b8f62","#f0b429","#a78bda","#5bc48a","#e5697a","#8f9aa6","#c3cad2","#0c7ea3","#d97706"];
+const CYN = ["#3b8f62","#c3cad2"];
+
+function kpi(el,val,sub){ $(el).textContent = val; if(sub!=null) $(el+"s") && ($(el+"s").textContent = sub); }
+function leg(el,names,cols){ $(el).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n}</span>`).join(""); }
+
+function pie(el,lab,vals,cols,names,t){
+  const tot = vals.reduce((a,b)=>a+b,0);
+  if(!tot){ $(el).style.background="var(--line)"; $(lab).innerHTML="Total<br>0"; $(t).innerHTML='<span>Tidak ada data</span>'; return; }
+  let a=0; const g = vals.map((v,i)=>{ const s=a; a+=v/tot*100; return `${cols[i%cols.length]} ${s}% ${a}%`; });
+  $(el).style.background = `conic-gradient(${g.join(",")})`;
+  $(lab).innerHTML = `Total<br>${fmt(tot)}`;
+  $(t).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("");
+}
+
+function bars(el,rows,cols,norm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const tot = r => r.slice(1,1+cols.length).reduce((a,b)=>a+b,0);
+  const mx = Math.max(...rows.map(tot));
+  $(el).innerHTML = rows.map(r=>{ const t=tot(r)||1;
+    return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:(t/Math.max(mx,1)*100)}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]||0}">${(r[i+1]||0)/t>.09?r[i+1]:""}</i>`).join("")}</div><div class="tt">${fmt(t)}</div></div>`}).join("");
+}
+function hbar(el,rows){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const mx = Math.max(...rows.map(r=>r[1]));
+  $(el).innerHTML = rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/Math.max(mx,1)*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${fmt(r[1])}</div></div>`).join("");
+}
+
+function line(el,rows,cols,names){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const W=640,H=280,L=42,Rg=14,T=14,B=30,n=rows.length,k=cols.length;
+  const mx = Math.max(1,...rows.flatMap(r=>r.slice(1,1+k)));
+  const e = Math.pow(10,Math.floor(Math.log10(mx))), m = mx/e;
+  const top = (m<=1?1:m<=2?2:m<=5?5:10)*e;
+  const X = i => L + (n===1 ? (W-L-Rg)/2 : i*(W-L-Rg)/(n-1));
+  const Y = v => T + (H-T-B)*(1-v/top);
+  let o = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" style="display:block">`;
+  for(let g=0;g<=4;g++){ const v=top*g/4, y=Y(v);
+    o += `<line x1="${L}" x2="${W-Rg}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" style="fill:var(--mute)">${Math.round(v)}</text>`; }
+  rows.forEach((r,i)=>{ o += `<text x="${X(i)}" y="${H-10}" text-anchor="middle" font-size="11" style="fill:var(--mute)">${r[0]}</text>`; });
+  cols.forEach((c,j)=>{ const pt = rows.map((r,i)=>[X(i),Y(r[j+1]||0),r[j+1]||0]);
+    o += `<polyline fill="none" stroke-width="2.5" style="stroke:${c}" points="${pt.map(q=>q[0]+","+q[1]).join(" ")}"/>`;
+    pt.forEach((q,i)=>{ o += `<circle cx="${q[0]}" cy="${q[1]}" r="3.5" style="fill:${c}"><title>${rows[i][0]} · ${names[j]}: ${q[2]}</title></circle>`; }); });
+  $(el).innerHTML = o + "</svg>";
+}
+
+/* ============================ Tabel + pencarian ============================ */
+const TBL = {};
+function table(id,cols,rows){ TBL[id] = {cols,rows}; renderTable(id); }
+function renderTable(id){
+  const {cols,rows} = TBL[id];
+  const inp = $("q_"+id); const q = inp ? inp.value.toLowerCase() : "";
+  const data = rows.filter(r => !q || cols.some(c => String(r[c.k] ?? "").toLowerCase().includes(q)));
+  $("t_"+id).innerHTML = data.length
+    ? `<table class="t"><thead><tr>${cols.map(c=>`<th>${c.label}</th>`).join("")}</tr></thead><tbody>${data.map(r=>`<tr>${cols.map(c=>`<td class="${c.num?"n":""}">${r[c.k] ?? ""}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+    : '<div class="empty">Tidak ada data yang cocok.</div>';
+  if($("c_"+id)) $("c_"+id).textContent = data.length + " baris ditampilkan (dari " + rows.length + ")";
+}
+
+/* ============================ Agregasi ============================ */
+function agg(data,keyFn,catFn,cats,keys,asc){
+  const m = {}; (keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+  data.forEach(r=>{ const k=keyFn(r); (m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++; });
+  const o = Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0)||asc);
+  return o.sort(asc ? (a,b)=>a[0]-b[0] : (a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+}
+function countBy(data,keyFn){ const m={}; data.forEach(r=>{ const k=keyFn(r); if(k==null)return; m[k]=(m[k]||0)+1; }); return m; }
+function monthCount(data,dateFn){ const m={}; data.forEach(r=>{ const d=dateFn(r); if(d) m[d.slice(0,7)]=(m[d.slice(0,7)]||0)+1; }); return m; }
+function month2(a,da,b,db){
+  const ma=monthCount(a,da), mb=monthCount(b,db);
+  const keys = Array.from(new Set([...Object.keys(ma),...Object.keys(mb)])).sort().slice(-12);
+  return keys.map(k=>[mLbl(k), ma[k]||0, mb[k]||0]);
+}
+function normByUnit(recs,pred){
+  const m={}; recs.forEach(r=>{ const u=nameUnit(r.unit_id); (m[u]=m[u]||[0,0])[pred(r)?0:1]++; });
+  return Object.entries(m).filter(([k,v])=>v[0]+v[1]>0).map(([k,v])=>[k,v[0],v[1]])
+    .sort((a,b)=>b[1]/(b[1]+b[2])-a[1]/(a[1]+a[2]));
+}
+
+/* ============================ View (filter) ============================ */
+function matchDraft(d){
+  if(F.tahun && d.date_draft.slice(0,4)!==F.tahun) return false;
+  if(F.unit && d.unit_id!==F.unit) return false;
+  if(F.doc_type && d.doc_type_id!==F.doc_type) return false;
+  if(F.category && d.doc_category_id!==F.category) return false;
+  if(F.urgency && d.doc_urgency_id!==F.urgency) return false;
+  if(F.status && d.status_draft_id!==F.status) return false;
+  if(F.classification && d.doc_classification_id!==F.classification) return false;
+  return true;
+}
+function matchRecIn(x){ if(!F.pegawai) return true; return DB.doc_in_receivers.some(r=>r.doc_in_id===x.id && r.user_id===F.pegawai); }
+function matchRecOut(x){ if(!F.pegawai) return true; return DB.doc_out_receivers.some(r=>r.doc_out_id===x.id && r.user_id===F.pegawai); }
+
+function view(){
+  const drafts = DB.drafts.filter(matchDraft);
+  const dids = new Set(drafts.map(d=>d.id));
+  const ins = DB.doc_ins.filter(x=>dids.has(x.draft_id) && matchRecIn(x));
+  const iids = new Set(ins.map(x=>x.id));
+  const outs = DB.doc_outs.filter(x=>dids.has(x.draft_id) && matchRecOut(x));
+  const oids = new Set(outs.map(x=>x.id));
+  return {drafts,ins,outs,dids,iids,oids};
+}
+const draftOf = id => byId(DB.drafts,id) || {};
+const inCatOf = x => x.is_done?"Selesai":x.is_disposition?"Didisposisi":x.is_verification?"Diverifikasi":x.is_confirmation?"Dikonfirmasi":"Baru";
+
+/* ============================ Render per tab ============================ */
+function renderIkhtisar(v){
+  $("k_doc").textContent = fmt(v.drafts.length);
+  $("k_in").textContent = fmt(v.ins.length);
+  $("k_out").textContent = fmt(v.outs.length);
+  $("k_unread").textContent = fmt(v.ins.filter(x=>!x.is_read).length);
+  $("k_disp").textContent = fmt(v.ins.filter(x=>x.is_disposition && x.status_disposition_id!=="sd4").length);
+
+  const dt = DB.ref_doc_types;
+  pie("p_type","p_typet", dt.map(t=>v.drafts.filter(d=>d.doc_type_id===t.id).length), C10, dt.map(t=>t.name), "p_typel");
+
+  const st = DB.ref_status_drafts;
+  bars("b_unit", agg(v.drafts, d=>nameUnit(d.unit_id), d=>nameStatus(d.status_draft_id), st.map(s=>s.name), [], false), C10.slice(0,st.length));
+  leg("l_unit", st.map(s=>s.name), C10.slice(0,st.length));
+
+  line("b_tren", month2(v.ins,x=>x.date_receive, v.outs,x=>x.date_received), ["#1e88f5","#3b8f62"], ["Surat Masuk","Surat Keluar"]);
+  leg("l_tren", ["Surat Masuk","Surat Keluar"], ["#1e88f5","#3b8f62"]);
+}
+
+function renderMasuk(v){
+  const cats = ["Baru","Dikonfirmasi","Diverifikasi","Didisposisi","Selesai"];
+  pie("p_in","p_int", cats.map(c=>v.ins.filter(x=>inCatOf(x)===c).length), C10.slice(0,5), cats, "p_inl");
+
+  const recs = DB.doc_in_receivers.filter(r=>v.iids.has(r.doc_in_id));
+  const uc = countBy(recs, r=>nameUnit(r.unit_id));
+  hbar("b_inunit", Object.entries(uc).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#1e88f5"]));
+
+  bars("b_inread", normByUnit(recs, r=>r.is_read), CYN, true);
+  leg("l_inread", ["Sudah Dibaca","Belum Dibaca"], CYN);
+
+  line("b_intren", month2(v.ins,x=>x.date_receive, [],()=>null).map(r=>[r[0],r[1]]), ["#1e88f5"], ["Surat Masuk"]);
+  leg("l_intren", ["Surat Masuk"], ["#1e88f5"]);
+
+  table("tin", [
+    {k:"title",label:"Perihal"},{k:"type",label:"Jenis Surat"},{k:"cat",label:"Kategori"},
+    {k:"unit",label:"Unit Pengirim"},{k:"date",label:"Tgl Terima"},{k:"status",label:"Status"},{k:"disp",label:"Disposisi"}
+  ], v.ins.map(x=>{ const d = draftOf(x.draft_id);
+    return {title:d.title||"-", type:nameType(d.doc_type_id), cat:nameCat(d.doc_category_id),
+      unit:nameUnit(d.unit_id), date:x.date_receive, status:inCatOf(x),
+      disp:x.is_disposition ? nameStatusDisp(x.status_disposition_id) : "-"};
+  }));
+}
+
+function renderKeluar(v){
+  const outDrafts = v.outs.map(o=>byId(DB.drafts,o.draft_id)).filter(Boolean);
+  const cat = DB.ref_doc_categories;
+  pie("p_out","p_outt", cat.map(c=>outDrafts.filter(d=>d.doc_category_id===c.id).length), C10, cat.map(c=>c.name), "p_outl");
+
+  const recs = DB.doc_out_receivers.filter(r=>v.oids.has(r.doc_out_id));
+  const uc = countBy(recs, r=>nameUnit(r.unit_id));
+  hbar("b_outunit", Object.entries(uc).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#3b8f62"]));
+
+  bars("b_outsent", normByUnit(recs, r=>r.is_sent), CYN, true);
+  leg("l_outsent", ["Terkirim","Belum Terkirim"], CYN);
+
+  line("b_outtren", month2(v.outs,x=>x.date_received, [],()=>null).map(r=>[r[0],r[1]]), ["#3b8f62"], ["Surat Keluar"]);
+  leg("l_outtren", ["Surat Keluar"], ["#3b8f62"]);
+
+  table("tout", [
+    {k:"title",label:"Perihal"},{k:"type",label:"Jenis Surat"},{k:"cat",label:"Kategori"},
+    {k:"unit",label:"Unit Pengirim"},{k:"date",label:"Tgl Keluar"},{k:"status",label:"Status Draft"}
+  ], v.outs.map(x=>{ const d = draftOf(x.draft_id);
+    return {title:d.title||"-", type:nameType(d.doc_type_id), cat:nameCat(d.doc_category_id),
+      unit:nameUnit(d.unit_id), date:x.date_received, status:nameStatus(d.status_draft_id)};
+  }));
+}
+
+function renderDisposisi(v){
+  const disp = v.ins.filter(x=>x.is_disposition);
+  $("k_dispn").textContent = fmt(disp.length);
+
+  const sd = DB.ref_status_disposisi;
+  pie("p_disp","p_dispt", sd.map(s=>disp.filter(x=>x.status_disposition_id===s.id).length), C10.slice(0,sd.length), sd.map(s=>s.name), "p_displ");
+
+  const recs = DB.doc_in_receivers.filter(r=>v.iids.has(r.doc_in_id));
+  const uc = countBy(recs, r=>nameUnit(r.unit_id));
+  hbar("b_dispunit", Object.entries(uc).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#a78bda"]));
+
+  const pc = countBy(recs, r=>nameUser(r.user_id));
+  hbar("b_dispuser", Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,15).map(([k,n])=>[k,n,"#f0b429"]));
+
+  line("b_disptren", month2(disp,x=>x.date_disposition, [],()=>null).map(r=>[r[0],r[1]]), ["#a78bda"], ["Disposisi"]);
+  leg("l_disptren", ["Disposisi"], ["#a78bda"]);
+
+  const ds = disp.filter(x=>x.date_receive && x.date_disposition);
+  const avg = ds.length ? ds.reduce((a,x)=>a+daysBetween(x.date_receive,x.date_disposition),0)/ds.length : 0;
+  $("k_avgdisp").textContent = avg.toFixed(1);
+
+  table("tdisp", [
+    {k:"title",label:"Perihal"},{k:"unit",label:"Unit Asal"},{k:"jenis",label:"Jenis Disposisi"},
+    {k:"recv",label:"Tgl Terima"},{k:"disp",label:"Tgl Disposisi"},{k:"lama",label:"Lama (hari)",num:true},{k:"status",label:"Status"}
+  ], disp.map(x=>{ const d = draftOf(x.draft_id);
+    return {title:d.title||"-", unit:nameUnit(d.unit_id), jenis:nameDisp(x.disposition_id),
+      recv:x.date_receive, disp:x.date_disposition||"-",
+      lama:(x.date_receive&&x.date_disposition)?daysBetween(x.date_receive,x.date_disposition):"-",
+      status:nameStatusDisp(x.status_disposition_id)};
+  }));
+}
+
+function renderAll(){
+  const v = view();
+  renderIkhtisar(v);
+  renderMasuk(v);
+  renderKeluar(v);
+  renderDisposisi(v);
+}
+
+/* ============================ Inisialisasi ============================ */
+if(USE_DUMMY && DB.drafts.length===0) seedDummy();
+buildFilters();
+$("q_tin").oninput  = ()=>renderTable("tin");
+$("q_tout").oninput = ()=>renderTable("tout");
+$("q_tdisp").oninput= ()=>renderTable("tdisp");
+$("apply").onclick  = renderAll;
+$("clear").onclick  = clearFilters;
+$("ft").onclick     = ()=>$("side").classList.toggle("open");
+const tb = document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{ tb.forEach(x=>x.classList.remove("on")); b.classList.add("on");
+  ["t0","t1","t2","t3"].forEach(id=>$(id).classList.toggle("on", id===b.dataset.t)); });
+renderAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Prestasi</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+@media(max-width:1100px){aside{width:240px}.row2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi h4{font-size:14px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun Prestasi</label><select><option>7 options</option></select></div>
+  <div class="f"><label>Fakultas</label><select><option>13 options</option></select></div>
+  <div class="f"><label>Prodi</label><select><option>90 options</option></select></div>
+  <div class="f"><label>Jenjang</label><select><option>4 options</option></select></div>
+  <div class="f"><label>Angkatan</label><select><option>6 options</option></select></div>
+  <div class="f"><label>Tingkat</label><select><option>5 options</option></select></div>
+  <div class="f"><label>Jenis</label><select><option>7 options</option></select></div>
+  <div class="f"><label>Peringkat</label><select><option>5 options</option></select></div>
+  <div class="f"><label>Status Verifikasi</label><select><option>4 options</option></select></div>
+  <div class="btns"><button class="a">APPLY FILTERS</button><button class="c">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[PRE] Dashboard Prestasi Mahasiswa</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ringkasan Prestasi</button><button data-t="t1">Jenis dan Peringkat</button></div>
+
+<section class="panel on" id="t0">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Komposisi Prestasi berdasarkan Tingkat<span>⋮</span></h4><div class="pie" id="ppt"><em id="pptt"></em></div><div class="leg" id="pptl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Mahasiswa Berprestasi berdasarkan Jenjang<span>⋮</span></h4><div class="pie" id="ppm"><em id="ppmt"></em></div><div class="leg" id="ppml" style="justify-content:center"></div><div class="note" style="text-align:center">Satu mahasiswa dihitung sekali, walau punya beberapa prestasi.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Prestasi per Tahun (berdasarkan Tingkat)<span>⋮</span></h4><div class="bars" id="bth"></div><div class="leg" id="lth"></div></div>
+    <div class="card"><h4>Jumlah Prestasi per Fakultas (berdasarkan Tingkat)<span>⋮</span></h4><div class="bars" id="bfk"></div><div class="leg" id="lfk"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Prestasi per Prodi<span>⋮</span></h4><div class="tools"><input class="q" id="qpr" placeholder="90 records"></div><div class="bars" id="bpr"></div></div>
+    <div class="card"><h4>Proporsi Tingkat Prestasi per Jenjang<span>⋮</span></h4><div class="bars" id="bpjn"></div><div class="leg" id="lpjn"></div><div class="note">Batang menunjukkan proporsi tingkat (100%) di tiap jenjang. Angka di kanan adalah total prestasi jenjang itu.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Komposisi Prestasi berdasarkan Jenis<span>⋮</span></h4><div class="pie" id="pbd"><em id="pbdt"></em></div><div class="leg" id="pbdl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Prestasi berdasarkan Peringkat<span>⋮</span></h4><div class="pie" id="prk"><em id="prkt"></em></div><div class="leg" id="prkl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Prestasi per Jenis (berdasarkan Tingkat)<span>⋮</span></h4><div class="bars" id="bbt"></div><div class="leg" id="lbt"></div></div>
+    <div class="card"><h4>Jumlah Prestasi per Fakultas (berdasarkan Jenis)<span>⋮</span></h4><div class="bars" id="bbf"></div><div class="leg" id="lbf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Prestasi per Tingkat (berdasarkan Peringkat)<span>⋮</span></h4><div class="bars" id="brt"></div><div class="leg" id="lrt"></div></div>
+    <div class="card"><h4>Jumlah Prestasi per Fakultas (berdasarkan Peringkat)<span>⋮</span></h4><div class="bars" id="brf"></div><div class="leg" id="lrf"></div></div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+<script>
+// Data dummy: satu baris = satu prestasi (tim dihitung 1). Mahasiswa dihitung unik per NIM. Ganti dengan data asli dari Superset.
+const $=id=>document.getElementById(id);
+const PR=[["AGRIBISNIS", "SAINS DAN TEKNOLOGI", "S1"], ["AKUNTANSI", "EKONOMI DAN BISNIS", "S1"], ["AKUNTANSI (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["AQIDAH DAN FILSAFAT ISLAM", "USHULUDDIN", "S1"], ["BAHASA DAN SASTRA ARAB", "ADAB DAN HUMANIORA", "S1"], ["BIMBINGAN PENYULUHAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["BIOLOGI", "SAINS DAN TEKNOLOGI", "S1"], ["DIRASAT ISLAMIYAH", "DIRASAT ISLAMIYAH", "S1"], ["DOKTOR PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S3"], ["EKONOMI PEMBANGUNAN", "EKONOMI DAN BISNIS", "S1"], ["EKONOMI SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["FARMASI", "ILMU KESEHATAN", "S1"], ["FISIKA", "SAINS DAN TEKNOLOGI", "S1"], ["HUKUM EKONOMI SYARIAH (MU'AMALAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM KELUARGA (AKHWAL SYAKSIYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM PIDANA ISLAM (JINAYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM TATA NEGARA (SIYASAH)", "SYARIAH DAN HUKUM", "S1"], ["ILMU AL-QUR'AN DAN TAFSIR", "USHULUDDIN", "S1"], ["ILMU HADIS", "USHULUDDIN", "S1"], ["ILMU HUBUNGAN INTERNASIONAL", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUBUNGAN INTERNASIONAL (KELAS INTERNASIONAL) (TA)", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUKUM", "SYARIAH DAN HUKUM", "S1"], ["ILMU KEPERAWATAN", "ILMU KESEHATAN", "S1"], ["ILMU PERPUSTAKAAN", "ADAB DAN HUMANIORA", "S1"], ["ILMU POLITIK", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU TASAWUF", "USHULUDDIN", "S1"], ["JURNALISTIK", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KESEHATAN MASYARAKAT", "ILMU KESEHATAN", "S1"], ["KESEJAHTERAAN SOSIAL", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KIMIA", "SAINS DAN TEKNOLOGI", "S1"], ["KOMUNIKASI PENYIARAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MAGISTER AGRIBISNIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER AQIDAH DAN FILSAFAT ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER BAHASA DAN SASTRA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER DIRASAT ISLAMIYAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM KELUARGA (AHWAL SYAKHSIYYAH)", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU AL-QUR'AN DAN TAFSIR", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU POLITIK", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER KOMUNIKASI DAN PENYIARAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN DAKWAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN PENDIDIKAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA INGGRIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PSIKOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SEJARAH DAN KEBUDAYAAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SOSIOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER STUDI AGAMA-AGAMA", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER TEKNOLOGI INFORMASI", "SEKOLAH PASCASARJANA", "S2"], ["MANAJEMEN", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN DAKWAH", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MANAJEMEN PENDIDIKAN", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["MATEMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["PENDIDIKAN AGAMA ISLAM", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN BAHASA ARAB", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN DOKTER", "KEDOKTERAN", "S1"], ["PENDIDIKAN GURU MADRASAH IBTIDAIYAH", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN ISLAM ANAK USIA DINI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN MATEMATIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN PROFESI GURU", "ILMU TARBIYAH DAN KEGURUAN", "Profesi"], ["PENGEMBANGAN MASYARAKAT ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["PERBANDINGAN MAZHAB", "SYARIAH DAN HUKUM", "S1"], ["PERBANKAN SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["PROFESI APOTEKER", "ILMU KESEHATAN", "Profesi"], ["PROFESI DOKTER", "KEDOKTERAN", "Profesi"], ["PROFESI NERS", "ILMU KESEHATAN", "Profesi"], ["PSIKOLOGI", "PSIKOLOGI", "S1"], ["SASTRA INGGRIS", "ADAB DAN HUMANIORA", "S1"], ["SEJARAH DAN PERADABAN ISLAM", "ADAB DAN HUMANIORA", "S1"], ["SISTEM INFORMASI", "SAINS DAN TEKNOLOGI", "S1"], ["SISTEM INFORMASI (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["SOSIOLOGI", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["STUDI AGAMA-AGAMA", "USHULUDDIN", "S1"], ["TADRIS BAHASA INDONESIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BAHASA INGGRIS", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BIOLOGI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS FISIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS ILMU PENGETAHUAN SOSIAL", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS KIMIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TARJAMAH", "ADAB DAN HUMANIORA", "S1"], ["TEKNIK INFORMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK INFORMATIKA (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK PERTAMBANGAN", "SAINS DAN TEKNOLOGI", "S1"]];
+const FKN=["ADAB DAN HUMANIORA", "DAKWAH DAN ILMU KOMUNIKASI", "DIRASAT ISLAMIYAH", "EKONOMI DAN BISNIS", "ILMU KESEHATAN", "ILMU SOSIAL DAN ILMU POLITIK", "ILMU TARBIYAH DAN KEGURUAN", "KEDOKTERAN", "PSIKOLOGI", "SAINS DAN TEKNOLOGI", "SEKOLAH PASCASARJANA", "SYARIAH DAN HUKUM", "USHULUDDIN"];
+const TH=[2020,2021,2022,2023,2024,2025,2026];
+const TG=["Internasional","Nasional","Regional","Provinsi","Kota/Lokal"],TC=["var(--gb)","var(--l)","var(--lk)","var(--js)","#8f9aa6"];
+const BD=["Akademik dan Karya Tulis","Sains dan Teknologi","Olahraga","Seni dan Budaya","Keagamaan","Kewirausahaan","Lainnya"],BC=["var(--l)","var(--fk)","var(--gb)","var(--js)","var(--lk)","#e5697a","#8f9aa6"];
+const RK=["Juara 1","Juara 2","Juara 3","Harapan","Finalis"],RC=["var(--gb)","#aab4be","#c98a4b","var(--l)","var(--lk)"];
+const JJ=["S1","S2","S3","Profesi"],JC=["var(--l)","var(--lk)","var(--gb)","var(--js)"];
+const JN=["Individu","Tim"],JNC=["var(--l)","var(--gb)"];
+const VF=["Terverifikasi","Menunggu Verifikasi","Perlu Perbaikan","Ditolak"],VC=["var(--lk)","var(--gb)","var(--l)","#e5697a"];
+const RW=["Sudah Cair","Dalam Proses","Belum Diajukan"],RWC=["var(--lk)","var(--gb)","#c3cad2"];
+const PB=["Didampingi Dosen Pembimbing","Tanpa Dosen Pembimbing"],PBC=["var(--l)","#c3cad2"];
+const PY=["Kementerian/Lembaga Pemerintah","Perguruan Tinggi Lain","Organisasi Kemahasiswaan","Lembaga Swasta/Industri","Lembaga Internasional","Internal Kampus"];
+const FRN=["1 prestasi","2 prestasi","3 prestasi","4+ prestasi"],FRC=["#c3cad2","var(--l)","var(--lk)","var(--gb)"];
+const KP=[["Kompetisi Karya Tulis Ilmiah","Lomba Esai Mahasiswa","Kompetisi Debat Mahasiswa","Lomba Moot Court","Olimpiade Penalaran Mahasiswa"],["Hackathon Mahasiswa","Kontes Robot","Olimpiade Sains Mahasiswa","Kompetisi Inovasi Teknologi","Kompetisi Data Science"],["Kejuaraan Pencak Silat Mahasiswa","Turnamen Futsal Antar Kampus","Kejuaraan Atletik Mahasiswa","Kejuaraan Panahan","Turnamen Bulu Tangkis"],["Festival Seni Mahasiswa","Lomba Kaligrafi","Lomba Paduan Suara","Lomba Film Pendek","Festival Musik Mahasiswa"],["MTQ Mahasiswa","Lomba Pidato Bahasa Arab","Musabaqah Syarhil Quran","Lomba Dakwah Mahasiswa","Kompetisi Hafalan Al-Qur'an"],["Lomba Business Plan","Kompetisi Startup Mahasiswa","Pitching Wirausaha Muda","Pameran Produk Kreatif"],["Lomba Video Kreatif","Mahasiswa Berprestasi Tingkat Fakultas","Duta Kampus","Lomba Fotografi"]];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(20261006),ri=n=>Math.floor(R()*n),pick=(it,w)=>{let s=w.reduce((a,b)=>a+b,0),x=R()*s;for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]}return it[it.length-1]};
+const PW=PR.map(p=>p[2]=="S1"?3+R()*7:p[2]=="S2"?.6+R()*.8:p[2]=="S3"?.1:.8+R()*.6);
+const POOL=PW.map(w=>Math.max(8,Math.round(w*7)));
+const angk=(pi,k,j)=>j=="S1"?2020+((pi*7+k*3)%6):2022+((pi+k)%4);
+const bw=f=>{const w=[28,14,14,10,18,8,8];
+ if(["USHULUDDIN","SYARIAH DAN HUKUM","DAKWAH DAN ILMU KOMUNIKASI","DIRASAT ISLAMIYAH","ILMU TARBIYAH DAN KEGURUAN"].includes(f))w[4]*=2;
+ if(f=="SAINS DAN TEKNOLOGI")w[1]*=3;if(f=="EKONOMI DAN BISNIS")w[5]*=3;
+ if(f=="KEDOKTERAN"||f=="ILMU KESEHATAN"){w[0]*=1.3;w[1]*=1.5}if(f=="ADAB DAN HUMANIORA")w[3]*=2.5;return w};
+const P=[],S={};
+for(let n=0;n<1600;n++){
+ const pi=pick(PR.map((_,i)=>i),PW),pr=PR[pi],t=pick(TH,[10,14,17,19,20,22,8]);
+ const bi=BD.indexOf(pick(BD,bw(pr[1]))),jn=pick(JN,[60,40]),cnt=jn=="Tim"?2+ri(4):1,mem=[];
+ for(let m=0;m<cnt;m++){
+  let k=0,ok=false;
+  for(let tr=0;tr<12&&!ok;tr++){k=ri(POOL[pi]);const a=angk(pi,k,pr[2]);ok=a<=t&&t-a<=(pr[2]=="S1"?5:3)}
+  if(!ok){for(let q=0;q<POOL[pi];q++){const a=angk(pi,q,pr[2]);if(a<=t&&t-a<=(pr[2]=="S1"?5:3)){k=q;break}}}
+  const sid=pi+"-"+k;mem.push(sid);
+  if(!S[sid])S[sid]={f:pr[1],p:pr[0],j:pr[2],a:angk(pi,k,pr[2]),c:0};
+  S[sid].c++}
+ const vf=pick(VF,[70,15,8,7]);
+ P.push({t,tg:pick(TG,[6,28,14,22,30]),bd:BD[bi],rk:pick(RK,[18,15,14,13,20]),jn,f:pr[1],p:pr[0],j:pr[2],
+  nm:pick(KP[bi],KP[bi].map(()=>1+R()*3)),py:pick(PY,[14,22,16,20,5,23]),vf,
+  rw:vf=="Terverifikasi"?pick(RW,[55,25,20]):"Belum Diajukan",pb:pick(PB,[72,28]),mem})}
+const SL=Object.values(S);
+function bars(el,rows,cols,norm){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot));
+ $(el).innerHTML=rows.map(r=>{const t=tot(r);return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?r[i+1]:""}</i>`).join("")}</div><div class="tt">${t}</div></div>`}).join("")}
+function hbar(el,rows){if(!rows.length){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}const mx=Math.max(...rows.map(r=>r[1]));
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${r[1]}</div></div>`).join("")}
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${tot}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+function agg(data,keyFn,catFn,cats,keys,asc){const m={};(keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+ data.forEach(r=>{const k=keyFn(r);(m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++});
+ const o=Object.entries(m).map(([k,v])=>[k,...v]);return o.sort(asc?(a,b)=>a[0]-b[0]:(a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0))}
+const stk=(id,rows,cols,names,norm)=>{bars("b"+id,rows,cols,norm);leg("l"+id,names,cols)};
+const pc=(id,data,catFn,cats,cols)=>pie("p"+id,"p"+id+"t",cats.map(c=>data.filter(r=>catFn(r)==c).length),cols,cats,"p"+id+"l");
+// Ringkasan Prestasi
+pc("pt",P,r=>r.tg,TG,TC);pc("pm",SL,r=>r.j,JJ,JC);
+stk("th",agg(P,r=>r.t,r=>r.tg,TG,TH,true),TC,TG);
+stk("fk",agg(P,r=>r.f,r=>r.tg,TG,FKN),TC,TG);
+stk("pjn",agg(P,r=>r.j,r=>r.tg,TG,JJ),TC,TG,true);
+const pcnt={};P.forEach(r=>pcnt[r.p]=(pcnt[r.p]||0)+1);
+function prodi(){const q=$("qpr").value.toLowerCase();hbar("bpr",Object.entries(pcnt).filter(x=>x[0].toLowerCase().includes(q)).sort((a,b)=>b[1]-a[1]).map(x=>[x[0],x[1],"var(--accent)"]))}
+$("qpr").oninput=prodi;prodi();
+// Jenis dan Peringkat
+pc("bd",P,r=>r.bd,BD,BC);pc("rk",P,r=>r.rk,RK,RC);
+stk("bt",agg(P,r=>r.bd,r=>r.tg,TG,BD),TC,TG);
+stk("bf",agg(P,r=>r.f,r=>r.bd,BD,FKN),BC,BD);
+stk("rt",agg(P,r=>r.tg,r=>r.rk,RK,TG),RC,RK);
+stk("rf",agg(P,r=>r.f,r=>r.rk,RK,FKN),RC,RK);
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");["t0","t1"].forEach(id=>$(id).classList.toggle("on",id==b.dataset.t))});
+
+</script>
+</body>
+</html>
+
+</body></html>

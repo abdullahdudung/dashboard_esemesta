@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Keuangan Mahasiswa</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--text);font-size:14px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#0c7ea3;color:#fff;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px;cursor:pointer}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer}
+.hint{margin-top:12px;font-size:11px;line-height:1.5;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:0}
+.kpis.k2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kpi{min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.kpi .n{font-size:clamp(15px,1.7vw,26px);font-weight:800;line-height:1.12;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--kc,var(--text));overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(90px,170px) minmax(40px,1fr) auto;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:block;font-style:normal;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12px}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative;background:var(--line)}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+.tblwrap{max-height:440px;overflow:auto;margin-top:12px;border:1px solid var(--line)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.t th{color:var(--mute);font-weight:600;position:sticky;top:0;background:var(--panel);z-index:1}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tbody tr:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+@media(max-width:1100px){aside{width:240px}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.row3,.kpis{gap:12px}.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:760px){.kpis,.kpis.k4,.kpis.k2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .n{font-size:24px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun Akademik</label><select id="f_ta"></select></div>
+  <div class="f"><label>Fakultas</label><select id="f_fakultas"></select></div>
+  <div class="f"><label>Prodi</label><select id="f_prodi"></select></div>
+  <div class="f"><label>Angkatan</label><select id="f_angkatan"></select></div>
+  <div class="f"><label>Jalur Masuk</label><select id="f_jalur"></select></div>
+  <div class="f"><label>Kelompok UKT</label><select id="f_ukt"></select></div>
+  <div class="f"><label>Jenis Pembayaran</label><select id="f_jenis"></select></div>
+  <div class="f"><label>Status Bayar</label><select id="f_bayar"></select></div>
+  <div class="f"><label>Metode Bayar</label><select id="f_metode"></select></div>
+  <div class="btns"><button class="a" id="apply">APPLY FILTERS</button><button class="c" id="clear">CLEAR ALL</button></div>
+  <div class="hint"><b>Wadah input data manual:</b> buka file ini, cari object <code>DB</code> di dalam &lt;script&gt;. Isi tabel sesuai relasi (FK memakai <code>id</code>). Set <code>USE_DUMMY=false</code> bila memakai data sendiri.</div>
+</aside>
+<main>
+<div class="head"><h1>[KEU] Dashboard Keuangan Mahasiswa</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ikhtisar</button><button data-t="t1">Kelompok UKT</button><button data-t="t2">Piutang &amp; Cicilan</button><button data-t="t3">Penerimaan</button></div>
+
+<section class="panel on" id="t0">
+  <div class="kpis k4">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Tagihan</h4><div class="n" id="k_tagihan">0</div></div>
+    <div class="card kpi" style="--kc:#1e88f5"><h4>Total Penerimaan</h4><div class="n" id="k_terima">0</div></div>
+    <div class="card kpi" style="--kc:#e5697a"><h4>Total Piutang</h4><div class="n" id="k_out">0</div></div>
+    <div class="card kpi" style="--kc:#f0b429"><h4>Mahasiswa Piutang</h4><div class="n" id="k_mhs">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Tagihan berdasarkan Jenis</h4><div class="pie" id="p_jenis"><em id="p_jenist"></em></div><div class="leg" id="p_jenisl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Penerimaan per Fakultas (berdasarkan Jenis Pembayaran)</h4><div class="bars" id="b_fak"></div><div class="leg" id="l_fak"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Tagihan vs Penerimaan per Bulan</h4><div id="b_tren"></div><div class="leg" id="l_tren"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Komposisi Mahasiswa per Kelompok UKT</h4><div class="pie" id="p_ukt"><em id="p_uktt"></em></div><div class="leg" id="p_uktl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Mahasiswa per Jalur Masuk (berdasarkan Kelompok UKT)</h4><div class="bars" id="b_jalur"></div><div class="leg" id="l_jalur"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Mahasiswa per Fakultas (berdasarkan Kelompok UKT)</h4><div class="bars" id="b_uktfak"></div><div class="leg" id="l_uktfak"></div></div>
+    <div class="card"><h4>Jumlah Mahasiswa per Prodi (berdasarkan Kelompok UKT)</h4><div class="bars" id="b_uktprodi"></div><div class="leg" id="l_uktprodi"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Mahasiswa per Angkatan (berdasarkan Kelompok UKT)</h4><div class="bars" id="b_uktangkatan"></div><div class="leg" id="l_uktangkatan"></div></div>
+    <div class="card"><h4>Distribusi Mahasiswa per Kelompok UKT</h4><div class="tblwrap" id="t_ukt"></div><div class="note" id="c_ukt"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t2">
+  <div class="kpis k4">
+    <div class="card kpi" style="--kc:#e5697a"><h4>Total Piutang</h4><div class="n" id="k_piut">0</div></div>
+    <div class="card kpi" style="--kc:#f0b429"><h4>Mahasiswa Piutang</h4><div class="n" id="k_pimhs">0</div></div>
+    <div class="card kpi" style="--kc:#1e88f5"><h4>Total Cicilan</h4><div class="n" id="k_cicil">0</div></div>
+    <div class="card kpi" style="--kc:#a78bda"><h4>Mahasiswa Cicilan</h4><div class="n" id="k_cicilmhs">0</div></div>
+  </div>
+  <div class="note">Cicilan = pembayaran atas tagihan berstatus bayar <b>Sebagian</b> (tagihan sudah dibayar sebagian dan sisanya masih menjadi piutang).</div>
+  <div class="row3">
+    <div class="card"><h4>Piutang per Angkatan</h4><div class="bars" id="b_piangkatan"></div></div>
+    <div class="card"><h4>Piutang per Fakultas</h4><div class="bars" id="b_pifak"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Piutang per Prodi</h4><div class="bars" id="b_piprodi"></div></div>
+    <div class="card"><h4>Komposisi Piutang berdasarkan Jenis Pembayaran</h4><div class="pie" id="p_pijenis"><em id="p_pijenist"></em></div><div class="leg" id="p_pijenisl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Proporsi Piutang per Kelompok UKT</h4><div class="bars" id="b_piukt"></div><div class="leg" id="l_piukt"></div><div class="note">Batang proporsi 100%; angka kanan = total piutang.</div></div>
+    <div class="card"><h4>Tren Piutang per Tahun</h4><div id="b_pitren"></div><div class="leg" id="l_pitren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Cicilan per Fakultas</h4><div class="bars" id="b_cifak"></div></div>
+    <div class="card"><h4>Cicilan per Prodi</h4><div class="bars" id="b_ciprodi"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Proporsi Cicilan per Kelompok UKT</h4><div class="bars" id="b_ciukt"></div><div class="leg" id="l_ciukt"></div><div class="note">Batang proporsi 100% dari nilai tagihan yang dicicil (sudah dibayar vs sisa); angka kanan = total cicilan.</div></div>
+    <div class="card"><h4>Tren Cicilan per Tahun</h4><div id="b_citren"></div><div class="leg" id="l_citren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Tunggakan</h4><div class="tools"><input class="q" id="q_ttunggakan" placeholder="Cari NIM / nama / prodi / jenis..."></div><div class="tblwrap" id="t_ttunggakan"></div><div class="note" id="c_ttunggakan"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Cicilan</h4><div class="tools"><input class="q" id="q_tcicil" placeholder="Cari NIM / nama / prodi / jenis..."></div><div class="tblwrap" id="t_tcicil"></div><div class="note" id="c_tcicil"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t3">
+  <div class="kpis k2">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Penerimaan</h4><div class="n" id="k_terima2">0</div></div>
+    <div class="card kpi" style="--kc:#f0b429"><h4>Jumlah Transaksi</h4><div class="n" id="k_trx">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Penerimaan per Angkatan (berdasarkan Jenis Pembayaran)</h4><div class="bars" id="b_terangkatan"></div><div class="leg" id="l_terangkatan"></div></div>
+    <div class="card"><h4>Penerimaan per Fakultas</h4><div class="bars" id="b_terfak"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Penerimaan per Prodi</h4><div class="bars" id="b_terprodi"></div></div>
+    <div class="card"><h4>Penerimaan per Kelompok UKT</h4><div class="pie" id="p_terukt"><em id="p_teruktt"></em></div><div class="leg" id="p_teruktl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Penerimaan berdasarkan Metode Bayar</h4><div class="pie" id="p_metode"><em id="p_metodet"></em></div><div class="leg" id="p_metodel" style="justify-content:center"></div></div>
+    <div class="card"><h4>Penerimaan per Bank</h4><div class="bars" id="b_bank"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Penerimaan per Bulan</h4><div id="b_tertren"></div><div class="leg" id="l_tertren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Transaksi Pembayaran</h4><div class="tools"><input class="q" id="q_ttrx" placeholder="Cari NIM / nama / metode / bank..."></div><div class="tblwrap" id="t_ttrx"></div><div class="note" id="c_ttrx"></div></div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+<script>
+/* =====================================================================================
+   WADAH INPUT DATA MANUAL
+   -------------------------------------------------------------------------------------
+   Semua data dibaca dari object DB. Relasi antar tabel memakai kolom FK (memakai id):
+
+     mahasiswa : prodi_id -> ref_prodi, fakultas_id -> ref_fakultas,
+                 jalur_masuk_id -> ref_jalur_masuk, kelompok_ukt_id -> ref_kelompok_ukt
+     tagihan   : mahasiswa_id -> mahasiswa, jenis_tagihan_id -> ref_jenis_tagihan,
+                 kelompok_ukt_id -> ref_kelompok_ukt (snapshot tarif saat tagihan)
+     pembayaran: tagihan_id -> tagihan, metode_bayar_id -> ref_metode_bayar, bank_id -> ref_bank
+     keringanan: mahasiswa_id -> mahasiswa, jenis_beasiswa_id -> ref_jenis_beasiswa,
+                 status_id -> ref_status_keringanan
+
+   Mahasiswa Baru/Lama TIDAK disimpan sebagai kolom; diturunkan otomatis:
+     baru = angkatan == tahun akademik aktif, lama = angkatan < tahun akademik aktif.
+
+   CARA PAKAI:
+     1) Isi array di dalam DB secara manual (FK memakai id dari tabel referensi).
+     2) Set USE_DUMMY = false agar data dummy tidak di-generate.
+     3) Bila USE_DUMMY = true dan data masih kosong, contoh data dibuat otomatis.
+   ===================================================================================== */
+
+const USE_DUMMY = true;
+const TAHUN_AKTIF = "2025/2026";   // tahun akademik berjalan -> penentu Mahasiswa Baru vs Lama
+
+const DB = {
+  // ---------- Referensi ----------
+  ref_fakultas:[
+    {id:"fk1",nama:"Fakultas Ilmu Tarbiyah & Keguruan"},{id:"fk2",nama:"Fakultas Sains & Teknologi"},
+    {id:"fk3",nama:"Fakultas Ekonomi & Bisnis"},{id:"fk4",nama:"Fakultas Ushuluddin"},
+    {id:"fk5",nama:"Fakultas Syariah & Hukum"},{id:"fk6",nama:"Fakultas Dakwah & Ilmu Komunikasi"},
+    {id:"fk7",nama:"Fakultas Adab & Humaniora"},{id:"fk8",nama:"Fakultas Psikologi"},
+    {id:"fk9",nama:"Fakultas Kedokteran"},{id:"fk10",nama:"Fakultas Ilmu Kesehatan"},
+    {id:"fk11",nama:"Sekolah Pascasarjana"}
+  ],
+  ref_prodi:[
+    {id:"pd1",nama:"Pendidikan Agama Islam",fakultasId:"fk1"},{id:"pd2",nama:"Pendidikan Matematika",fakultasId:"fk1"},
+    {id:"pd3",nama:"Teknik Informatika",fakultasId:"fk2"},{id:"pd4",nama:"Biologi",fakultasId:"fk2"},
+    {id:"pd5",nama:"Akuntansi",fakultasId:"fk3"},{id:"pd6",nama:"Manajemen",fakultasId:"fk3"},
+    {id:"pd7",nama:"Ilmu Al-Qur'an dan Tafsir",fakultasId:"fk4"},{id:"pd8",nama:"Ilmu Hadis",fakultasId:"fk4"},
+    {id:"pd9",nama:"Ilmu Hukum",fakultasId:"fk5"},{id:"pd10",nama:"Hukum Ekonomi Syariah",fakultasId:"fk5"},
+    {id:"pd11",nama:"Komunikasi dan Penyiaran Islam",fakultasId:"fk6"},{id:"pd12",nama:"Jurnalistik",fakultasId:"fk6"},
+    {id:"pd13",nama:"Bahasa dan Sastra Arab",fakultasId:"fk7"},{id:"pd14",nama:"Ilmu Perpustakaan",fakultasId:"fk7"},
+    {id:"pd15",nama:"Psikologi",fakultasId:"fk8"},{id:"pd16",nama:"Pendidikan Dokter",fakultasId:"fk9"},
+    {id:"pd17",nama:"Ilmu Keperawatan",fakultasId:"fk10"},{id:"pd18",nama:"Kesehatan Masyarakat",fakultasId:"fk10"},
+    {id:"pd19",nama:"Magister Manajemen",fakultasId:"fk11"},{id:"pd20",nama:"Magister Pendidikan Agama Islam",fakultasId:"fk11"}
+  ],
+  ref_angkatan:[{id:"a2019",nama:"2019"},{id:"a2020",nama:"2020"},{id:"a2021",nama:"2021"},{id:"a2022",nama:"2022"},{id:"a2023",nama:"2023"},{id:"a2024",nama:"2024"},{id:"a2025",nama:"2025"}],
+  ref_jalur_masuk:[{id:"jm1",nama:"SNBP"},{id:"jm2",nama:"SNBT"},{id:"jm3",nama:"Mandiri"},{id:"jm4",nama:"SPMB Prestasi"},{id:"jm5",nama:"Beasiswa"}],
+  ref_jenis_tagihan:[
+    {id:"jt1",nama:"UKT/SPP"},{id:"jt2",nama:"Praktikum"},{id:"jt3",nama:"Wisuda"},{id:"jt4",nama:"KKN"},
+    {id:"jt5",nama:"SKS"},{id:"jt6",nama:"Denda"},{id:"jt7",nama:"Asrama"},{id:"jt8",nama:"Kegiatan"}
+  ],
+  ref_metode_bayar:[{id:"mb1",nama:"Virtual Account"},{id:"mb2",nama:"Teller Bank"},{id:"mb3",nama:"Mobile Banking"},{id:"mb4",nama:"ATM"},{id:"mb5",nama:"Tunai"}],
+  ref_bank:[{id:"bk1",nama:"Bank Syariah Indonesia"},{id:"bk2",nama:"Bank Mandiri"},{id:"bk3",nama:"BNI"},{id:"bk4",nama:"BRI"},{id:"bk5",nama:"Bank DKI"}],
+  ref_status_bayar:[{id:"sb1",nama:"Lunas"},{id:"sb2",nama:"Sebagian"},{id:"sb3",nama:"Belum"}],
+  ref_status_keringanan:[{id:"sk1",nama:"Disetujui"},{id:"sk2",nama:"Proses"},{id:"sk3",nama:"Ditolak"}],
+  ref_jenis_beasiswa:[{id:"jb1",nama:"KIP Kuliah"},{id:"jb2",nama:"Beasiswa Prestasi"},{id:"jb3",nama:"Keringanan UKT"},{id:"jb4",nama:"Beasiswa Hafiz"},{id:"jb5",nama:"Beasiswa Yatim"}],
+  ref_kelompok_ukt:[
+    {id:"uk1",nama:"UKT I",nominal:500000},{id:"uk2",nama:"UKT II",nominal:1000000},
+    {id:"uk3",nama:"UKT III",nominal:2500000},{id:"uk4",nama:"UKT IV",nominal:4000000},
+    {id:"uk5",nama:"UKT V",nominal:5500000},{id:"uk6",nama:"UKT VI",nominal:7000000},
+    {id:"uk7",nama:"UKT VII",nominal:8500000},{id:"uk8",nama:"UKT VIII",nominal:10000000}
+  ],
+
+  // ---------- Transaksi ----------
+  mahasiswa:[],
+  tagihan:[],
+  pembayaran:[],
+  keringanan:[]
+};
+
+/* ============================ Helper umum ============================ */
+const $ = id => document.getElementById(id);
+const byId = (arr,id) => (arr||[]).find(x => x.id === id);
+const nameOf = (arr,id) => { const r = byId(arr,id); return r ? r.nama : "-"; };
+const nameFak = id => nameOf(DB.ref_fakultas,id);
+const nameProdi = id => nameOf(DB.ref_prodi,id);
+const nameJalur = id => nameOf(DB.ref_jalur_masuk,id);
+const nameJenisTag = id => nameOf(DB.ref_jenis_tagihan,id);
+const nameMetode = id => nameOf(DB.ref_metode_bayar,id);
+const nameBank = id => nameOf(DB.ref_bank,id);
+const nameStatusBayar = id => nameOf(DB.ref_status_bayar,id);
+const nameStatusKer = id => nameOf(DB.ref_status_keringanan,id);
+const nameBeasiswa = id => nameOf(DB.ref_jenis_beasiswa,id);
+const nameUKT = id => nameOf(DB.ref_kelompok_ukt,id);
+const uktNominal = id => { const u = byId(DB.ref_kelompok_ukt,id); return u ? u.nominal : 0; };
+const fmt = n => (n||0).toLocaleString("id-ID");
+const fmtRp = n => "Rp " + fmt(Math.round(n||0));
+// Set nilai KPI dengan ukuran font otomatis menyesuaikan panjang angka agar pas dalam kartu.
+function kpiNum(id,text){
+  const el=$(id); if(!el) return;
+  const s = String(text);
+  el.textContent = s;
+  const len = s.length;
+  el.style.fontSize = (len<=6?34 : len<=9?27 : len<=12?22 : len<=15?18 : len<=18?16 : 14)+"px";
+}
+
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const pad2 = n => String(n).padStart(2,"0");
+const MON = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const mLbl = k => MON[parseInt(k.slice(5,7),10)-1]+" "+k.slice(2,4);
+// tahun akademik "2024/2025" -> tahun awal numerik 2024
+const taStart = ta => parseInt(String(ta).slice(0,4),10);
+const AKTIF_START = taStart(TAHUN_AKTIF);
+
+/* ============================ Data dummy ============================ */
+function seedDummy(){
+  const R = rng(20261008);
+  const pick = (it,w) => { if(!w) w=it.map(()=>1); let s=w.reduce((a,b)=>a+b,0),x=R()*s; for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]} return it[it.length-1]; };
+  const ri = n => Math.floor(R()*n);
+
+  const FAK = DB.ref_fakultas.map(f=>f.id);
+  const PRODI = DB.ref_prodi.map(p=>p.id);
+  const ANGK = DB.ref_angkatan.map(a=>a.nama);      // "2019".."2025"
+  const JALUR = DB.ref_jalur_masuk.map(j=>j.id);
+  const UKT = DB.ref_kelompok_ukt.map(u=>u.id);
+  const JENIS = DB.ref_jenis_tagihan.map(j=>j.id);
+  const METODE = DB.ref_metode_bayar.map(m=>m.id);
+  const BANK = DB.ref_bank.map(b=>b.id);
+  const NAMA_DEPAN = ["Ahmad","Muhammad","Siti","Nur","Dewi","Rina","Agus","Budi","Fitri","Aisyah","Yusuf","Hendra","Lina","Rizki","Nadia","Fajar","Intan","Bayu","Maya","Taufik","Wulan","Iman","Sari","Dedi"];
+  const NAMA_BELAKANG = ["Pratama","Safitri","Hidayat","Lestari","Ramadhan","Anggraini","Nugroho","Marlina","Fadillah","Permata","Kurniawan","Rahmawati","Santoso","Maulana","Gunawan","Priyanto"];
+
+  // mahasiswa: sebaran angkatan (2025 = maba terbanyak), UKT & jalur
+  for(let i=0;i<900;i++){
+    const ang = pick(ANGK,[8,10,12,14,16,18,22]);
+    const fak = pick(FAK, FAK.map(()=>1));
+    const prods = DB.ref_prodi.filter(p=>p.fakultasId===fak);
+    const prodi = prods.length ? pick(prods, prods.map(()=>1)).id : PRODI[ri(PRODI.length)];
+    DB.mahasiswa.push({
+      id:"mhs"+i, nim:"11"+String(20200000+i),
+      nama: NAMA_DEPAN[ri(NAMA_DEPAN.length)]+" "+NAMA_BELAKANG[ri(NAMA_BELAKANG.length)],
+      fakultasId: fak, prodiId: prodi, angkatan: ang, jalurMasukId: pick(JALUR,[22,30,30,12,6]),
+      kelompokUktId: pick(UKT,[14,16,15,14,12,11,10,8]), statusAktif: R()<.94
+    });
+  }
+
+  // tagihan: per mahasiswa per semester (beberapa periode) + pembayaran
+  let tgi=0, byr=0;
+  DB.mahasiswa.forEach(m=>{
+    const a0 = parseInt(m.angkatan,10);
+    // semester mulai dari angkatan s.d. tahun aktif (maks 8 semester)
+    const periods = [];
+    for(let y=a0;y<=AKTIF_START;y++){ periods.push({ta:y+"/"+(y+1), smt:"Ganjil"}); if(y<AKTIF_START || true) periods.push({ta:y+"/"+(y+1), smt:"Genap"}); }
+    periods.slice(-6).forEach(p=>{
+      const jenis = pick(JENIS,[55,12,6,6,8,5,4,4]);
+      const nominal = jenis==="jt1" ? uktNominal(m.kelompokUktId) : (jenis==="jt3"?800000:jenis==="jt2"?750000:jenis==="jt4"?600000:jenis==="jt5"?500000*3:jenis==="jt6"?150000:jenis==="jt7"?2000000:300000);
+      const t = {
+        id:"tg"+(tgi++), mahasiswaId:m.id, jenisTagihanId:jenis, kelompokUktId:m.kelompokUktId,
+        semester:p.smt, tahunAkademik:p.ta, nominal: nominal, potongan:0,
+        tanggal: p.ta.slice(0,4)+"-"+pad2(1+ri(12))+"-"+pad2(1+ri(28))
+      };
+      // kemungkinan bayar: makin lama makin lunas
+      const old = (AKTIF_START - a0);
+      const paidProb = p.ta===TAHUN_AKTIF ? .62 : .9;
+      const r = R();
+      if(r < paidProb){ // lunas
+        DB.pembayaran.push({id:"by"+(byr++), tagihanId:t.id, tanggal:t.tanggal, nominal:nominal, metodeBayarId:pick(METODE,[45,18,25,8,4]), bankId:pick(BANK,[40,20,18,14,8])});
+        t.statusBayarId="sb1";
+      } else if(R()<.5){ // sebagian
+        const part = Math.round(nominal*(.3+R()*.4));
+        DB.pembayaran.push({id:"by"+(byr++), tagihanId:t.id, tanggal:t.tanggal, nominal:part, metodeBayarId:pick(METODE,[45,18,25,8,4]), bankId:pick(BANK,[40,20,18,14,8])});
+        t.statusBayarId="sb2";
+      } else { t.statusBayarId="sb3"; }
+      DB.tagihan.push(t);
+    });
+  });
+
+  // keringanan/beasiswa untuk sebagian mahasiswa
+  DB.mahasiswa.forEach((m,i)=>{
+    if(R()<.16){
+      DB.keringanan.push({
+        id:"kr"+i, mahasiswaId:m.id, jenisBeasiswaId:pick(DB.ref_jenis_beasiswa.map(b=>b.id)),
+        nominal: Math.round((1+R()*4)*1000000), statusId:pick(DB.ref_status_keringanan.map(s=>s.id),[50,35,15]),
+        tanggal: "2025-"+pad2(1+ri(12))+"-"+pad2(1+ri(28))
+      });
+    }
+  });
+}
+
+/* ============================ Turunan ============================ */
+// total dibayar untuk sebuah tagihan
+function dibayar(t){
+  return DB.pembayaran.filter(p=>p.tagihanId===t.id).reduce((a,p)=>a+p.nominal,0);
+}
+// status bayar efektif (fallback bila kolom statusBayarId tidak diisi manual)
+function statusBayar(t){
+  if(t.statusBayarId) return t.statusBayarId;
+  const d = dibayar(t);
+  if(d<=0) return "sb3";
+  if(d>=t.nominal-(t.potongan||0)) return "sb1";
+  return "sb2";
+}
+// piutang = nominal - potongan - dibayar
+function piutang(t){ return Math.max(0, (t.nominal-(t.potongan||0)) - dibayar(t)); }
+function mhsOf(t){ return byId(DB.mahasiswa,t.mahasiswaId) || {}; }
+function isCurrentTA(ta){ return ta===TAHUN_AKTIF; }
+// Baru/Lama: baru = angkatan == tahun awal tahun akademik aktif
+function mhsBaru(m){ return parseInt(m.angkatan,10) >= AKTIF_START; }
+
+/* ============================ Filter ============================ */
+const F = {ta:"",fakultas:"",prodi:"",angkatan:"",jalur:"",ukt:"",jenis:"",bayar:"",metode:""};
+function fillSelect(id, items, allLabel, valFn, labFn){
+  const el=$(id);
+  el.innerHTML = `<option value="">${allLabel}</option>` + items.map(x=>`<option value="${valFn(x)}">${labFn(x)}</option>`).join("");
+  el.onchange = () => { F[id.slice(2)] = el.value; renderAll(); };
+}
+function buildFilters(){
+  const tas = Array.from(new Set(DB.tagihan.map(t=>t.tahunAkademik))).sort();
+  fillSelect("f_ta", tas, "Semua Tahun Akademik", y=>y, y=>y);
+  fillSelect("f_fakultas", DB.ref_fakultas, "Semua Fakultas", x=>x.id, x=>x.nama);
+  fillSelect("f_prodi", DB.ref_prodi, "Semua Prodi", x=>x.id, x=>x.nama);
+  fillSelect("f_angkatan", DB.ref_angkatan, "Semua Angkatan", x=>x.nama, x=>x.nama);
+  fillSelect("f_jalur", DB.ref_jalur_masuk, "Semua Jalur Masuk", x=>x.id, x=>x.nama);
+  fillSelect("f_ukt", DB.ref_kelompok_ukt, "Semua Kelompok UKT", x=>x.id, x=>x.nama);
+  fillSelect("f_jenis", DB.ref_jenis_tagihan, "Semua Jenis Pembayaran", x=>x.id, x=>x.nama);
+  fillSelect("f_bayar", DB.ref_status_bayar, "Semua Status Bayar", x=>x.id, x=>x.nama);
+  fillSelect("f_metode", DB.ref_metode_bayar, "Semua Metode Bayar", x=>x.id, x=>x.nama);
+}
+function clearFilters(){
+  Object.keys(F).forEach(k=>F[k]="");
+  ["f_ta","f_fakultas","f_prodi","f_angkatan","f_jalur","f_ukt","f_jenis","f_bayar","f_metode"].forEach(id=>$(id).value="");
+  renderAll();
+}
+
+/* ============================ Primitives ============================ */
+const C10 = ["#1e88f5","#3b8f62","#f0b429","#a78bda","#5bc48a","#e5697a","#8f9aa6","#c3cad2","#0c7ea3","#d97706"];
+const CYN = ["#3b8f62","#c3cad2"];
+
+function leg(el,names,cols){ $(el).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n}</span>`).join(""); }
+function pie(el,lab,vals,cols,names,t){
+  const tot = vals.reduce((a,b)=>a+b,0);
+  if(!tot){ $(el).style.background="var(--line)"; $(lab).innerHTML="Total<br>0"; $(t).innerHTML='<span>Tidak ada data</span>'; return; }
+  let a=0; const g = vals.map((v,i)=>{ const s=a; a+=v/tot*100; return `${cols[i%cols.length]} ${s}% ${a}%`; });
+  $(el).style.background = `conic-gradient(${g.join(",")})`;
+  $(lab).innerHTML = `Total<br>${fmt(tot)}`;
+  $(t).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("");
+}
+function bars(el,rows,cols,norm,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const tot = r => r.slice(1,1+cols.length).reduce((a,b)=>a+b,0);
+  const mx = Math.max(...rows.map(tot));
+  $(el).innerHTML = rows.map(r=>{ const t=tot(r)||1;
+    return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:(t/Math.max(mx,1)*100)}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]||0}" title="${r[0]} · ${(fm||fmt)(r[i+1]||0)}"></i>`).join("")}</div><div class="tt">${(fm||fmt)(t)}</div></div>`}).join("");
+}
+function hbar(el,rows,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const mx = Math.max(...rows.map(r=>r[1]));
+  $(el).innerHTML = rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/Math.max(mx,1)*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${(fm||fmt)(r[1])}</div></div>`).join("");
+}
+function line(el,rows,cols,names,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const W=640,H=280,Rg=14,T=14,B=30,n=rows.length,k=cols.length;
+  const mx = Math.max(1,...rows.flatMap(r=>r.slice(1,1+k)));
+  const e = Math.pow(10,Math.floor(Math.log10(mx))), m = mx/e;
+  const top = (m<=1?1:m<=2?2:m<=5?5:10)*e;
+  const yl = fm ? (v=>fm(v)) : (v=>fmt(Math.round(v)));
+  const labs = [0,1,2,3,4].map(g=>yl(top*g/4));
+  const L = Math.max(52, 10 + Math.max(...labs.map(s=>s.length))*6.3);
+  const X = i => L + (n===1 ? (W-L-Rg)/2 : i*(W-L-Rg)/(n-1));
+  const Y = v => T + (H-T-B)*(1-v/top);
+  let o = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" style="display:block">`;
+  for(let g=0;g<=4;g++){ const v=top*g/4, y=Y(v);
+    o += `<line x1="${L}" x2="${W-Rg}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" style="fill:var(--mute)">${labs[g]}</text>`; }
+  rows.forEach((r,i)=>{ o += `<text x="${X(i)}" y="${H-10}" text-anchor="middle" font-size="11" style="fill:var(--mute)">${r[0]}</text>`; });
+  cols.forEach((c,j)=>{ const pt = rows.map((r,i)=>[X(i),Y(r[j+1]||0),r[j+1]||0]);
+    o += `<polyline fill="none" stroke-width="2.5" style="stroke:${c}" points="${pt.map(q=>q[0]+","+q[1]).join(" ")}"/>`;
+    pt.forEach((q,i)=>{ o += `<circle cx="${q[0]}" cy="${q[1]}" r="3.5" style="fill:${c}"><title>${rows[i][0]} · ${names[j]}: ${fmt(q[2])}</title></circle>`; }); });
+  $(el).innerHTML = o + "</svg>";
+}
+
+/* ============================ Tabel + pencarian ============================ */
+const TBL = {};
+function table(id,cols,rows){ TBL[id]={cols,rows}; renderTable(id); }
+function renderTable(id){
+  const {cols,rows} = TBL[id];
+  const inp = $("q_"+id); const q = inp ? inp.value.toLowerCase() : "";
+  const data = rows.filter(r => !q || cols.some(c => String(r[c.k] ?? "").toLowerCase().includes(q)));
+  $("t_"+id).innerHTML = data.length
+    ? `<table class="t"><thead><tr>${cols.map(c=>`<th>${c.label}</th>`).join("")}</tr></thead><tbody>${data.map(r=>`<tr>${cols.map(c=>`<td class="${c.num?"n":""}">${r[c.k] ?? ""}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+    : '<div class="empty">Tidak ada data yang cocok.</div>';
+  if($("c_"+id)) $("c_"+id).textContent = data.length + " baris ditampilkan (dari " + rows.length + ")";
+}
+
+/* ============================ Agregasi ============================ */
+function agg(data,keyFn,catFn,cats,keys,asc){
+  const m={}; (keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+  data.forEach(r=>{ const k=keyFn(r); (m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++; });
+  const o = Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0)||asc);
+  return o.sort(asc ? (a,b)=>a[0]-b[0] : (a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+}
+function aggSum(data,keyFn,catFn,cats,keys,valFn){
+  const m={}; (keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+  data.forEach(r=>{ const k=keyFn(r); (m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]+=valFn(r); });
+  return Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0))
+    .sort((a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+}
+function countBy(data,keyFn){ const m={}; data.forEach(r=>{ const k=keyFn(r); if(k==null)return; m[k]=(m[k]||0)+1; }); return m; }
+function monthSum(data,dateFn,valFn){ const m={}; data.forEach(r=>{ const d=dateFn(r); if(!d)return; const k=d.slice(0,7); m[k]=(m[k]||0)+(valFn?valFn(r):1); }); return m; }
+
+/* ============================ View ============================ */
+function matchMhs(m){
+  if(F.fakultas && m.fakultasId!==F.fakultas) return false;
+  if(F.prodi && m.prodiId!==F.prodi) return false;
+  if(F.angkatan && m.angkatan!==F.angkatan) return false;
+  if(F.jalur && m.jalurMasukId!==F.jalur) return false;
+  if(F.ukt && m.kelompokUktId!==F.ukt) return false;
+  return true;
+}
+function view(){
+  const mhs = DB.mahasiswa.filter(matchMhs);
+  const mid = new Set(mhs.map(m=>m.id));
+  const tagihan = DB.tagihan.filter(t=>{
+    if(!mid.has(t.mahasiswaId)) return false;
+    if(F.ta && t.tahunAkademik!==F.ta) return false;
+    if(F.jenis && t.jenisTagihanId!==F.jenis) return false;
+    if(F.bayar && statusBayar(t)!==F.bayar) return false;
+    return true;
+  });
+  const tid = new Set(tagihan.map(t=>t.id));
+  const pembayaran = DB.pembayaran.filter(p=>{
+    if(!tid.has(p.tagihanId)) return false;
+    if(F.metode && p.metodeBayarId!==F.metode) return false;
+    return true;
+  });
+  const keringanan = DB.keringanan.filter(k=>mid.has(k.mahasiswaId));
+  return {mhs, mid, tagihan, tid, pembayaran, keringanan};
+}
+const statusLabel = t => nameStatusBayar(statusBayar(t));
+const JENIS_CATS = DB.ref_jenis_tagihan.map(j=>j.nama);
+const UKT_CATS = DB.ref_kelompok_ukt.map(u=>u.nama);
+
+/* ============================ Render ============================ */
+function renderIkhtisar(v){
+  const totalTag = v.tagihan.reduce((a,t)=>a+(t.nominal-(t.potongan||0)),0);
+  const totalByr = v.pembayaran.reduce((a,p)=>a+p.nominal,0);
+  const out = v.tagihan.reduce((a,t)=>a+piutang(t),0);
+  kpiNum("k_tagihan", fmtRp(totalTag));
+  kpiNum("k_terima", fmtRp(totalByr));
+  kpiNum("k_out", fmtRp(out));
+  kpiNum("k_mhs", fmt(new Set(v.tagihan.filter(t=>piutang(t)>0).map(t=>t.mahasiswaId)).size));
+
+  const jt = DB.ref_jenis_tagihan;
+  pie("p_jenis","p_jenist", jt.map(j=>v.tagihan.filter(t=>t.jenisTagihanId===j.id).reduce((a,t)=>a+(t.nominal-(t.potongan||0)),0)), C10, jt.map(j=>j.nama), "p_jenisl");
+
+  const byrByTg = {}; v.pembayaran.forEach(p=>{ byrByTg[p.tagihanId]=(byrByTg[p.tagihanId]||0)+p.nominal; });
+  bars("b_fak", aggSum(v.tagihan.filter(t=>byrByTg[t.id]), t=>nameFak(mhsOf(t).fakultasId), t=>nameJenisTag(t.jenisTagihanId), JENIS_CATS, DB.ref_fakultas.map(f=>f.nama), t=>byrByTg[t.id]||0), C10.slice(0,8), false, fmtRp);
+  leg("l_fak", JENIS_CATS, C10.slice(0,8));
+
+  const tagM = monthSum(v.tagihan, t=>t.tanggal, t=>t.nominal-(t.potongan||0));
+  const byrM = monthSum(v.pembayaran, p=>p.tanggal, p=>p.nominal);
+  const keys = Array.from(new Set([...Object.keys(tagM),...Object.keys(byrM)])).sort().slice(-12);
+  line("b_tren", keys.map(k=>[mLbl(k), tagM[k]||0, byrM[k]||0]), ["#1e88f5","#3b8f62"], ["Tagihan","Penerimaan"], v=>fmtRp(v));
+  leg("l_tren", ["Tagihan","Penerimaan"], ["#1e88f5","#3b8f62"]);
+}
+
+function renderUKT(v){
+  const ukt = DB.ref_kelompok_ukt;
+  pie("p_ukt","p_uktt", ukt.map(u=>v.mhs.filter(m=>m.kelompokUktId===u.id).length), C10, ukt.map(u=>u.nama), "p_uktl");
+
+  const jalur = DB.ref_jalur_masuk;
+  bars("b_jalur", agg(v.mhs, m=>nameJalur(m.jalurMasukId), m=>nameUKT(m.kelompokUktId), UKT_CATS, jalur.map(j=>j.nama)), C10.slice(0,8), false);
+  leg("l_jalur", UKT_CATS, C10.slice(0,8));
+
+  bars("b_uktfak", agg(v.mhs, m=>nameFak(m.fakultasId), m=>nameUKT(m.kelompokUktId), UKT_CATS, DB.ref_fakultas.map(f=>f.nama)), C10.slice(0,8), false);
+  leg("l_uktfak", UKT_CATS, C10.slice(0,8));
+
+  bars("b_uktprodi", agg(v.mhs, m=>nameProdi(m.prodiId), m=>nameUKT(m.kelompokUktId), UKT_CATS, DB.ref_prodi.map(p=>p.nama)), C10.slice(0,8), false);
+  leg("l_uktprodi", UKT_CATS, C10.slice(0,8));
+
+  bars("b_uktangkatan", agg(v.mhs, m=>m.angkatan, m=>nameUKT(m.kelompokUktId), UKT_CATS, DB.ref_angkatan.map(a=>a.nama)), C10.slice(0,8), false);
+  leg("l_uktangkatan", UKT_CATS, C10.slice(0,8));
+
+  const rows = ukt.map(u=>{
+    const list = v.mhs.filter(m=>m.kelompokUktId===u.id);
+    return {ukt:u.nama, nominal:fmtRp(u.nominal), jumlah:fmt(list.length),
+      baru:fmt(list.filter(mhsBaru).length), lama:fmt(list.filter(m=>!mhsBaru(m)).length),
+      persen:(v.mhs.length?(list.length/v.mhs.length*100).toFixed(1):"0")+"%"};
+  });
+  table("ukt", [{k:"ukt",label:"Kelompok UKT"},{k:"nominal",label:"Nominal",num:true},{k:"jumlah",label:"Jumlah Mhs",num:true},
+    {k:"baru",label:"Baru",num:true},{k:"lama",label:"Lama",num:true},{k:"persen",label:"Proporsi",num:true}], rows);
+}
+
+function renderPiutang(v){
+  const totPiut = v.tagihan.reduce((a,t)=>a+piutang(t),0);
+  const cicilTag = v.tagihan.filter(t=>statusBayar(t)==="sb2");
+  kpiNum("k_piut", fmtRp(totPiut));
+  kpiNum("k_pimhs", fmt(new Set(v.tagihan.filter(t=>piutang(t)>0).map(t=>t.mahasiswaId)).size));
+  kpiNum("k_cicil", fmtRp(cicilTag.reduce((a,t)=>a+dibayar(t),0)));
+  kpiNum("k_cicilmhs", fmt(new Set(cicilTag.map(t=>t.mahasiswaId)).size));
+
+  const sumBy = keyFn => { const m={}; v.tagihan.forEach(t=>{ const p=piutang(t); if(p<=0)return; const k=keyFn(t); m[k]=(m[k]||0)+p; }); return m; };
+  const pa = sumBy(t=>mhsOf(t).angkatan);
+  hbar("b_piangkatan", DB.ref_angkatan.map(a=>a.nama).filter(k=>pa[k]).map(k=>[k,pa[k],"#e5697a"]), fmtRp);
+  hbar("b_pifak", Object.entries(sumBy(t=>nameFak(mhsOf(t).fakultasId))).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#e5697a"]), fmtRp);
+
+  hbar("b_piprodi", (()=>{ const m={}; v.tagihan.forEach(t=>{ const p=piutang(t); if(p<=0)return; const u=nameProdi(mhsOf(t).prodiId); m[u]=(m[u]||0)+p; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#e5697a"]); })(), fmtRp);
+
+  const jt = DB.ref_jenis_tagihan;
+  pie("p_pijenis","p_pijenist", jt.map(j=>v.tagihan.filter(t=>t.jenisTagihanId===j.id).reduce((a,t)=>a+piutang(t),0)), C10, jt.map(j=>j.nama), "p_pijenisl");
+
+  bars("b_piukt", aggSum(v.tagihan, t=>nameUKT(mhsOf(t).kelompokUktId), t=>"Piutang", ["Piutang"], UKT_CATS, piutang), ["#e5697a"], true, fmtRp);
+  leg("l_piukt", ["Piutang"], ["#e5697a"]);
+
+  // ---- Cicilan (tagihan berstatus bayar Sebagian) ----
+  const ciSum = keyFn => { const m={}; cicilTag.forEach(t=>{ const k=keyFn(t); m[k]=(m[k]||0)+dibayar(t); }); return m; };
+  const ciTh = ciSum(t=>t.tahunAkademik.slice(0,4));
+  line("b_citren", Object.keys(ciTh).sort().map(y=>[y, ciTh[y]]), ["#1e88f5"], ["Cicilan"], v=>fmtRp(v));
+  leg("l_citren", ["Cicilan"], ["#1e88f5"]);
+  hbar("b_cifak", Object.entries(ciSum(t=>nameFak(mhsOf(t).fakultasId))).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#1e88f5"]), fmtRp);
+  hbar("b_ciprodi", Object.entries(ciSum(t=>nameProdi(mhsOf(t).prodiId))).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#1e88f5"]), fmtRp);
+  const cu={}; cicilTag.forEach(t=>{ const k=nameUKT(mhsOf(t).kelompokUktId); (cu[k]=cu[k]||[0,0]); cu[k][0]+=dibayar(t); cu[k][1]+=piutang(t); });
+  const cuRows = UKT_CATS.filter(k=>cu[k]).map(k=>[k,cu[k][0],cu[k][1]]);
+  if(cuRows.length){ $("b_ciukt").innerHTML = cuRows.map(r=>{ const t=r[1]+r[2]||1; return `<div class="br"><div class="lb">${r[0]}</div><div class="tr" style="width:100%"><i style="background:#1e88f5;flex:${r[1]}" title="Sudah dibayar · ${fmtRp(r[1])} (${(r[1]/t*100).toFixed(1)}%)"></i><i style="background:#c3cad2;flex:${r[2]}" title="Sisa · ${fmtRp(r[2])}"></i></div><div class="tt">${fmtRp(r[1])}</div></div>`; }).join(""); }
+  else $("b_ciukt").innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';
+  leg("l_ciukt", ["Sudah dibayar (cicilan)","Sisa piutang"], ["#1e88f5","#c3cad2"]);
+
+  const piTh = {}; v.tagihan.forEach(t=>{ const y=t.tahunAkademik.slice(0,4); piTh[y]=(piTh[y]||0)+piutang(t); });
+  line("b_pitren", Object.keys(piTh).sort().map(y=>[y, piTh[y]]), ["#d97706"], ["Piutang"], v=>fmtRp(v));
+  leg("l_pitren", ["Piutang"], ["#d97706"]);
+
+  const rows = v.tagihan.filter(t=>piutang(t)>0).map(t=>{ const m=mhsOf(t); return {
+    nim:m.nim||"-", nama:m.nama||"-", prodi:nameProdi(m.prodiId), angkatan:m.angkatan||"-", ukt:nameUKT(m.kelompokUktId),
+    jenis:nameJenisTag(t.jenisTagihanId), ta:t.tahunAkademik, status:nameStatusBayar(statusBayar(t)),
+    piutang:fmtRp(piutang(t))}; });
+  table("ttunggakan", [{k:"nim",label:"NIM"},{k:"nama",label:"Nama"},{k:"prodi",label:"Prodi"},{k:"angkatan",label:"Angkatan"},
+    {k:"ukt",label:"Kelompok UKT"},{k:"jenis",label:"Jenis Pembayaran"},{k:"ta",label:"Tahun Akademik"},
+    {k:"status",label:"Status Bayar"},{k:"piutang",label:"Piutang",num:true}], rows);
+
+  const crows = cicilTag.map(t=>{ const m=mhsOf(t), tag=t.nominal-(t.potongan||0), byr=dibayar(t);
+    const last = DB.pembayaran.filter(p=>p.tagihanId===t.id).map(p=>p.tanggal).sort().pop()||"-";
+    return {nim:m.nim||"-", nama:m.nama||"-", prodi:nameProdi(m.prodiId), angkatan:m.angkatan||"-", ukt:nameUKT(m.kelompokUktId),
+      jenis:nameJenisTag(t.jenisTagihanId), ta:t.tahunAkademik, tagihan:fmtRp(tag), dibayar:fmtRp(byr),
+      sisa:fmtRp(piutang(t)), persen:(tag?(byr/tag*100).toFixed(1):"0")+"%", tgl:last}; });
+  table("tcicil", [{k:"nim",label:"NIM"},{k:"nama",label:"Nama"},{k:"prodi",label:"Prodi"},{k:"angkatan",label:"Angkatan"},
+    {k:"ukt",label:"Kelompok UKT"},{k:"jenis",label:"Jenis Pembayaran"},{k:"ta",label:"Tahun Akademik"},
+    {k:"tagihan",label:"Nilai Tagihan",num:true},{k:"dibayar",label:"Sudah Dibayar",num:true},{k:"sisa",label:"Sisa Piutang",num:true},
+    {k:"persen",label:"% Terbayar",num:true},{k:"tgl",label:"Tanggal Bayar Terakhir"}], crows);
+}
+
+function renderPenerimaan(v){
+  const totalByr = v.pembayaran.reduce((a,p)=>a+p.nominal,0);
+  kpiNum("k_terima2", fmtRp(totalByr));
+  kpiNum("k_trx", fmt(v.pembayaran.length));
+
+  const byrByTg = {}; v.pembayaran.forEach(p=>{ byrByTg[p.tagihanId]=(byrByTg[p.tagihanId]||0)+p.nominal; });
+  const paidTag = v.tagihan.filter(t=>byrByTg[t.id]);
+  bars("b_terangkatan", aggSum(paidTag, t=>mhsOf(t).angkatan, t=>nameJenisTag(t.jenisTagihanId), JENIS_CATS, DB.ref_angkatan.map(a=>a.nama), t=>byrByTg[t.id]||0), C10.slice(0,8), false, fmtRp);
+  leg("l_terangkatan", JENIS_CATS, C10.slice(0,8));
+
+  hbar("b_terfak", (()=>{ const m={}; v.pembayaran.forEach(p=>{ const t=byId(DB.tagihan,p.tagihanId); if(!t)return; const u=nameFak(mhsOf(t).fakultasId); m[u]=(m[u]||0)+p.nominal; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#1e88f5"]); })(), fmtRp);
+  hbar("b_terprodi", (()=>{ const m={}; v.pembayaran.forEach(p=>{ const t=byId(DB.tagihan,p.tagihanId); if(!t)return; const u=nameProdi(mhsOf(t).prodiId); m[u]=(m[u]||0)+p.nominal; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#3b8f62"]); })(), fmtRp);
+
+  const ukt = DB.ref_kelompok_ukt;
+  pie("p_terukt","p_teruktt", ukt.map(u=>v.pembayaran.reduce((a,p)=>{ const t=byId(DB.tagihan,p.tagihanId); return a + (t && mhsOf(t).kelompokUktId===u.id ? p.nominal : 0); },0)), C10, ukt.map(u=>u.nama), "p_teruktl");
+
+  const mb = DB.ref_metode_bayar;
+  pie("p_metode","p_metodet", mb.map(x=>v.pembayaran.filter(p=>p.metodeBayarId===x.id).reduce((a,p)=>a+p.nominal,0)), C10, mb.map(x=>x.nama), "p_metodel");
+
+  hbar("b_bank", (()=>{ const m={}; v.pembayaran.forEach(p=>{ const u=nameBank(p.bankId); m[u]=(m[u]||0)+p.nominal; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#a78bda"]); })(), fmtRp);
+
+  const byrM = monthSum(v.pembayaran, p=>p.tanggal, p=>p.nominal);
+  line("b_tertren", Object.keys(byrM).sort().slice(-12).map(k=>[mLbl(k), byrM[k]]), ["#3b8f62"], ["Penerimaan"], v=>fmtRp(v));
+  leg("l_tertren", ["Penerimaan"], ["#3b8f62"]);
+
+  const rows = v.pembayaran.map(p=>{ const t=byId(DB.tagihan,p.tagihanId)||{}; const m=mhsOf(t); return {
+    nim:m.nim||"-", nama:m.nama||"-", prodi:nameProdi(m.prodiId), jenis:nameJenisTag(t.jenisTagihanId),
+    ta:t.tahunAkademik||"-", nominal:fmtRp(p.nominal), metode:nameMetode(p.metodeBayarId), bank:nameBank(p.bankId), tanggal:p.tanggal}; });
+  table("ttrx", [{k:"nim",label:"NIM"},{k:"nama",label:"Nama"},{k:"prodi",label:"Prodi"},{k:"jenis",label:"Jenis Pembayaran"},
+    {k:"ta",label:"Tahun Akademik"},{k:"nominal",label:"Nominal",num:true},{k:"metode",label:"Metode"},{k:"bank",label:"Bank"},{k:"tanggal",label:"Tanggal"}], rows);
+}
+
+function renderAll(){
+  const v = view();
+  renderIkhtisar(v);
+  renderUKT(v);
+  renderPiutang(v);
+  renderPenerimaan(v);
+}
+
+/* ============================ Inisialisasi ============================ */
+if(USE_DUMMY && DB.mahasiswa.length===0) seedDummy();
+buildFilters();
+["ukt","ttunggakan","tcicil","ttrx"].forEach(id=>{ const inp=$("q_"+id); if(inp) inp.oninput=()=>renderTable(id); });
+$("apply").onclick = renderAll;
+$("clear").onclick = clearFilters;
+$("ft").onclick = ()=>$("side").classList.toggle("open");
+const tb = document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{ tb.forEach(x=>x.classList.remove("on")); b.classList.add("on");
+  ["t0","t1","t2","t3"].forEach(id=>$(id).classList.toggle("on", id===b.dataset.t)); });
+renderAll();
+</script>
+</body>
+</html>

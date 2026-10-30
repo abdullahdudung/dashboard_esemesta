@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Aset</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--text);font-size:14px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#0c7ea3;color:#fff;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px;cursor:pointer}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer}
+.hint{margin-top:12px;font-size:11px;line-height:1.5;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:0}
+.kpis.k2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kpi{min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;overflow:hidden}
+.kpi .n{font-weight:800;line-height:1.08;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--kc,var(--text));overflow-wrap:anywhere;max-width:100%}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(90px,170px) minmax(40px,1fr) auto;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:block;font-style:normal;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative;background:var(--line)}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+.tblwrap{overflow:auto;margin-top:12px;border:1px solid var(--line)}
+.r3k{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr)}
+@media(max-width:1200px){.r3k{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.r3k>.card:nth-child(2){grid-column:1/-1;order:3}}
+@media(max-width:700px){.r3k{grid-template-columns:minmax(0,1fr)}}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--mute)}
+.pager .pg{display:flex;align-items:center;gap:6px}
+.pager button{height:30px;min-width:30px;padding:0 10px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);font-family:inherit;font-size:12px;cursor:pointer}
+.pager button:disabled{opacity:.45;cursor:default}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.t th{color:var(--mute);font-weight:600;position:sticky;top:0;background:var(--panel);z-index:1}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tbody tr:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+@media(max-width:1100px){aside{width:240px}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.row3,.kpis{gap:12px}.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .n{font-size:24px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun Perolehan</label><select id="f_tahun"></select></div>
+  <div class="f"><label>Unit Kerja</label><select id="f_unit"></select></div>
+  <div class="f"><label>Jenis Aset</label><select id="f_tipe"></select></div>
+  <div class="f"><label>Kondisi</label><select id="f_kondisi"></select></div>
+  <div class="f"><label>Status Aset</label><select id="f_status"></select></div>
+  <div class="f"><label>Kepemilikan</label><select id="f_kepemilikan"></select></div>
+  <div class="f"><label>Sumber Dana</label><select id="f_sumberdana"></select></div>
+  <div class="f"><label>Lokasi Kampus</label><select id="f_kampus"></select></div>
+  <div class="f"><label>Status Sensus</label><select id="f_sensus"></select></div>
+  <div class="btns"><button class="a" id="apply">APPLY FILTERS</button><button class="c" id="clear">CLEAR ALL</button></div>
+  <div class="hint"><b>Wadah input data manual:</b> buka file ini, cari object <code>DB</code> di dalam &lt;script&gt;. Isi tabel sesuai relasi CSV (FK memakai <code>id</code>). Set <code>USE_DUMMY=false</code> bila memakai data sendiri.</div>
+</aside>
+<main>
+<div class="head"><h1>[ASET] Dashboard Manajemen Aset</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ikhtisar</button><button data-t="t1">Aset per Jenis</button><button data-t="t2">Kondisi &amp; Pemeliharaan</button><button data-t="t3">Mutasi &amp; Penyusutan</button><button data-t="t4">Penggunaan &amp; Sewa</button></div>
+
+<section class="panel on" id="t0">
+  <div class="kpis">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Unit Aset</h4><div class="n" id="k_total">0</div></div>
+    <div class="card kpi" style="--kc:#1e88f5"><h4>Total Nilai Perolehan</h4><div class="n" id="k_nilai">0</div></div>
+    <div class="card kpi" style="--kc:#3b8f62"><h4>Aset Kondisi Baik</h4><div class="n" id="k_baik">0</div></div>
+    <div class="card kpi" style="--kc:#f0b429"><h4>Unit Kerja Pemilik</h4><div class="n" id="k_unit">0</div></div>
+    <div class="card kpi" style="--kc:#a78bda"><h4>Nilai KDP</h4><div class="n" id="k_kdp">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Jumlah Aset per Jenis</h4><div class="pie" id="p_jenis"><em id="p_jenist"></em></div><div class="leg" id="p_jenisl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Nilai Perolehan per Unit Kerja (berdasarkan Jenis Aset)</h4><div class="bars" id="b_nilaiunit"></div><div class="leg" id="l_nilaiunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Jumlah Perolehan Aset per Tahun (berdasarkan Jenis Aset)</h4><div id="b_tren"></div><div class="leg" id="l_tren"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3 r3k" style="margin-top:0">
+    <div class="card"><h4>Komposisi Aset berdasarkan Kondisi</h4><div class="pie" id="p_kondisi"><em id="p_kondisit"></em></div><div class="leg" id="p_kondisil" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Aset per Jenis (berdasarkan Kondisi)</h4><div class="bars" id="b_jeniskondisi"></div><div class="leg" id="l_jeniskondisi"></div></div>
+    <div class="card"><h4>Komposisi Aset berdasarkan Sumber Dana</h4><div class="pie" id="p_dana"><em id="p_danat"></em></div><div class="leg" id="p_danal" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Aset per Unit Kerja (berdasarkan Jenis Aset)</h4><div class="bars" id="b_unitjenis"></div><div class="leg" id="l_unitjenis"></div></div>
+    <div class="card"><h4>Tren Nilai Perolehan per Tahun (berdasarkan Jenis Aset)</h4><div id="b_nilaitype"></div><div class="leg" id="l_nilaitype"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Aset</h4><div class="tools"><input class="q" id="q_taset" placeholder="Cari nama / jenis / unit / kode..."></div><div class="tblwrap" id="t_taset"></div><div class="note" id="c_taset"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t2">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Proporsi Kondisi Aset per Unit Kerja</h4><div class="bars" id="b_kondisiunit"></div><div class="leg" id="l_kondisiunit"></div><div class="note">Batang proporsi 100%; angka kanan = jumlah aset.</div></div>
+    <div class="card"><h4>Usulan Pemeliharaan berdasarkan Status</h4><div class="pie" id="p_usulanstatus"><em id="p_usulanstatust"></em></div><div class="leg" id="p_usulanstatusl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Usulan Pemeliharaan per Unit Kerja</h4><div class="bars" id="b_usulanunit"></div></div>
+    <div class="card"><h4>Biaya Perbaikan Barang per Unit Kerja</h4><div class="bars" id="b_biayaunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Usulan Pemeliharaan per 12 Bulan</h4><div id="b_peliharatren"></div><div class="leg" id="l_peliharatren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Usulan Pemeliharaan</h4><div class="tools"><input class="q" id="q_tpelihara" placeholder="Cari aset / unit / prioritas..."></div><div class="tblwrap" id="t_tpelihara"></div><div class="note" id="c_tpelihara"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t3">
+  <div class="kpis k2">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Mutasi Barang</h4><div class="n" id="k_mutasi">0</div></div>
+    <div class="card kpi" style="--kc:#a78bda"><h4>Total Nilai Penyusutan</h4><div class="n" id="k_susut">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Unit Mutasi berdasarkan Jenis Aset</h4><div class="pie" id="p_mutasitipe"><em id="p_mutasitipet"></em></div><div class="leg" id="p_mutasitipel" style="justify-content:center"></div></div>
+    <div class="card"><h4>Mutasi Masuk dan Keluar per Unit Kerja</h4><div class="bars" id="b_mutasiunit"></div><div class="leg" id="l_mutasiunit"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Nilai Penyusutan per Unit Kerja</h4><div class="bars" id="b_susutunit"></div></div>
+    <div class="card"><h4>Tren Nilai Penyusutan per 12 Bulan</h4><div id="b_susuttren"></div><div class="leg" id="l_susuttren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Mutasi Barang</h4><div class="tools"><input class="q" id="q_tmutasi" placeholder="Cari nomor / jenis aset / jenis mutasi / unit..."></div><div class="tblwrap" id="t_tmutasi"></div><div class="note" id="c_tmutasi"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t4">
+  <div class="kpis k2">
+    <div class="card kpi" style="--kc:#0c7ea3"><h4>Total Penggunaan Ruang</h4><div class="n" id="k_pggnruang">0</div></div>
+    <div class="card kpi" style="--kc:#a78bda"><h4>Total Penggunaan Aset</h4><div class="n" id="k_pggnaset">0</div></div>
+    <div class="card kpi" style="--kc:#1e88f5"><h4>Total Nilai Sewa</h4><div class="n" id="k_sewa">0</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Penggunaan Ruang berdasarkan Tipe</h4><div class="pie" id="p_pggnjenis"><em id="p_pggnjenist"></em></div><div class="leg" id="p_pggnjenisl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Penggunaan Aset berdasarkan Tipe Pelanggan</h4><div class="pie" id="p_pelanggan"><em id="p_pelanggant"></em></div><div class="leg" id="p_pelangganl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Penggunaan per Ruang</h4><div class="bars" id="b_pggnruang"></div></div>
+    <div class="card"><h4>Nilai Pembayaran Sewa per Bulan</h4><div class="bars" id="b_bayarbln"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Tren Penggunaan per 12 Bulan</h4><div id="b_pggntren"></div><div class="leg" id="l_pggntren"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Daftar Penggunaan Aset &amp; Ruang</h4><div class="tools"><input class="q" id="q_tpggn" placeholder="Cari kode / pemesan / kegiatan..."></div><div class="tblwrap" id="t_tpggn"></div><div class="note" id="c_tpggn"></div></div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+<script>
+/* =====================================================================================
+   WADAH INPUT DATA MANUAL
+   -------------------------------------------------------------------------------------
+   Semua data dibaca dari object DB. Struktur mengikuti file CSV
+   "struktur-table-relasi-aset.csv". Relasi antar tabel memakai kolom FK (memakai id):
+
+     Kodefikasi : tanah/gedung/... .xxxKodeBarangId -> ref_kodefikasi
+     Dimensi    : xxxKondisiId -> ref_kondisi, xxxStatusId -> ref_status_aset,
+                  xxxKepemilikanId -> ref_kepemilikan, xxxPenguasaanId -> ref_penguasaan,
+                  xxxSumberDanaId -> ref_sumber_dana, xxxStatusSensusId -> ref_sensus
+     Unit       : xxxUnitId -> ref_units
+     Lokasi     : gedungKampusId -> ref_kampus, ruangGedungId -> gedung, ruangLantaiId -> ref_lantai
+     Peralatan  : peralatan_mesin_detail.alatMesinDetMstId -> peralatan_mesin
+     KDP        : konstruksi_dalam_pengerjaan_nilai_peng.kdpNilPengMstId -> konstruksi_dalam_pengerjaan
+     Operasional: mutasi/penyusutan/pemeliharaan/perbaikan/hapus/penggunaan -> aset atau ruang
+     Pengguna   : pegawai, pelanggan, vendor
+
+   CARA PAKAI:
+     1) Isi array di dalam DB secara manual (FK memakai id dari tabel referensi).
+     2) Set USE_DUMMY = false agar data dummy tidak di-generate.
+     3) Bila USE_DUMMY = true dan data masih kosong, contoh data dibuat otomatis.
+   ===================================================================================== */
+
+const USE_DUMMY = true;
+
+const DB = {
+  // ---------- Referensi ----------
+  ref_units:[
+    {id:"u1",nama:"Rektorat"},{id:"u2",nama:"Biro Administrasi Umum"},
+    {id:"u3",nama:"Biro Akademik & Kemahasiswaan"},{id:"u4",nama:"Biro Perencanaan & Keuangan"},
+    {id:"u5",nama:"Fakultas Ilmu Tarbiyah & Keguruan"},{id:"u6",nama:"Fakultas Sains & Teknologi"},
+    {id:"u7",nama:"Fakultas Ekonomi & Bisnis"},{id:"u8",nama:"Fakultas Ushuluddin"},
+    {id:"u9",nama:"Fakultas Syariah & Hukum"},{id:"u10",nama:"Fakultas Dakwah & Ilmu Komunikasi"},
+    {id:"u11",nama:"Fakultas Adab & Humaniora"},{id:"u12",nama:"Fakultas Psikologi"},
+    {id:"u13",nama:"Fakultas Kedokteran"},{id:"u14",nama:"Fakultas Ilmu Kesehatan"},
+    {id:"u15",nama:"Sekolah Pascasarjana"},{id:"u16",nama:"Lembaga Penelitian & Pengabdian"}
+  ],
+  ref_kodefikasi:[
+    {id:"kb1",nama:"Tanah Bangunan",jenisId:"jb1"},
+    {id:"kb2",nama:"Bangunan Gedung",jenisId:"jb2"},
+    {id:"kb3",nama:"Alat Besar",jenisId:"jb3"},
+    {id:"kb4",nama:"Alat Angkutan",jenisId:"jb3"},
+    {id:"kb5",nama:"Alat Kantor & Rumah Tangga",jenisId:"jb3"},
+    {id:"kb6",nama:"Komputer & Elektronik",jenisId:"jb3"},
+    {id:"kb7",nama:"Jalan & Jembatan",jenisId:"jb4"},
+    {id:"kb8",nama:"Instalasi & Jaringan",jenisId:"jb4"},
+    {id:"kb9",nama:"Aset Tetap Lainnya",jenisId:"jb5"},
+    {id:"kb10",nama:"Aset Tak Berwujud",jenisId:"jb6"},
+    {id:"kb11",nama:"Konstruksi Dalam Pengerjaan",jenisId:"jb7"}
+  ],
+  ref_jenis_barang:[
+    {id:"jb1",nama:"Tanah"},{id:"jb2",nama:"Gedung dan Bangunan"},{id:"jb3",nama:"Peralatan dan Mesin"},
+    {id:"jb4",nama:"Jalan, Irigasi dan Jaringan"},{id:"jb5",nama:"Aset Tetap Lainnya"},
+    {id:"jb6",nama:"Aset Tak Berwujud"},{id:"jb7",nama:"Konstruksi Dalam Pengerjaan"}
+  ],
+  ref_kondisi:[{id:"k1",nama:"Baik"},{id:"k2",nama:"Rusak Ringan"},{id:"k3",nama:"Rusak Berat"}],
+  ref_status_aset:[{id:"s1",nama:"Aktif"},{id:"s2",nama:"Tidak Aktif"},{id:"s3",nama:"Dihapuskan"}],
+  ref_kepemilikan:[{id:"kp1",nama:"Milik Sendiri"},{id:"kp2",nama:"Sewa"},{id:"kp3",nama:"Pinjam Pakai"},{id:"kp4",nama:"Hibah"}],
+  ref_penguasaan:[{id:"pg1",nama:"Dikuasai Penuh"},{id:"pg2",nama:"Dikuasai Sebagian"},{id:"pg3",nama:"Tidak Dikuasai"}],
+  ref_sumber_dana:[{id:"sd1",nama:"APBN"},{id:"sd2",nama:"PNBP"},{id:"sd3",nama:"BLU"},{id:"sd4",nama:"Hibah"},{id:"sd5",nama:"Kerja Sama"}],
+  ref_satuan:[{id:"st1",nama:"Unit"},{id:"st2",nama:"Buah"},{id:"st3",nama:"M2"},{id:"st4",nama:"Set"}],
+  ref_sensus:[{id:"sn1",nama:"Sudah Sensus"},{id:"sn2",nama:"Belum Sensus"},{id:"sn3",nama:"Dalam Proses"}],
+  ref_kampus:[{id:"lc1",nama:"Kampus 1 - Ciputat"},{id:"lc2",nama:"Kampus 2 - Pondok Cabe"},{id:"lc3",nama:"Kampus 3 - Gunung Sindur"}],
+  ref_lantai:[{id:"lt1",nama:"Lantai 1"},{id:"lt2",nama:"Lantai 2"},{id:"lt3",nama:"Lantai 3"},{id:"lt4",nama:"Lantai 4"}],
+  ref_tipe_ruangan:[{id:"tr1",nama:"Ruang Kelas"},{id:"tr2",nama:"Laboratorium"},{id:"tr3",nama:"Ruang Kantor"},{id:"tr4",nama:"Aula"},{id:"tr5",nama:"Perpustakaan"}],
+  ref_tipe_pelanggan:[{id:"tpl1",nama:"Internal"},{id:"tpl2",nama:"Umum"}],
+  ref_jenis_penggunaan:[{id:"jp1",nama:"Rapat"},{id:"jp2",nama:"Seminar"},{id:"jp3",nama:"Pelatihan"},{id:"jp4",nama:"Sewa Komersial"}],
+  ref_prioritas:[{id:"pr1",nama:"Rendah"},{id:"pr2",nama:"Sedang"},{id:"pr3",nama:"Tinggi"}],
+  ref_status_pemeliharaan:[{id:"sp1",nama:"Diajukan"},{id:"sp2",nama:"Disetujui"},{id:"sp3",nama:"Dikerjakan"},{id:"sp4",nama:"Selesai"}],
+
+  // ---------- Pengguna ----------
+  pegawai:[],
+  pelanggan:[],
+  vendor:[],
+
+  // ---------- Aset (7 jenis) ----------
+  tanah:[],
+  gedung:[],
+  ruang:[],
+  peralatan_mesin:[],
+  peralatan_mesin_detail:[],
+  jalan_irigasi_jaringan:[],
+  aset_tetap_lain:[],
+  aset_tak_berwujud:[],
+  konstruksi_dalam_pengerjaan:[],
+  konstruksi_dalam_pengerjaan_nilai_peng:[],
+
+  // ---------- Operasional ----------
+  mutasi_barang_master:[],
+  mutasi_detail:[],           // gabungan detail mutasi per jenis (tipe, asetId)
+  penyusutan:[],
+  penyusutan_detail:[],
+  usulan_pemeliharaan:[],
+  usulan_pemeliharaan_detail:[],
+  jadwal_pemeliharaan:[],
+  perbaikan_barang:[],
+  perbaikan_barang_detail:[],
+  usulan_hapus_aset:[],
+  usulan_hapus_aset_list:[],
+  penggunaan_ruang:[],
+  penggunaan_aset:[],
+  tarif_sewa_ruang:[],
+  tarif_sewa_aset:[],
+  pembayaran_sewa_ruang:[]
+};
+
+/* ============================ Helper umum ============================ */
+const $ = id => document.getElementById(id);
+const byId = (arr,id) => (arr||[]).find(x => x.id === id);
+const nameOf = (arr,id) => { const r = byId(arr,id); return r ? r.nama : "-"; };
+const nameUnit = id => nameOf(DB.ref_units,id);
+const nameKode = id => nameOf(DB.ref_kodefikasi,id);
+const nameKondisi = id => nameOf(DB.ref_kondisi,id);
+const nameStatus = id => nameOf(DB.ref_status_aset,id);
+const nameKepemilikan = id => nameOf(DB.ref_kepemilikan,id);
+const namePenguasaan = id => nameOf(DB.ref_penguasaan,id);
+const nameDana = id => nameOf(DB.ref_sumber_dana,id);
+const nameSensus = id => nameOf(DB.ref_sensus,id);
+const nameKampus = id => nameOf(DB.ref_kampus,id);
+const nameLantai = id => nameOf(DB.ref_lantai,id);
+const nameTipeRuang = id => nameOf(DB.ref_tipe_ruangan,id);
+const nameJenisPggn = id => nameOf(DB.ref_jenis_penggunaan,id);
+const namePrioritas = id => nameOf(DB.ref_prioritas,id);
+const nameStatusPelihara = id => nameOf(DB.ref_status_pemeliharaan,id);
+const namePegawai = id => { const p = byId(DB.pegawai,id); return p ? p.nama : "-"; };
+const namePelanggan = id => { const p = byId(DB.pelanggan,id); return p ? p.nama : "-"; };
+const nameVendor = id => { const v = byId(DB.vendor,id); return v ? v.nama : "-"; };
+const nameRuang = id => { const r = byId(DB.ruang,id); return r ? r.nama : "-"; };
+const fmt = n => (n||0).toLocaleString("id-ID");
+// Angka penuh dengan pemisah ribuan -> direplikasi di Superset via Number Format "," + prefix "Rp ".
+const fmtRp = n => "Rp " + fmt(Math.round(n||0));
+// Set nilai KPI dengan ukuran font otomatis menyesuaikan panjang angka agar pas dalam kartu.
+function kpiNum(id,text){
+  const el=$(id); if(!el) return;
+  const s = String(text);
+  el.textContent = s;
+  const len = s.length;
+  el.style.fontSize = (len<=6?40 : len<=9?34 : len<=12?28 : len<=15?23 : len<=18?20 : 17)+"px";
+}
+
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const pad2 = n => String(n).padStart(2,"0");
+const MON = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const mLbl = k => MON[parseInt(k.slice(5,7),10)-1]+" "+k.slice(2,4);
+
+/* ============================ Jenis aset ============================ */
+// Urutan & label mengikuti menu Aset di E-Semesta: Tanah s.d. Aset Tak Berwujud
+const TIPE = [
+  {id:"tanah",                 name:"Tanah"},
+  {id:"peralatan_mesin",       name:"Peralatan dan Mesin"},
+  {id:"gedung",                name:"Gedung dan Bangunan"},
+  {id:"jalan_irigasi_jaringan",name:"Jalan, Irigasi dan Jaringan"},
+  {id:"aset_tetap_lain",       name:"Aset Tetap Lainnya"},
+  {id:"kdp",                   name:"Konstruksi Dalam Pengerjaan"},
+  {id:"aset_tak_berwujud",     name:"Aset Tak Berwujud"}
+];
+const TIPE_NAME = id => (TIPE.find(t=>t.id===id)||{}).name || id;
+
+/* ============================ Data dummy ============================ */
+function seedDummy(){
+  const R = rng(20261007);
+  const pick = (it,w) => { if(!w) w=it.map(()=>1); let s=w.reduce((a,b)=>a+b,0),x=R()*s; for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]} return it[it.length-1]; };
+  const ri = n => Math.floor(R()*n);
+  const UN = DB.ref_units.map(u=>u.id), UNW = UN.map((_,i)=> i<4?4:6);
+  const KODE = DB.ref_kodefikasi.map(k=>k.id), KODEW = [6,14,10,8,12,14,6,6,10,6,4];
+  const KON = DB.ref_kondisi.map(k=>k.id), KONW = [68,22,10];
+  const STA = DB.ref_status_aset.map(k=>k.id), STAW = [88,8,4];
+  const KEP = DB.ref_kepemilikan.map(k=>k.id), KEPW = [80,10,6,4];
+  const PENG= DB.ref_penguasaan.map(k=>k.id), PENGW = [82,12,6];
+  const DAN = DB.ref_sumber_dana.map(k=>k.id), DANW = [40,28,18,8,6];
+  const SN  = DB.ref_sensus.map(k=>k.id), SNW = [70,18,12];
+  const KAM = DB.ref_kampus.map(k=>k.id), KAMW = [55,30,15];
+  const YRS = [2018,2019,2020,2021,2022,2023,2024,2025], YRW = [8,9,10,11,12,13,14,13];
+
+  const P_NAMA = ["Dr. Ahmad Fauzi, M.A.","Siti Aminah, M.Pd.","Budi Santoso, M.Si.","Nurhayati, M.A.",
+    "Muhammad Ridwan, M.H.","Dewi Lestari, S.Kom.","Agus Priyanto, S.E.","Rina Marlina, S.Pd.",
+    "Hendra Gunawan, M.T.","Fitriani, S.H.","Yusuf Maulana, M.Kom.","Aisyah Rahmawati, M.Pd."];
+  DB.pegawai = P_NAMA.map((n,i)=>({id:"peg"+(i+1),nama:n,unitId:UN[i%UN.length]}));
+  // [nama, tipe pelanggan] — Internal = unit/organisasi di lingkungan UIN Jakarta; Umum = pihak luar
+  const PEL_NAMA = [["PT Maju Bersama","tpl2"],["CV Karya Utama","tpl2"],["Yayasan Al-Hikmah","tpl2"],["PT Sinar Abadi","tpl2"],["Koperasi Kampus","tpl1"],
+    ["PT Teknologi Nusantara","tpl2"],["BEM UIN Jakarta","tpl1"],["Fakultas Sains & Teknologi","tpl1"],["PT Global Media","tpl2"],["Dharma Wanita UIN Jakarta","tpl1"]];
+  DB.pelanggan = PEL_NAMA.map(([n,t],i)=>({id:"plg"+(i+1),nama:n,tipePelangganId:t}));
+  const VND_NAMA = ["PT Bangun Sarana","CV Teknik Mandiri","PT Komputer Prima","CV Jaya Elektrik","PT Furnitur Kantor",
+    "CV Solusi IT","PT Konstruksi Utama","CV Media Cetak"];
+  DB.vendor = VND_NAMA.map((n,i)=>({id:"vnd"+(i+1),nama:n}));
+
+  const yearDate = () => { const y = pick(YRS,YRW); return y+"-"+pad2(1+ri(12))+"-"+pad2(1+ri(28)); };
+  const base = () => ({
+    kodeBarangId: pick(KODE,KODEW), kondisiId: pick(KON,KONW), statusId: pick(STA,STAW),
+    kepemilikanId: pick(KEP,KEPW), penguasaanId: pick(PENG,PENGW), sumberDanaId: pick(DAN,DANW),
+    unitId: pick(UN,UNW), sensusId: pick(SN,SNW), tanggal: yearDate()
+  });
+  const NILAI = {tanah:8e9, gedung:6e9, peralatan_mesin:2.5e7, jalan_irigasi_jaringan:3e9, aset_tetap_lain:1.5e7, aset_tak_berwujud:8e7, kdp:4e9};
+  const nilai = t => Math.round(NILAI[t]*(0.4+R()*1.8));
+
+  for(let i=0;i<80;i++){ const b=base(); DB.tanah.push({id:"tn"+i, kodeBarangId:b.kodeBarangId, nama:"Tanah "+["Ciputat","Pondok Cabe","Gunung Sindur"][ri(3)]+" Blok "+(i+1), nilai:nilai("tanah"), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, kampusId:pick(KAM,KAMW), jumlah:1}); }
+  for(let i=0;i<60;i++){ const b=base(); DB.gedung.push({id:"gd"+i, kodeBarangId:b.kodeBarangId, nama:"Gedung "+["Akademik","Rektorat","Laboratorium","Perpustakaan","Fakultas"][ri(5)]+" "+(i+1), nilai:nilai("gedung"), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, kampusId:pick(KAM,KAMW), jumlah:1}); }
+  for(let i=0;i<120;i++){ const b=base(); const jml=1+ri(4); DB.peralatan_mesin.push({id:"pm"+i, kodeBarangId:b.kodeBarangId, nama:["Laptop","Printer","AC","Proyektor","Server","Kursi","Meja","Alat Lab"][ri(8)]+" "+(i+1), nilai:nilai("peralatan_mesin")*jml, tanggal:b.tanggal, unitId:b.unitId, sumberDanaId:b.sumberDanaId, jumlah:jml}); }
+  DB.peralatan_mesin.forEach(h=>{ for(let k=0;k<h.jumlah;k++){ const b=base(); DB.peralatan_mesin_detail.push({id:h.id+"-"+k, mstId:h.id, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sensusId:b.sensusId, ruangId:null, nilaiUnit:Math.round(h.nilai/h.jumlah)}); } });
+  for(let i=0;i<70;i++){ const b=base(); DB.jalan_irigasi_jaringan.push({id:"jij"+i, kodeBarangId:b.kodeBarangId, nama:"Jalan/Jaringan "+(i+1), nilai:nilai("jalan_irigasi_jaringan"), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, jumlah:1}); }
+  for(let i=0;i<120;i++){ const b=base(); DB.aset_tetap_lain.push({id:"atl"+i, kodeBarangId:b.kodeBarangId, nama:"Aset Tetap Lain "+(i+1), nilai:nilai("aset_tetap_lain"), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, ruangId:null, jumlah:1}); }
+  for(let i=0;i<90;i++){ const b=base(); DB.aset_tak_berwujud.push({id:"atb"+i, kodeBarangId:"kb10", nama:"Software/Sertifikat "+(i+1), nilai:nilai("aset_tak_berwujud"), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, jumlah:1}); }
+  for(let i=0;i<25;i++){ const b=base(); DB.konstruksi_dalam_pengerjaan.push({id:"kdp"+i, kodeBarangId:"kb11", nama:"Pembangunan Tahap "+(i+1), tanggal:b.tanggal, kondisiId:b.kondisiId, statusId:b.statusId, kepemilikanId:b.kepemilikanId, penguasaanId:b.penguasaanId, sumberDanaId:b.sumberDanaId, unitId:b.unitId, sensusId:b.sensusId, jumlah:1}); }
+  DB.konstruksi_dalam_pengerjaan.forEach(h=>{ const n=1+ri(3); for(let k=0;k<n;k++){ DB.konstruksi_dalam_pengerjaan_nilai_peng.push({id:h.id+"-np"+k, mstId:h.id, nominal:nilai("kdp"), vendor:VND_NAMA[ri(VND_NAMA.length)], tanggal:yearDate()}); } });
+
+  // ruang
+  for(let i=0;i<80;i++){ DB.ruang.push({id:"rg"+i, nama:"Ruang "+(i+1), unitId:pick(UN,UNW), gedungId:DB.gedung[ri(DB.gedung.length)].id, lantaiId:pick(DB.ref_lantai.map(x=>x.id)), tipeRuangId:pick(DB.ref_tipe_ruangan.map(x=>x.id)), kondisiId:pick(KON,KONW), kapasitas:20+ri(80)}); }
+
+  // aset ids (komposit)
+  const ASET_IDS = allAset().map(a=>a.id);
+
+  // mutasi
+  for(let i=0;i<120;i++){ const masuk=DB.ref_units[ri(UN.length)].id, keluar=DB.ref_units[ri(UN.length)].id;
+    const m={id:"mts"+i, nomor:"BAST-MUT/"+pad2(i+1)+"/2025", tanggal:yearDate(), jenis:["Masuk","Keluar","Transfer"][ri(3)], keluarUnitId:keluar, masukUnitId:masuk, keterangan:"Mutasi barang"};
+    DB.mutasi_barang_master.push(m);
+    const n=1+ri(3); for(let k=0;k<n;k++){ const aid=ASET_IDS[ri(ASET_IDS.length)]; DB.mutasi_detail.push({id:m.id+"-d"+k, mutasiId:m.id, tipe:aid.split(":")[0], asetId:aid, nilai:0}); }
+  }
+  // penyusutan (per bulan, 3 tahun)
+  let sus=0;
+  for(let y=2023;y<=2025;y++){ for(let mo=1;mo<=12;mo++){
+    const m={id:"sst"+sus, nomor:"PENY/"+pad2(mo)+"/"+y, tanggal:y+"-"+pad2(mo)+"-01", unitId:pick(UN,UNW), total:0};
+    DB.penyusutan.push(m);
+    const n=2+ri(4); let tot=0;
+    for(let k=0;k<n;k++){ const aid=ASET_IDS[ri(ASET_IDS.length)]; const val=Math.round(2e6+R()*8e7); tot+=val;
+      DB.penyusutan_detail.push({id:m.id+"-d"+k, mstId:m.id, asetId:aid, periode:m.tanggal, nilaiPenyusutan:val, sisaUmur:1+ri(15), nilaiAkhir:Math.round(val*(3+R()*6))}); }
+    m.total=tot; sus++;
+  }}
+  // usulan pemeliharaan
+  for(let i=0;i<90;i++){ const u={id:"up"+i, unitId:pick(UN,UNW), ruangId:DB.ruang[ri(DB.ruang.length)].id, kode:"USUL-PEL/"+pad2(i+1), tanggal:yearDate(), pic:P_NAMA[ri(P_NAMA.length)], keterangan:"Usulan pemeliharaan"};
+    DB.usulan_pemeliharaan.push(u);
+    const n=1+ri(3); for(let k=0;k<n;k++){ const aid=ASET_IDS[ri(ASET_IDS.length)]; DB.usulan_pemeliharaan_detail.push({id:u.id+"-d"+k, mstId:u.id, tipe:aid.split(":")[0], asetId:aid, statusId:pick(DB.ref_status_pemeliharaan.map(x=>x.id)), prioritasId:pick(DB.ref_prioritas.map(x=>x.id)), kondisiId:pick(KON,KONW), biaya:Math.round(5e5+R()*2e7)}); }
+  }
+  // jadwal pemeliharaan
+  for(let i=0;i<60;i++){ DB.jadwal_pemeliharaan.push({id:"jp"+i, unitId:pick(UN,UNW), kodeBarangId:pick(KODE,KODEW), kode:"JAD-PEL/"+pad2(i+1), tipeAset:TIPE[ri(TIPE.length)].id, periode:1+ri(12), keterangan:"Jadwal rutin"}); }
+  // perbaikan barang
+  for(let i=0;i<60;i++){ const pb={id:"pbk"+i, vendorId:DB.vendor[ri(DB.vendor.length)].id, kode:"PERB/"+pad2(i+1), tanggal:yearDate()};
+    DB.perbaikan_barang.push(pb);
+    const n=1+ri(3); for(let k=0;k<n;k++){ const aid=ASET_IDS[ri(ASET_IDS.length)]; DB.perbaikan_barang_detail.push({id:pb.id+"-d"+k, mstId:pb.id, tipe:aid.split(":")[0], asetId:aid, kondisiId:pick(KON,KONW), statusId:pick(STA,STAW), biaya:Math.round(3e5+R()*1.5e7)}); }
+  }
+  // usulan hapus
+  for(let i=0;i<30;i++){ const uh={id:"uh"+i, nomor:"USUL-HPS/"+pad2(i+1), tanggal:yearDate(), unitId:pick(UN,UNW), pengusulId:DB.pegawai[ri(DB.pegawai.length)].id, isHapus:R()<.4};
+    DB.usulan_hapus_aset.push(uh);
+    const n=1+ri(3); for(let k=0;k<n;k++){ const aid=ASET_IDS[ri(ASET_IDS.length)]; DB.usulan_hapus_aset_list.push({id:uh.id+"-d"+k, mstId:uh.id, tipe:aid.split(":")[0], asetId:aid}); }
+  }
+  // tarif & penggunaan
+  for(let i=0;i<40;i++){ DB.tarif_sewa_ruang.push({id:"tsr"+i, ruangId:DB.ruang[ri(DB.ruang.length)].id, kode:"TARIF-R/"+pad2(i+1), tarif:Math.round(2e5+R()*2e6), tanggal:yearDate()}); }
+  for(let i=0;i<30;i++){ DB.tarif_sewa_aset.push({id:"tsa"+i, asetId:ASET_IDS[ri(ASET_IDS.length)], kode:"TARIF-A/"+pad2(i+1), tarif:Math.round(1e5+R()*1e6), tanggal:yearDate()}); }
+  for(let i=0;i<200;i++){ const ru=DB.ruang[ri(DB.ruang.length)]; DB.penggunaan_ruang.push({id:"pr"+i, jenisId:pick(DB.ref_jenis_penggunaan.map(x=>x.id)), kode:"PGGN-R/"+pad2(i+1), tanggal:yearDate(), namaPemesan:["BEM","HMJ","Rektorat","Panitia Wisuda","Lembaga"][ri(5)], kegiatan:"Kegiatan "+(i+1), jumlahPeserta:10+ri(200), ruangId:ru.id, unitId:ru.unitId, total:Math.round(2e5+R()*3e6), isBatal:R()<.08}); }
+  for(let i=0;i<120;i++){ DB.penggunaan_aset.push({id:"pa"+i, kode:"PGGN-A/"+pad2(i+1), tanggal:yearDate(), pelangganId:DB.pelanggan[ri(DB.pelanggan.length)].id, pegawaiId:DB.pegawai[ri(DB.pegawai.length)].id, total:Math.round(5e5+R()*5e6), isBatal:R()<.08}); }
+  for(let i=0;i<150;i++){ const pg=DB.penggunaan_ruang[ri(DB.penggunaan_ruang.length)]; DB.pembayaran_sewa_ruang.push({id:"byr"+i, penggunaanRuangId:pg.id, noTrans:"BYR/"+pad2(i+1), dueDate:pg.tanggal, tanggalBayar:pg.tanggal, dibayar:Math.round(2e5+R()*3e6)}); }
+}
+
+/* ============================ Normalisasi aset ============================ */
+function allAset(){
+  const out=[];
+  const add=(tipe,id,nama,kode,nilai,tgl,kondisi,status,kepemilikan,penguasaan,dana,unit,sensus,kampus,ruang,jumlah)=>out.push({
+    id:tipe+":"+id, tipe, nama, kodeBarangId:kode, nilai:nilai||0, tanggal:tgl||"", kondisiId:kondisi,
+    statusId:status, kepemilikanId:kepemilikan, penguasaanId:penguasaan, sumberDanaId:dana, unitId:unit,
+    sensusId:sensus, kampusId:kampus||null, ruangId:ruang||null, jumlah:jumlah||1
+  });
+  DB.tanah.forEach(a=>add("tanah",a.id,a.nama,a.kodeBarangId,a.nilai,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,a.kampusId,a.ruangId,1));
+  DB.gedung.forEach(a=>add("gedung",a.id,a.nama,a.kodeBarangId,a.nilai,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,a.kampusId,a.ruangId,1));
+  const pmH={}; DB.peralatan_mesin.forEach(h=>pmH[h.id]=h);
+  DB.peralatan_mesin_detail.forEach(d=>{ const h=pmH[d.mstId]; if(!h)return;
+    add("peralatan_mesin",d.id,h.nama+" #"+(d.id.split("-").pop()),h.kodeBarangId,d.nilaiUnit||0,h.tanggal,d.kondisiId,d.statusId,d.kepemilikanId,d.penguasaanId,h.sumberDanaId,h.unitId,d.sensusId,null,d.ruangId,1); });
+  DB.jalan_irigasi_jaringan.forEach(a=>add("jalan_irigasi_jaringan",a.id,a.nama,a.kodeBarangId,a.nilai,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,null,a.ruangId,1));
+  DB.aset_tetap_lain.forEach(a=>add("aset_tetap_lain",a.id,a.nama,a.kodeBarangId,a.nilai,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,null,a.ruangId,1));
+  DB.aset_tak_berwujud.forEach(a=>add("aset_tak_berwujud",a.id,a.nama,a.kodeBarangId,a.nilai,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,null,null,1));
+  const kdpVal={}; DB.konstruksi_dalam_pengerjaan_nilai_peng.forEach(n=>kdpVal[n.mstId]=(kdpVal[n.mstId]||0)+n.nominal);
+  DB.konstruksi_dalam_pengerjaan.forEach(a=>add("kdp",a.id,a.nama,a.kodeBarangId,kdpVal[a.id]||0,a.tanggal,a.kondisiId,a.statusId,a.kepemilikanId,a.penguasaanId,a.sumberDanaId,a.unitId,a.sensusId,null,null,1));
+  return out;
+}
+
+/* ============================ Filter ============================ */
+const F = {tahun:"",unit:"",tipe:"",kondisi:"",status:"",kepemilikan:"",sumberdana:"",kampus:"",sensus:""};
+function fillSelect(id, items, allLabel, valFn, labFn){
+  const el=$(id);
+  el.innerHTML = `<option value="">${allLabel}</option>` + items.map(x=>`<option value="${valFn(x)}">${labFn(x)}</option>`).join("");
+  el.onchange = () => { F[id.slice(2)] = el.value; renderAll(); };
+}
+function buildFilters(){
+  const years = Array.from(new Set(allAset().map(a=>a.tanggal.slice(0,4)).filter(Boolean))).sort();
+  fillSelect("f_tahun", years, "Semua Tahun", y=>y, y=>y);
+  fillSelect("f_unit", DB.ref_units, "Semua Unit Kerja", u=>u.id, u=>u.nama);
+  fillSelect("f_tipe", TIPE, "Semua Jenis Aset", t=>t.id, t=>t.name);
+  fillSelect("f_kondisi", DB.ref_kondisi, "Semua Kondisi", x=>x.id, x=>x.nama);
+  fillSelect("f_status", DB.ref_status_aset, "Semua Status", x=>x.id, x=>x.nama);
+  fillSelect("f_kepemilikan", DB.ref_kepemilikan, "Semua Kepemilikan", x=>x.id, x=>x.nama);
+  fillSelect("f_sumberdana", DB.ref_sumber_dana, "Semua Sumber Dana", x=>x.id, x=>x.nama);
+  fillSelect("f_kampus", DB.ref_kampus, "Semua Kampus", x=>x.id, x=>x.nama);
+  fillSelect("f_sensus", DB.ref_sensus, "Semua Status Sensus", x=>x.id, x=>x.nama);
+}
+function clearFilters(){
+  Object.keys(F).forEach(k=>F[k]="");
+  ["f_tahun","f_unit","f_tipe","f_kondisi","f_status","f_kepemilikan","f_sumberdana","f_kampus","f_sensus"].forEach(id=>$(id).value="");
+  renderAll();
+}
+
+/* ============================ Primitives ============================ */
+const C10 = ["#1e88f5","#3b8f62","#f0b429","#a78bda","#5bc48a","#e5697a","#8f9aa6","#c3cad2","#0c7ea3","#d97706"];
+const CYN = ["#3b8f62","#c3cad2"];
+
+function leg(el,names,cols){ $(el).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n}</span>`).join(""); }
+function pie(el,lab,vals,cols,names,t){
+  const tot = vals.reduce((a,b)=>a+b,0);
+  if(!tot){ $(el).style.background="var(--line)"; $(lab).innerHTML="Total<br>0"; $(t).innerHTML='<span>Tidak ada data</span>'; return; }
+  let a=0; const g = vals.map((v,i)=>{ const s=a; a+=v/tot*100; return `${cols[i%cols.length]} ${s}% ${a}%`; });
+  $(el).style.background = `conic-gradient(${g.join(",")})`;
+  $(lab).innerHTML = `Total<br>${fmt(tot)}`;
+  $(t).innerHTML = names.map((n,i)=>`<span><b style="background:${cols[i%cols.length]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("");
+}
+function bars(el,rows,cols,norm,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const tot = r => r.slice(1,1+cols.length).reduce((a,b)=>a+b,0);
+  const mx = Math.max(...rows.map(tot));
+  $(el).innerHTML = rows.map(r=>{ const t=tot(r)||1;
+    return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:(t/Math.max(mx,1)*100)}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]||0}" title="${r[0]} · ${(fm||fmt)(r[i+1]||0)}"></i>`).join("")}</div><div class="tt">${(fm||fmt)(t)}</div></div>`}).join("");
+}
+function hbar(el,rows,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const mx = Math.max(...rows.map(r=>r[1]));
+  $(el).innerHTML = rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/Math.max(mx,1)*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${(fm||fmt)(r[1])}</div></div>`).join("");
+}
+function line(el,rows,cols,names,fm){
+  if(!rows.length){ $(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>'; return; }
+  const W=640,H=280,Rg=14,T=14,B=30,n=rows.length,k=cols.length;
+  const mx = Math.max(1,...rows.flatMap(r=>r.slice(1,1+k)));
+  const e = Math.pow(10,Math.floor(Math.log10(mx))), m = mx/e;
+  const top = (m<=1?1:m<=2?2:m<=5?5:10)*e;
+  const yl = fm ? (v=>fm(v)) : (v=>fmt(Math.round(v)));
+  const labs = [0,1,2,3,4].map(g=>yl(top*g/4));
+  const L = Math.max(52, 10 + Math.max(...labs.map(s=>s.length))*6.3);
+  const X = i => L + (n===1 ? (W-L-Rg)/2 : i*(W-L-Rg)/(n-1));
+  const Y = v => T + (H-T-B)*(1-v/top);
+  let o = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" style="display:block">`;
+  for(let g=0;g<=4;g++){ const v=top*g/4, y=Y(v);
+    o += `<line x1="${L}" x2="${W-Rg}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" style="fill:var(--mute)">${labs[g]}</text>`; }
+  rows.forEach((r,i)=>{ o += `<text x="${X(i)}" y="${H-10}" text-anchor="middle" font-size="11" style="fill:var(--mute)">${r[0]}</text>`; });
+  cols.forEach((c,j)=>{ const pt = rows.map((r,i)=>[X(i),Y(r[j+1]||0),r[j+1]||0]);
+    o += `<polyline fill="none" stroke-width="2.5" style="stroke:${c}" points="${pt.map(q=>q[0]+","+q[1]).join(" ")}"/>`;
+    pt.forEach((q,i)=>{ o += `<circle cx="${q[0]}" cy="${q[1]}" r="3.5" style="fill:${c}"><title>${rows[i][0]} · ${names[j]}: ${fmt(q[2])}</title></circle>`; }); });
+  $(el).innerHTML = o + "</svg>";
+}
+
+/* ============================ Tabel + pencarian ============================ */
+const TBL = {};
+// Datatable: 20 baris per halaman (setara Superset Table "Page length = 20")
+const PAGE = 20;
+function table(id,cols,rows){ TBL[id]={cols,rows,page:1}; renderTable(id); }
+function renderTable(id){
+  const T = TBL[id], {cols,rows} = T;
+  const inp = $("q_"+id); const q = inp ? inp.value.toLowerCase() : "";
+  const data = rows.filter(r => !q || cols.some(c => String(r[c.k] ?? "").toLowerCase().includes(q)));
+  const pages = Math.max(1, Math.ceil(data.length/PAGE));
+  T.page = Math.min(Math.max(1,T.page), pages);
+  const from = (T.page-1)*PAGE, view = data.slice(from, from+PAGE);
+  $("t_"+id).innerHTML = data.length
+    ? `<table class="t"><thead><tr>${cols.map(c=>`<th>${c.label}</th>`).join("")}</tr></thead><tbody>${view.map(r=>`<tr>${cols.map(c=>`<td class="${c.num?"n":""}">${r[c.k] ?? ""}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+    : '<div class="empty">Tidak ada data yang cocok.</div>';
+  if($("c_"+id)) $("c_"+id).innerHTML = `<div class="pager"><span>Menampilkan ${data.length?from+1:0}–${from+view.length} dari ${fmt(data.length)} baris</span>`+
+    `<span class="pg"><button data-pg="${id}" data-d="-1" ${T.page<=1?"disabled":""}>‹ Sebelumnya</button><span>Halaman ${T.page} / ${pages}</span><button data-pg="${id}" data-d="1" ${T.page>=pages?"disabled":""}>Berikutnya ›</button></span></div>`;
+  document.querySelectorAll(`[data-pg="${id}"]`).forEach(b=>b.onclick=()=>{ T.page += +b.dataset.d; renderTable(id); });
+}
+
+/* ============================ Agregasi ============================ */
+function agg(data,keyFn,catFn,cats,keys,asc){
+  const m={}; (keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+  data.forEach(r=>{ const k=keyFn(r); (m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++; });
+  const o = Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0)||asc);
+  return o.sort(asc ? (a,b)=>a[0]-b[0] : (a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+}
+function aggSum(data,keyFn,catFn,cats,keys,valFn){
+  const m={}; (keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+  data.forEach(r=>{ const k=keyFn(r); (m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]+=valFn(r); });
+  return Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0))
+    .sort((a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+}
+function countBy(data,keyFn){ const m={}; data.forEach(r=>{ const k=keyFn(r); if(k==null)return; m[k]=(m[k]||0)+1; }); return m; }
+function monthCount(data,dateFn){ const m={}; data.forEach(r=>{ const d=dateFn(r); if(d) m[d.slice(0,7)]=(m[d.slice(0,7)]||0)+1; }); return m; }
+function monthSeries(data,dateFn,valFn){
+  const m={}; data.forEach(r=>{ const d=dateFn(r); if(!d)return; const k=d.slice(0,7); m[k]=(m[k]||0)+(valFn?valFn(r):1); });
+  return Object.keys(m).sort().slice(-12).map(k=>[mLbl(k), m[k]]);
+}
+function normByUnit(recs,pred,unitFn){
+  const m={}; recs.forEach(r=>{ const u=unitFn(r); (m[u]=m[u]||[0,0])[pred(r)?0:1]++; });
+  return Object.entries(m).filter(([k,v])=>v[0]+v[1]>0).map(([k,v])=>[k,v[0],v[1]])
+    .sort((a,b)=>b[1]/(b[1]+b[2])-a[1]/(a[1]+a[2]));
+}
+
+/* ============================ View ============================ */
+function matchAset(a){
+  if(F.tahun && a.tanggal.slice(0,4)!==F.tahun) return false;
+  if(F.unit && a.unitId!==F.unit) return false;
+  if(F.tipe && a.tipe!==F.tipe) return false;
+  if(F.kondisi && a.kondisiId!==F.kondisi) return false;
+  if(F.status && a.statusId!==F.status) return false;
+  if(F.kepemilikan && a.kepemilikanId!==F.kepemilikan) return false;
+  if(F.sumberdana && a.sumberDanaId!==F.sumberdana) return false;
+  if(F.kampus && a.kampusId!==F.kampus) return false;
+  if(F.sensus && a.sensusId!==F.sensus) return false;
+  return true;
+}
+function view(){
+  const aset = allAset().filter(matchAset);
+  const ids = new Set(aset.map(a=>a.id));
+  const map = {}; aset.forEach(a=>map[a.id]=a);
+  const assetFilters = F.tipe||F.kondisi||F.status||F.kepemilikan||F.sumberdana||F.kampus||F.sensus||F.unit||F.tahun;
+  const byAset = (rec,idFn) => !assetFilters || ids.has(idFn(rec));
+  return {aset, ids, map, byAset, assetFilters};
+}
+const TIPE_CATS = TIPE.map(t=>t.name);
+// Baris grafik per jenis aset: selalu 7 jenis, urut sesuai TIPE (jenis tanpa data tetap tampil bernilai 0)
+const byTipe = (rows,n) => TIPE_CATS.map(nm => rows.find(r=>r[0]===nm) || [nm,...Array(n).fill(0)]);
+const KON_CATS = DB.ref_kondisi.map(k=>k.nama);
+
+/* ============================ Render ============================ */
+function renderIkhtisar(v){
+  const aset = v.aset;
+  kpiNum("k_total", fmt(aset.length));
+  kpiNum("k_nilai", fmtRp(aset.reduce((a,x)=>a+x.nilai,0)));
+  const baik = aset.filter(a=>nameKondisi(a.kondisiId)==="Baik").length;
+  kpiNum("k_baik", aset.length ? (baik/aset.length*100).toFixed(1)+"%" : "0%");
+  kpiNum("k_unit", fmt(new Set(aset.map(a=>a.unitId)).size));
+  kpiNum("k_kdp", fmtRp(aset.filter(a=>a.tipe==="kdp").reduce((a,x)=>a+x.nilai,0)));
+
+  pie("p_jenis","p_jenist", TIPE.map(t=>aset.filter(a=>a.tipe===t.id).length), C10, TIPE_CATS, "p_jenisl");
+  bars("b_nilaiunit", aggSum(aset, a=>nameUnit(a.unitId), a=>TIPE_NAME(a.tipe), TIPE_CATS, DB.ref_units.map(u=>u.nama), a=>a.nilai), C10.slice(0,7), false, fmtRp);
+  leg("l_nilaiunit", TIPE_CATS, C10.slice(0,7));
+  const yrs = Array.from(new Set(aset.map(a=>a.tanggal.slice(0,4)).filter(Boolean))).sort();
+  line("b_tren", agg(aset, a=>a.tanggal.slice(0,4), a=>TIPE_NAME(a.tipe), TIPE_CATS, yrs, true), C10.slice(0,7), TIPE_CATS);
+  leg("l_tren", TIPE_CATS, C10.slice(0,7));
+}
+
+function renderJenis(v){
+  const aset = v.aset;
+  pie("p_kondisi","p_kondisit", KON_CATS.map(c=>aset.filter(a=>nameKondisi(a.kondisiId)===c).length), C10, KON_CATS, "p_kondisil");
+  bars("b_jeniskondisi", byTipe(agg(aset, a=>TIPE_NAME(a.tipe), a=>nameKondisi(a.kondisiId), KON_CATS, TIPE_CATS), KON_CATS.length), C10.slice(0,3), false);
+  leg("l_jeniskondisi", KON_CATS, C10.slice(0,3));
+  const dan = DB.ref_sumber_dana;
+  pie("p_dana","p_danat", dan.map(d=>aset.filter(a=>a.sumberDanaId===d.id).length), C10, dan.map(d=>d.nama), "p_danal");
+  bars("b_unitjenis", agg(aset, a=>nameUnit(a.unitId), a=>TIPE_NAME(a.tipe), TIPE_CATS, DB.ref_units.map(u=>u.nama)), C10.slice(0,7), false);
+  leg("l_unitjenis", TIPE_CATS, C10.slice(0,7));
+  const yrs = Array.from(new Set(aset.map(a=>a.tanggal.slice(0,4)).filter(Boolean))).sort();
+  line("b_nilaitype", aggSum(aset, a=>a.tanggal.slice(0,4), a=>TIPE_NAME(a.tipe), TIPE_CATS, yrs, a=>a.nilai).sort((x,y)=>x[0]-y[0]), C10.slice(0,7), TIPE_CATS, v=>fmtRp(v));
+  leg("l_nilaitype", TIPE_CATS, C10.slice(0,7));
+
+  table("taset", [
+    {k:"nama",label:"Nama Aset"},{k:"tipe",label:"Jenis"},{k:"kode",label:"Kode Barang"},
+    {k:"nilai",label:"Nilai Perolehan",num:true},{k:"tgl",label:"Tgl Perolehan"},{k:"kondisi",label:"Kondisi"},
+    {k:"kepemilikan",label:"Kepemilikan"},{k:"unit",label:"Unit Kerja"}
+  ], aset.map(a=>({nama:a.nama, tipe:TIPE_NAME(a.tipe), kode:nameKode(a.kodeBarangId), nilai:fmtRp(a.nilai),
+    tgl:a.tanggal, kondisi:nameKondisi(a.kondisiId), kepemilikan:nameKepemilikan(a.kepemilikanId), unit:nameUnit(a.unitId)})));
+}
+
+function renderPelihara(v){
+  const aset = v.aset;
+  bars("b_kondisiunit", normByUnit(aset, a=>nameKondisi(a.kondisiId)==="Baik", a=>nameUnit(a.unitId)), CYN, true);
+  leg("l_kondisiunit", ["Kondisi Baik","Rusak"], CYN);
+
+  const det = DB.usulan_pemeliharaan_detail.filter(d=>v.byAset(d,x=>x.asetId));
+  const st = DB.ref_status_pemeliharaan;
+  pie("p_usulanstatus","p_usulanstatust", st.map(s=>det.filter(d=>d.statusId===s.id).length), C10, st.map(s=>s.nama), "p_usulanstatusl");
+  const uMst = {}; DB.usulan_pemeliharaan.forEach(u=>uMst[u.id]=u);
+  const uc = countBy(det, d=>{ const u=uMst[d.mstId]; return u?nameUnit(u.unitId):"-"; });
+  hbar("b_usulanunit", Object.entries(uc).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#1e88f5"]));
+
+  const pbMst={}; DB.perbaikan_barang.forEach(p=>pbMst[p.id]=p);
+  const pdet = DB.perbaikan_barang_detail.filter(d=>v.byAset(d,x=>x.asetId));
+  const bc = {}; pdet.forEach(d=>{ const a=v.map[d.asetId]; if(!a)return; const u=nameUnit(a.unitId); bc[u]=(bc[u]||0)+d.biaya; });
+  hbar("b_biayaunit", Object.entries(bc).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#f0b429"]), fmtRp);
+
+  line("b_peliharatren", monthSeries(DB.usulan_pemeliharaan.filter(u=>{ if(!F.unit)return true; return u.unitId===F.unit; }), u=>u.tanggal), ["#a78bda"], ["Usulan"]);
+  leg("l_peliharatren", ["Usulan"], ["#a78bda"]);
+
+  table("tpelihara", [
+    {k:"aset",label:"Aset"},{k:"tipe",label:"Jenis"},{k:"unit",label:"Unit Kerja"},
+    {k:"prioritas",label:"Prioritas"},{k:"status",label:"Status"},{k:"kondisi",label:"Kondisi"},{k:"biaya",label:"Estimasi Biaya",num:true}
+  ], det.map(d=>{ const a=v.map[d.asetId]||{}; return {aset:a.nama||d.asetId, tipe:TIPE_NAME(d.tipe), unit:nameUnit(a.unitId),
+    prioritas:namePrioritas(d.prioritasId), status:nameStatusPelihara(d.statusId), kondisi:nameKondisi(d.kondisiId), biaya:fmtRp(d.biaya)}; }));
+}
+
+function renderMutasi(v){
+  const det = DB.mutasi_detail.filter(d=>v.byAset(d,x=>x.asetId));
+  kpiNum("k_mutasi", fmt(new Set(det.map(d=>d.mutasiId)).size));
+  const pdet = DB.penyusutan_detail.filter(d=>v.byAset(d,x=>x.asetId));
+  kpiNum("k_susut", fmtRp(pdet.reduce((a,d)=>a+d.nilaiPenyusutan,0)));
+
+  pie("p_mutasitipe","p_mutasitipet", TIPE.map(t=>det.filter(d=>d.tipe===t.id).length), C10, TIPE_CATS, "p_mutasitipel");
+
+  const mMst={}; DB.mutasi_barang_master.forEach(m=>mMst[m.id]=m);
+  const rows={}; det.forEach(d=>{ const m=mMst[d.mutasiId]; if(!m)return;
+    const masuk=nameUnit(m.masukUnitId), keluar=nameUnit(m.keluarUnitId);
+    (rows[masuk]=rows[masuk]||[0,0])[0]++;
+    (rows[keluar]=rows[keluar]||[0,0])[1]++;
+  });
+  bars("b_mutasiunit", Object.entries(rows).map(([k,v])=>[k,v[0],v[1]]).sort((a,b)=>(b[1]+b[2])-(a[1]+a[2])), ["#3b8f62","#e5697a"], false);
+  leg("l_mutasiunit", ["Masuk","Keluar"], ["#3b8f62","#e5697a"]);
+
+  const su={}; pdet.forEach(d=>{ const a=v.map[d.asetId]; if(!a)return; const u=nameUnit(a.unitId); su[u]=(su[u]||0)+d.nilaiPenyusutan; });
+  hbar("b_susutunit", Object.entries(su).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[k,n,"#a78bda"]), fmtRp);
+
+  line("b_susuttren", monthSeries(DB.penyusutan, p=>p.tanggal, p=>p.total), ["#a78bda"], ["Penyusutan"], v=>fmtRp(v));
+  leg("l_susuttren", ["Penyusutan"], ["#a78bda"]);
+
+  table("tmutasi", [
+    {k:"nomor",label:"Nomor BAST"},{k:"tgl",label:"Tanggal"},{k:"tipe",label:"Jenis Aset"},{k:"jenis",label:"Jenis Mutasi"},
+    {k:"masuk",label:"Unit Masuk"},{k:"keluar",label:"Unit Keluar"}
+  ], det.map(d=>{ const m=mMst[d.mutasiId]||{}; return {nomor:m.nomor||"-", tgl:m.tanggal||"-", tipe:TIPE_NAME(d.tipe),
+    jenis:m.jenis||"-", masuk:nameUnit(m.masukUnitId), keluar:nameUnit(m.keluarUnitId)}; }));
+}
+
+function renderPenggunaan(v){
+  const pr = DB.penggunaan_ruang.filter(p=>{ if(F.tahun && p.tanggal.slice(0,4)!==F.tahun)return false; if(F.unit && p.unitId!==F.unit)return false; return true; });
+  const pa = DB.penggunaan_aset.filter(p=>{ if(F.tahun && p.tanggal.slice(0,4)!==F.tahun)return false; return true; });
+  kpiNum("k_pggnruang", fmt(pr.length));
+  kpiNum("k_pggnaset", fmt(pa.length));
+  kpiNum("k_sewa", fmtRp(pr.reduce((a,p)=>a+p.total,0)+pa.reduce((a,p)=>a+p.total,0)));
+  const byr = DB.pembayaran_sewa_ruang.filter(b=>{ const p=pr.find(x=>x.id===b.penggunaanRuangId); return !!p; });
+
+  // Tipe = tipe ruangan dari ruang yang digunakan (ruang.tipeRuangId -> ref_tipe_ruangan)
+  const tr = DB.ref_tipe_ruangan, tipeOf = p => (byId(DB.ruang,p.ruangId)||{}).tipeRuangId;
+  pie("p_pggnjenis","p_pggnjenist", tr.map(t=>pr.filter(p=>tipeOf(p)===t.id).length), C10, tr.map(t=>t.nama), "p_pggnjenisl");
+  const rc = countBy(pr, p=>nameRuang(p.ruangId));
+  hbar("b_pggnruang", Object.entries(rc).sort((a,b)=>b[1]-a[1]).slice(0,15).map(([k,n])=>[k,n,"#1e88f5"]));
+
+  const bm = {}; byr.forEach(b=>{ const k=b.tanggalBayar.slice(0,7); bm[k]=(bm[k]||0)+b.dibayar; });
+  bars("b_bayarbln", Object.keys(bm).sort().slice(-12).map(k=>[mLbl(k), bm[k]]), ["#3b8f62"], false, fmtRp);
+
+  // Tipe pelanggan: Internal dan Umum (pelanggan.tipePelangganId -> ref_tipe_pelanggan)
+  const tp = DB.ref_tipe_pelanggan, tpOf = x => (byId(DB.pelanggan,x.pelangganId)||{}).tipePelangganId;
+  pie("p_pelanggan","p_pelanggant", tp.map(t=>pa.filter(x=>tpOf(x)===t.id).length), ["#0c7ea3","#f0b429"], tp.map(t=>t.nama), "p_pelangganl");
+
+  line("b_pggntren", (()=>{ const a=monthCount(pr,p=>p.tanggal), b=monthCount(pa,p=>p.tanggal);
+    const keys=Array.from(new Set([...Object.keys(a),...Object.keys(b)])).sort().slice(-12);
+    return keys.map(k=>[mLbl(k), a[k]||0, b[k]||0]); })(), ["#1e88f5","#a78bda"], ["Penggunaan Ruang","Penggunaan Aset"]);
+  leg("l_pggntren", ["Penggunaan Ruang","Penggunaan Aset"], ["#1e88f5","#a78bda"]);
+
+  const rowsP = pr.map(p=>({kode:p.kode, jenis:nameJenisPggn(p.jenisId), pemesan:p.namaPemesan, ruang:nameRuang(p.ruangId),
+    tgl:p.tanggal, total:fmtRp(p.total), batal:p.isBatal?"Ya":"Tidak"}));
+  const rowsA = pa.map(p=>({kode:p.kode, jenis:"Penggunaan Aset", pemesan:namePelanggan(p.pelangganId), ruang:"-",
+    tgl:p.tanggal, total:fmtRp(p.total), batal:p.isBatal?"Ya":"Tidak"}));
+  table("tpggn", [
+    {k:"kode",label:"Kode"},{k:"jenis",label:"Jenis"},{k:"pemesan",label:"Pemesan"},
+    {k:"ruang",label:"Ruang"},{k:"tgl",label:"Tanggal"},{k:"total",label:"Nilai",num:true},{k:"batal",label:"Batal"}
+  ], [...rowsP,...rowsA]);
+}
+
+function renderAll(){
+  const v = view();
+  renderIkhtisar(v);
+  renderJenis(v);
+  renderPelihara(v);
+  renderMutasi(v);
+  renderPenggunaan(v);
+}
+
+/* ============================ Inisialisasi ============================ */
+if(USE_DUMMY && DB.tanah.length===0 && DB.gedung.length===0) seedDummy();
+buildFilters();
+["taset","tpelihara","tmutasi","tpggn"].forEach(id=>{ const inp=$("q_"+id); if(inp) inp.oninput=()=>{ TBL[id].page=1; renderTable(id); }; });
+$("apply").onclick = renderAll;
+$("clear").onclick = clearFilters;
+$("ft").onclick = ()=>$("side").classList.toggle("open");
+const tb = document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{ tb.forEach(x=>x.classList.remove("on")); b.classList.add("on");
+  ["t0","t1","t2","t3","t4"].forEach(id=>$(id).classList.toggle("on", id===b.dataset.t)); });
+renderAll();
+</script>
+</body>
+</html>

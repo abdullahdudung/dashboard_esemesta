@@ -1,0 +1,252 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Riset</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+@media(max-width:1100px){aside{width:240px}.row2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi h4{font-size:14px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun</label><select><option>7 options</option></select></div>
+  <div class="f"><label>Fakultas</label><select><option>13 options</option></select></div>
+  <div class="f"><label>Prodi</label><select><option>90 options</option></select></div>
+  <div class="f"><label>Skema Penelitian</label><select><option>6 options</option></select></div>
+  <div class="f"><label>Sumber Pembiayaan</label><select><option>4 options</option></select></div>
+  <div class="f"><label>Jenis Luaran</label><select><option>8 options</option></select></div>
+  <div class="f"><label>Tingkat Rekognisi</label><select><option>3 options</option></select></div>
+  <div class="f"><label>Tema Gender dan Anak</label><select><option>2 options</option></select></div>
+  <div class="f"><label>Melibatkan Mahasiswa</label><select><option>2 options</option></select></div>
+  <div class="f"><label>Jenis Kegiatan</label><select><option>2 options</option></select></div>
+  <div class="btns"><button class="a">APPLY FILTERS</button><button class="c">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[RIS] Dashboard Riset dan Pengabdian kepada Masyarakat</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Penelitian</button><button data-t="t1">Luaran dan Rekognisi</button><button data-t="t2">Dosen dan Pembiayaan</button><button data-t="t3">Tren per Tahun</button></div>
+
+<section class="panel on" id="t0">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Jumlah Penelitian: Komposisi berdasarkan Skema<span>⋮</span></h4><div class="pie" id="psk"><em id="pskt"></em></div><div class="leg" id="pskl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Penelitian per Fakultas (berdasarkan Skema)<span>⋮</span></h4><div class="bars" id="bskf"></div><div class="leg" id="lskf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Penelitian tentang Gender dan Anak yang Dipublikasikan (berdasarkan Jenis Jurnal)<span>⋮</span></h4><div class="pie" id="pgd"><em id="pgdt"></em></div><div class="leg" id="pgdl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Penelitian tentang Gender dan Anak yang Dipublikasikan per Fakultas<span>⋮</span></h4><div class="bars" id="bgdf"></div><div class="leg" id="lgdf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Penelitian DTPS yang Melibatkan Mahasiswa Program Studi<span>⋮</span></h4><div class="pie" id="pml"><em id="pmlt"></em></div><div class="leg" id="pmll" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: penelitian DTPS yang melibatkan mahasiswa prodi. Penyebut: seluruh penelitian DTPS.</div></div>
+    <div class="card"><h4>Persentase Penelitian DTPS yang Melibatkan Mahasiswa per Fakultas<span>⋮</span></h4><div class="bars" id="bmlf"></div><div class="leg" id="lmlf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah penelitian.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Proposal Penelitian dengan Luaran Artikel Jurnal Terindeks Scopus<span>⋮</span></h4><div class="pie" id="psc"><em id="psct"></em></div><div class="leg" id="pscl" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: proposal dengan luaran artikel terindeks Scopus. Penyebut: seluruh proposal penelitian.</div></div>
+    <div class="card"><h4>Persentase Proposal Penelitian dengan Luaran Artikel Scopus per Fakultas<span>⋮</span></h4><div class="bars" id="bscf"></div><div class="leg" id="lscf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah proposal.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Penelitian per Prodi<span>⋮</span></h4><div class="tools"><input class="q" id="qpr" placeholder="90 records"></div><div class="bars" id="bpr"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Jumlah Luaran Penelitian Mendapatkan Rekognisi Nasional Bereputasi (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="pie" id="prn"><em id="prnt"></em></div><div class="leg" id="prnl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Luaran Rekognisi Nasional Bereputasi per Fakultas (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="bars" id="brnf"></div><div class="leg" id="lrnf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Luaran Penelitian Mendapatkan Rekognisi Internasional Bereputasi (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="pie" id="pri"><em id="prit"></em></div><div class="leg" id="pril" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Luaran Rekognisi Internasional Bereputasi per Fakultas (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="bars" id="brif"></div><div class="leg" id="lrif"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Luaran Penelitian Diterapkan di Masyarakat (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="pie" id="pra"><em id="prat"></em></div><div class="leg" id="pral" style="justify-content:center"></div></div>
+    <div class="card"><h4>Jumlah Luaran Penelitian Diterapkan di Masyarakat per Fakultas (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="bars" id="braf"></div><div class="leg" id="lraf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Luaran Penelitian dan PMM selain Publikasi Karya Ilmiah yang Dihasilkan Mahasiswa<span>⋮</span></h4><div class="pie" id="pmh"><em id="pmht"></em></div><div class="leg" id="pmhl" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: luaran non-publikasi yang dihasilkan mahasiswa, mandiri atau bersama DTPS. Penyebut: seluruh luaran penelitian dan PMM selain publikasi karya ilmiah.</div></div>
+    <div class="card"><h4>Persentase Luaran Non-Publikasi yang Dihasilkan Mahasiswa per Fakultas<span>⋮</span></h4><div class="bars" id="bmhf"></div><div class="leg" id="lmhf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah luaran.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="t2">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Persentase Dosen yang Menghasilkan Luaran Penelitian dan PkM Berekognisi Nasional<span>⋮</span></h4><div class="pie" id="pdn"><em id="pdnt"></em></div><div class="leg" id="pdnl" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: dosen dengan luaran berekognisi nasional. Penyebut: seluruh dosen.</div></div>
+    <div class="card"><h4>Persentase Dosen Berekognisi Nasional per Fakultas<span>⋮</span></h4><div class="bars" id="bdnf"></div><div class="leg" id="ldnf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah dosen.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Dosen yang Menghasilkan Luaran Penelitian dan PkM Berekognisi Internasional<span>⋮</span></h4><div class="pie" id="pdi"><em id="pdit"></em></div><div class="leg" id="pdil" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: dosen dengan luaran berekognisi internasional. Penyebut: seluruh dosen.</div></div>
+    <div class="card"><h4>Persentase Dosen Berekognisi Internasional per Fakultas<span>⋮</span></h4><div class="bars" id="bdif"></div><div class="leg" id="ldif"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah dosen.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Kegiatan Penelitian/PkM DTPS Relevan Prodi dengan Pembiayaan Dalam Negeri/Industri<span>⋮</span></h4><div class="pie" id="ppd"><em id="ppdt"></em></div><div class="leg" id="ppdl" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: kegiatan dengan pembiayaan dalam negeri/industri. Penyebut: seluruh kegiatan penelitian/PkM DTPS yang relevan dengan bidang prodi.</div></div>
+    <div class="card"><h4>Persentase Kegiatan dengan Pembiayaan Dalam Negeri/Industri per Fakultas<span>⋮</span></h4><div class="bars" id="bpdf"></div><div class="leg" id="lpdf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah kegiatan.</div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Persentase Kegiatan Penelitian/PkM DTPS Relevan Prodi dengan Pembiayaan Luar Negeri<span>⋮</span></h4><div class="pie" id="ppl"><em id="pplt"></em></div><div class="leg" id="ppll" style="justify-content:center"></div><div class="note" style="text-align:center">Pembilang: kegiatan dengan pembiayaan luar negeri. Penyebut: seluruh kegiatan penelitian/PkM DTPS yang relevan dengan bidang prodi.</div></div>
+    <div class="card"><h4>Persentase Kegiatan dengan Pembiayaan Luar Negeri per Fakultas<span>⋮</span></h4><div class="bars" id="bplf"></div><div class="leg" id="lplf"></div><div class="note">Batang menunjukkan proporsi 100%; angka di kanan adalah jumlah kegiatan.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="t3">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Jumlah Penelitian per Tahun (berdasarkan Skema)<span>⋮</span></h4><div class="bars" id="btr1"></div><div class="leg" id="ltr1"></div></div>
+    <div class="card"><h4>Jumlah Seluruh Luaran Penelitian per Tahun (berdasarkan Jenis Luaran)<span>⋮</span></h4><div class="bars" id="btr6"></div><div class="leg" id="ltr6"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Luaran Rekognisi Nasional Bereputasi per Tahun<span>⋮</span></h4><div class="bars" id="btr2"></div><div class="leg" id="ltr2"></div></div>
+    <div class="card"><h4>Jumlah Luaran Rekognisi Internasional Bereputasi per Tahun<span>⋮</span></h4><div class="bars" id="btr3"></div><div class="leg" id="ltr3"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Luaran Penelitian Diterapkan di Masyarakat per Tahun<span>⋮</span></h4><div class="bars" id="btr4"></div><div class="leg" id="ltr4"></div></div>
+    <div class="card"><h4>Jumlah Penelitian tentang Gender dan Anak yang Dipublikasikan per Tahun<span>⋮</span></h4><div class="bars" id="btr5"></div><div class="leg" id="ltr5"></div></div>
+  </div>
+  <div class="note" style="margin-top:12px">Data tahun 2026 belum penuh (tahun berjalan), sehingga nilainya akan tampak lebih rendah dari tahun sebelumnya.</div>
+</section>
+
+</div>
+</main>
+</div>
+<script>
+// Data dummy: penelitian, luaran, dosen, dan kegiatan dibuat acak. Semua dosen dianggap DTPS. Ganti dengan data asli dari Superset.
+const $=id=>document.getElementById(id);
+const PR=[["AGRIBISNIS", "SAINS DAN TEKNOLOGI", "S1"], ["AKUNTANSI", "EKONOMI DAN BISNIS", "S1"], ["AKUNTANSI (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["AQIDAH DAN FILSAFAT ISLAM", "USHULUDDIN", "S1"], ["BAHASA DAN SASTRA ARAB", "ADAB DAN HUMANIORA", "S1"], ["BIMBINGAN PENYULUHAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["BIOLOGI", "SAINS DAN TEKNOLOGI", "S1"], ["DIRASAT ISLAMIYAH", "DIRASAT ISLAMIYAH", "S1"], ["DOKTOR PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S3"], ["EKONOMI PEMBANGUNAN", "EKONOMI DAN BISNIS", "S1"], ["EKONOMI SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["FARMASI", "ILMU KESEHATAN", "S1"], ["FISIKA", "SAINS DAN TEKNOLOGI", "S1"], ["HUKUM EKONOMI SYARIAH (MU'AMALAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM KELUARGA (AKHWAL SYAKSIYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM PIDANA ISLAM (JINAYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM TATA NEGARA (SIYASAH)", "SYARIAH DAN HUKUM", "S1"], ["ILMU AL-QUR'AN DAN TAFSIR", "USHULUDDIN", "S1"], ["ILMU HADIS", "USHULUDDIN", "S1"], ["ILMU HUBUNGAN INTERNASIONAL", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUBUNGAN INTERNASIONAL (KELAS INTERNASIONAL) (TA)", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUKUM", "SYARIAH DAN HUKUM", "S1"], ["ILMU KEPERAWATAN", "ILMU KESEHATAN", "S1"], ["ILMU PERPUSTAKAAN", "ADAB DAN HUMANIORA", "S1"], ["ILMU POLITIK", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU TASAWUF", "USHULUDDIN", "S1"], ["JURNALISTIK", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KESEHATAN MASYARAKAT", "ILMU KESEHATAN", "S1"], ["KESEJAHTERAAN SOSIAL", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KIMIA", "SAINS DAN TEKNOLOGI", "S1"], ["KOMUNIKASI PENYIARAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MAGISTER AGRIBISNIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER AQIDAH DAN FILSAFAT ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER BAHASA DAN SASTRA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER DIRASAT ISLAMIYAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM KELUARGA (AHWAL SYAKHSIYYAH)", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU AL-QUR'AN DAN TAFSIR", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU POLITIK", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER KOMUNIKASI DAN PENYIARAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN DAKWAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN PENDIDIKAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA INGGRIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PSIKOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SEJARAH DAN KEBUDAYAAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SOSIOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER STUDI AGAMA-AGAMA", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER TEKNOLOGI INFORMASI", "SEKOLAH PASCASARJANA", "S2"], ["MANAJEMEN", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN DAKWAH", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MANAJEMEN PENDIDIKAN", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["MATEMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["PENDIDIKAN AGAMA ISLAM", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN BAHASA ARAB", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN DOKTER", "KEDOKTERAN", "S1"], ["PENDIDIKAN GURU MADRASAH IBTIDAIYAH", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN ISLAM ANAK USIA DINI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN MATEMATIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN PROFESI GURU", "ILMU TARBIYAH DAN KEGURUAN", "Profesi"], ["PENGEMBANGAN MASYARAKAT ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["PERBANDINGAN MAZHAB", "SYARIAH DAN HUKUM", "S1"], ["PERBANKAN SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["PROFESI APOTEKER", "ILMU KESEHATAN", "Profesi"], ["PROFESI DOKTER", "KEDOKTERAN", "Profesi"], ["PROFESI NERS", "ILMU KESEHATAN", "Profesi"], ["PSIKOLOGI", "PSIKOLOGI", "S1"], ["SASTRA INGGRIS", "ADAB DAN HUMANIORA", "S1"], ["SEJARAH DAN PERADABAN ISLAM", "ADAB DAN HUMANIORA", "S1"], ["SISTEM INFORMASI", "SAINS DAN TEKNOLOGI", "S1"], ["SISTEM INFORMASI (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["SOSIOLOGI", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["STUDI AGAMA-AGAMA", "USHULUDDIN", "S1"], ["TADRIS BAHASA INDONESIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BAHASA INGGRIS", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BIOLOGI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS FISIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS ILMU PENGETAHUAN SOSIAL", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS KIMIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TARJAMAH", "ADAB DAN HUMANIORA", "S1"], ["TEKNIK INFORMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK INFORMATIKA (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK PERTAMBANGAN", "SAINS DAN TEKNOLOGI", "S1"]];
+const FKN=["ADAB DAN HUMANIORA", "DAKWAH DAN ILMU KOMUNIKASI", "DIRASAT ISLAMIYAH", "EKONOMI DAN BISNIS", "ILMU KESEHATAN", "ILMU SOSIAL DAN ILMU POLITIK", "ILMU TARBIYAH DAN KEGURUAN", "KEDOKTERAN", "PSIKOLOGI", "SAINS DAN TEKNOLOGI", "SEKOLAH PASCASARJANA", "SYARIAH DAN HUKUM", "USHULUDDIN"];
+const TH=[2020,2021,2022,2023,2024,2025,2026];
+const SK=["Kompetitif Nasional","Pembinaan Kementerian","Internal Kampus","Mandiri","Kerja Sama/Industri","Luar Negeri"],SC=["var(--l)","var(--lk)","var(--gb)","var(--js)","var(--fk)","#e5697a"];
+const JL=["Artikel Jurnal Nasional","Artikel Jurnal Internasional","Prosiding","Buku/Bab Buku","HKI (Hak Cipta/Paten)","Produk/Teknologi Tepat Guna","Karya Seni/Desain","Model/Kebijakan"],JC=["var(--l)","var(--lk)","var(--gb)","var(--js)","var(--fk)","#e5697a","#8f9aa6","#c3cad2"];
+const NONPUB=JL.slice(4);
+const GJ=["Jurnal Nasional","Jurnal Internasional"],GC=["var(--l)","var(--gb)"];
+const YN=["var(--lk)","#c3cad2"];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(20261006),pick=(it,w)=>{let s=w.reduce((a,b)=>a+b,0),x=R()*s;for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]}return it[it.length-1]};
+const PW=PR.map(p=>p[2]=="S1"?3+R()*7:p[2]=="S2"?1+R():p[2]=="S3"?.5:.6),IDX=PR.map((_,i)=>i);
+const base=()=>{const pi=pick(IDX,PW),p=PR[pi];return{f:p[1],p:p[0],t:pick(TH,[10,13,16,18,20,15,8])}};
+const SCP={"Kompetitif Nasional":.3,"Pembinaan Kementerian":.2,"Internal Kampus":.12,"Mandiri":.15,"Kerja Sama/Industri":.18,"Luar Negeri":.5};
+const Pn=[],Lu=[],Dos=[],Kg=[];
+for(let n=0;n<900;n++){const b=base(),sk=pick(SK,[12,22,30,20,10,6]);
+ Pn.push({...b,sk,mhs:R()<.62,scopus:R()<SCP[sk],gd:R()<.06?pick(GJ,[70,30]):null})}
+const NAS=[.5,.2,.3,.25,.4,.25,.3,.3],INT=[.03,.6,.15,.1,.1,.05,.05,.03],APP=[.05,.04,.03,.1,.3,.7,.35,.6];
+for(let n=0;n<1250;n++){const b=base(),i=JL.indexOf(pick(JL,[22,12,10,8,9,6,3,4]));
+ Lu.push({...b,jl:JL[i],nas:R()<NAS[i],int:R()<INT[i],app:R()<APP[i],mhs:i>=4&&R()<.28})}
+for(let n=0;n<1000;n++){const b=base();Dos.push({f:b.f,p:b.p,nas:R()<.34,int:R()<.11})}
+for(let n=0;n<1300;n++){const b=base();Kg.push({...b,dn:R()<.58,ln:R()<.09})}
+function bars(el,rows,cols,norm){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot));
+ $(el).innerHTML=rows.map(r=>{const t=tot(r);return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?r[i+1]:""}</i>`).join("")}</div><div class="tt">${t}</div></div>`}).join("")}
+function hbar(el,rows){if(!rows.length){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}const mx=Math.max(...rows.map(r=>r[1]));
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]}"></i></div><div class="tt">${r[1]}</div></div>`).join("")}
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${tot}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+function agg(data,keyFn,catFn,cats,keys,asc){const m={};(keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+ data.forEach(r=>{const k=keyFn(r);(m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++});
+ const o=Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0)||asc);
+ return o.sort(asc?(a,b)=>a[0]-b[0]:(a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0))}
+// indikator jumlah: pie komposisi (total di tengah) + batang per fakultas
+const cnt=(id,data,catFn,cats,cols)=>{pie("p"+id,"p"+id+"t",cats.map(c=>data.filter(r=>catFn(r)==c).length),cols,cats,"p"+id+"l");
+ bars("b"+id+"f",agg(data,r=>r.f,catFn,cats,FKN),cols);leg("l"+id+"f",cats,cols)};
+// indikator persentase: pie Ya/Tidak + batang proporsi 100% per fakultas (urut dari persentase tertinggi)
+const yn=(id,data,pred,nm)=>{pie("p"+id,"p"+id+"t",[data.filter(pred).length,data.filter(r=>!pred(r)).length],YN,nm,"p"+id+"l");
+ const m={};FKN.forEach(f=>m[f]=[0,0]);data.forEach(r=>{m[r.f][pred(r)?0:1]++});
+ bars("b"+id+"f",Object.entries(m).filter(([k,v])=>v[0]+v[1]>0).map(([k,v])=>[k,v[0],v[1]]).sort((a,b)=>b[1]/(b[1]+b[2])-a[1]/(a[1]+a[2])),YN,true);leg("l"+id+"f",nm,YN)};
+const stk=(id,rows,cols,names)=>{bars("b"+id,rows,cols);leg("l"+id,names,cols)};
+// line chart SVG: rows = [tahun, v1, v2, ...]
+function line(el,rows,cols,names){const W=640,H=280,L=40,Rg=14,T=14,B=30,n=rows.length,k=cols.length;
+ const mx=Math.max(1,...rows.flatMap(r=>r.slice(1,1+k))),e=Math.pow(10,Math.floor(Math.log10(mx))),m=mx/e,top=(m<=1?1:m<=2?2:m<=5?5:10)*e;
+ const X=i=>L+(n==1?(W-L-Rg)/2:i*(W-L-Rg)/(n-1)),Y=v=>T+(H-T-B)*(1-v/top);
+ let o=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" style="display:block">`;
+ for(let g=0;g<=4;g++){const v=top*g/4,y=Y(v);o+=`<line x1="${L}" x2="${W-Rg}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" style="fill:var(--mute)">${Math.round(v)}</text>`}
+ rows.forEach((r,i)=>{o+=`<text x="${X(i)}" y="${H-10}" text-anchor="middle" font-size="12" style="fill:var(--mute)">${r[0]}</text>`});
+ cols.forEach((c,j)=>{const pt=rows.map((r,i)=>[X(i),Y(r[j+1]),r[j+1]]);
+  o+=`<polyline fill="none" stroke-width="2.5" style="stroke:${c}" points="${pt.map(q=>q[0]+","+q[1]).join(" ")}"/>`;
+  pt.forEach((q,i)=>{o+=`<circle cx="${q[0]}" cy="${q[1]}" r="3.5" style="fill:${c}"><title>${rows[i][0]} · ${names[j]}: ${q[2]}</title></circle>`})});
+ $(el).innerHTML=o+"</svg>"}
+const lin=(id,rows,cols,names)=>{line("b"+id,rows,cols,names);leg("l"+id,names,cols)};
+// Penelitian
+cnt("sk",Pn,r=>r.sk,SK,SC);
+cnt("gd",Pn.filter(r=>r.gd),r=>r.gd,GJ,GC);
+yn("ml",Pn,r=>r.mhs,["Melibatkan Mahasiswa","Tidak Melibatkan Mahasiswa"]);
+yn("sc",Pn,r=>r.scopus,["Luaran Artikel Terindeks Scopus","Tanpa Luaran Scopus"]);
+const pcnt={};Pn.forEach(r=>pcnt[r.p]=(pcnt[r.p]||0)+1);
+function prodi(){const q=$("qpr").value.toLowerCase();hbar("bpr",Object.entries(pcnt).filter(x=>x[0].toLowerCase().includes(q)).sort((a,b)=>b[1]-a[1]).map(x=>[x[0],x[1],"var(--accent)"]))}
+$("qpr").oninput=prodi;prodi();
+// Luaran dan Rekognisi
+cnt("rn",Lu.filter(r=>r.nas),r=>r.jl,JL,JC);
+cnt("ri",Lu.filter(r=>r.int),r=>r.jl,JL,JC);
+cnt("ra",Lu.filter(r=>r.app),r=>r.jl,JL,JC);
+yn("mh",Lu.filter(r=>NONPUB.includes(r.jl)),r=>r.mhs,["Dihasilkan Mahasiswa","Dihasilkan Dosen/Lainnya"]);
+// Dosen dan Pembiayaan
+yn("dn",Dos,r=>r.nas,["Berekognisi Nasional","Belum Berekognisi Nasional"]);
+yn("di",Dos,r=>r.int,["Berekognisi Internasional","Belum Berekognisi Internasional"]);
+yn("pd",Kg,r=>r.dn,["Pembiayaan Dalam Negeri/Industri","Tanpa Pembiayaan Dalam Negeri/Industri"]);
+yn("pl",Kg,r=>r.ln,["Pembiayaan Luar Negeri","Tanpa Pembiayaan Luar Negeri"]);
+// Tren per Tahun
+lin("tr1",agg(Pn,r=>r.t,r=>r.sk,SK,TH,true),SC,SK);
+lin("tr6",agg(Lu,r=>r.t,r=>r.jl,JL,TH,true),JC,JL);
+lin("tr2",agg(Lu.filter(r=>r.nas),r=>r.t,r=>r.jl,JL,TH,true),JC,JL);
+lin("tr3",agg(Lu.filter(r=>r.int),r=>r.t,r=>r.jl,JL,TH,true),JC,JL);
+lin("tr4",agg(Lu.filter(r=>r.app),r=>r.t,r=>r.jl,JL,TH,true),JC,JL);
+lin("tr5",agg(Pn.filter(r=>r.gd),r=>r.t,r=>r.gd,GJ,TH,true),GC,GJ);
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");["t0","t1","t2","t3"].forEach(id=>$(id).classList.toggle("on",id==b.dataset.t))});
+
+</script>
+</body>
+</html>
+
+</body></html>

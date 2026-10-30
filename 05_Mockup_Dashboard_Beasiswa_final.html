@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Beasiswa</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fk:#5bc48a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}.f select.sel{color:var(--text)}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px;cursor:pointer}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(30px,3.6vw,42px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 46px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.wide .br{grid-template-columns:minmax(110px,190px) minmax(0,1fr) 84px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br,.wide .br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+.dl{height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
+.tblwrap{overflow:auto;margin-top:12px;border:1px solid var(--line)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.t th{color:var(--mute);font-weight:600}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+.map svg{display:block;width:100%;height:auto;margin-top:12px}
+.sub{font-size:13px;color:var(--mute);margin:0 0 4px}.sub b{color:var(--text)}
+.rowK{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1.5fr)}
+@media(max-width:1100px){aside{width:240px}.row2,.rowK{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:860px){.body{padding:12px}.panel{margin-top:12px}.row3,.rowK{grid-template-columns:minmax(0,1fr)}.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}.tools .dl{flex:1 1 100%}}
+@media(max-width:520px){.logo{font-size:19px}.logo small{font-size:11px}.head{padding:12px}.tabs button{font-size:14px}.card{padding:12px}.card h4{font-size:15px}.kpi{min-height:0}.kpi .n{font-size:28px;margin-top:12px}.pie{width:min(170px,65%)}.bars{max-height:420px}table.t{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Sumber Beasiswa</label><select id="f_sd"></select></div>
+  <div class="f"><label>Nama Beasiswa</label><select id="f_bs"></select></div>
+  <div class="f"><label>Fakultas</label><select id="f_fk"></select></div>
+  <div class="f"><label>Jenis Kelamin</label><select id="f_g"></select></div>
+  <div class="btns"><button class="a" id="ap">APPLY FILTERS</button><button class="c" id="cl">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[Beasiswa] Dashboard Beasiswa</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ringkasan Beasiswa</button><button data-t="t1">Perbandingan &amp; Tren</button></div>
+
+<section class="panel on" id="t0">
+  <div class="grid" id="k0"></div>
+  <div class="row2">
+    <div class="card"><h4>Statistik Jumlah Pendaftar Beasiswa Aktif<span>⋮</span></h4><div class="bars" id="bd"></div><div class="leg" id="bdl"></div></div>
+    <div class="card"><h4>Statistik Kuota Beasiswa<span>⋮</span></h4><div class="pie" id="pq"><em id="pqt"></em></div><div class="leg" id="pql" style="justify-content:center"></div><div class="note" id="nq" style="text-align:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Kategori Pendaftar<span>⋮</span></h4><div class="pie" id="pkp"><em id="pkpt"></em></div><div class="leg" id="pkpl" style="justify-content:center"></div><div class="note" id="nkp" style="text-align:center"></div></div>
+    <div class="card"><h4>Komposisi Sumber Beasiswa<span>⋮</span></h4><div class="pie" id="psb"><em id="psbt"></em></div><div class="leg" id="psbl" style="justify-content:center"></div><div class="note" id="nsb" style="text-align:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Pendaftar vs Diterima per Beasiswa<span>⋮</span></h4><div class="wide"><div class="bars" id="bsel"></div></div><div class="leg" id="bsl"></div><div class="note">Angka di kanan = persentase pendaftar yang diterima.</div></div>
+    <div class="card"><h4>Kuota Terpakai per Beasiswa<span>⋮</span></h4><div class="wide"><div class="bars" id="bkq"></div></div><div class="leg" id="bkl"></div><div class="note">Angka di kanan = persentase kuota yang sudah terpakai.</div></div>
+    <div class="card wide"><h4>Total Nominal per Beasiswa<span>⋮</span></h4><div class="bars" id="bnm"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Komparasi Gender Penerima<span>⋮</span></h4><div class="pie" id="pg"><em id="pgt"></em></div><div class="leg" id="pgl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Penerima per Fakultas<span>⋮</span></h4><div class="bars" id="bfk"></div></div>
+    <div class="card"><h4>Penerima per Sumber Beasiswa<span>⋮</span></h4><div class="bars" id="bsd"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Detail Beasiswa Aktif<span>⋮</span></h4><div class="tools"><input class="q" id="q_bs" placeholder="Cari beasiswa / sumber beasiswa..."><button class="dl" data-dl="bs">Unduh CSV</button></div><div class="tblwrap" id="t_bs"></div><div class="note" id="c_bs"></div></div>
+  <div class="card" style="margin-top:16px"><h4>Detail Data Mahasiswa Penerima<span>⋮</span></h4><div class="tools"><input class="q" id="q_mhs" placeholder="Cari NIM / nama / prodi / beasiswa..."><button class="dl" data-dl="mhs">Unduh CSV</button></div><div class="tblwrap" id="t_mhs"></div><div class="note" id="c_mhs"></div></div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3 rowK">
+    <div class="card"><h4>Komposisi Penerima per Sumber Beasiswa<span>⋮</span></h4><div class="pie" id="pk"><em id="pkt"></em></div><div class="leg" id="pkl" style="justify-content:center"></div></div>
+    <div class="card map"><h4>Jumlah Pendaftar Beasiswa 2021–2026<span>⋮</span></h4><div id="ln1"></div></div>
+    <div class="card map"><h4>Jumlah Penerima Beasiswa 2021–2026<span>⋮</span></h4><div id="ln2"></div></div>
+  </div>
+  <div class="row3"><div class="card map"><h4>Total Nominal Beasiswa 2021–2026 (Rp miliar)<span>⋮</span></h4><div id="ln3"></div></div></div>
+  <div class="card" style="margin-top:16px"><h4>Data Tren Beasiswa<span>⋮</span></h4><div class="tools"><input class="q" id="q_tren" placeholder="Cari tahun..."><button class="dl" data-dl="tren">Unduh CSV</button></div><div class="tblwrap" id="t_tren"></div><div class="note" id="c_tren"></div></div>
+</section>
+</div>
+</main>
+</div>
+<script>
+// Data dummy: ganti dengan data asli sistem beasiswa.
+const $=id=>document.getElementById(id),fmt=n=>(n||0).toLocaleString("id-ID"),pct=(a,b)=>b?(a/b*100):null,fp=v=>v==null?"-":v.toFixed(1).replace(".",",")+"%";
+const rp=n=>n>=1e9?"Rp "+(n/1e9).toFixed(2).replace(".",",")+" M":"Rp "+Math.round(n/1e6).toLocaleString("id-ID")+" Jt";
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(20261029),ri=n=>Math.floor(R()*n),pick=(it,w)=>{if(!w)return it[ri(it.length)];let s=w.reduce((a,b)=>a+b,0),x=R()*s;for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]}return it[it.length-1]};
+const ND=["Ahmad","Muhammad","Siti","Nur","Dewi","Rina","Agus","Fitri","Aisyah","Yusuf","Rizki","Nadia","Fajar","Intan","Bayu","Maya","Taufik","Wulan","Iman","Sari"],NB=["Pratama","Safitri","Hidayat","Lestari","Ramadhan","Anggraini","Nugroho","Fadillah","Permata","Kurniawan","Rahmawati","Maulana","Gunawan","Hasanah"];
+const nama=()=>pick(ND)+" "+pick(NB);
+// ---------- Primitives (sama dengan template KKN) ----------
+function bars(el,rows,cols,norm,lab){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot),1);
+ $(el).innerHTML=rows.map(r=>{const t=tot(r)||1;return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?(norm?"":r[i+1]):""}</i>`).join("")}</div><div class="tt">${lab?lab(r):t}</div></div>`}).join("")}
+function hbar(el,rows,fm){const mx=Math.max(...rows.map(r=>r[1]),1);
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${fm?fm(r[1]):r[1]}</div></div>`).join("")}
+const hb=(el,rows,fm)=>{if(!rows.length||rows.every(r=>!r[1])){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}hbar(el,rows,fm)};
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${fmt(tot)}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+const pieSafe=(el,lab,vals,cols,names,t)=>{if(!vals.some(v=>v>0)){$(el).style.background="var(--line)";$(lab).innerHTML="Total<br>0";$(t).innerHTML="";return}pie(el,lab,vals,cols,names,t)};
+const kpis=(el,items)=>{$(el).innerHTML=items.map(([h,n,s])=>`<div class="card kpi"><h4>${h}</h4><div class="n">${n}</div><div class="s">${s||""}</div></div>`).join("")};
+const cnt=(data,kf)=>{const m={};data.forEach(r=>{const k=kf(r);m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+function line(el,lb,v,c,hi){const W=560,H=260,pl=52,pr=20,pt=26,pb=34,mx=Math.max(...v,1),raw=mx*1.1/4,mg=Math.pow(10,Math.floor(Math.log10(raw))),nm=raw/mg,st=(nm<=1?1:nm<=2?2:nm<=5?5:10)*mg,tm=Math.ceil(mx*1.1/st)*st,
+ x=i=>pl+20+i*(W-pl-pr-40)/(lb.length-1),y=a=>pt+(1-a/tm)*(H-pt-pb);
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafik garis">`;
+ for(let k=0;k<=Math.round(tm/st);k++){const t=k*st;s+=`<line x1="${pl}" x2="${W-pr}" y1="${y(t)}" y2="${y(t)}" style="stroke:var(--line)"/><text x="${pl-8}" y="${y(t)+4}" text-anchor="end" style="fill:var(--mute);font-size:11px">${fmt(Math.round(t*100)/100)}</text>`}
+ const pts=v.map((a,i)=>x(i)+","+y(a)).join(" ");
+ s+=`<polygon points="${x(0)},${y(0)} ${pts} ${x(v.length-1)},${y(0)}" style="fill:${c};fill-opacity:.1"/><polyline points="${pts}" style="fill:none;stroke:${c};stroke-width:2.5;stroke-linejoin:round"/>`;
+ v.forEach((a,i)=>{const on=i==hi;s+=`<circle cx="${x(i)}" cy="${y(a)}" r="${on?6:4}" style="fill:${on?c:"var(--panel)"};stroke:${c};stroke-width:2"><title>${lb[i]}: ${fmt(a)}</title></circle><text x="${x(i)}" y="${y(a)-12}" text-anchor="middle" style="fill:var(--text);font-size:11px;font-weight:${on?700:500}">${fmt(a)}</text><text x="${x(i)}" y="${H-10}" text-anchor="middle" style="fill:var(--mute);font-size:12px;font-weight:${on?700:400}">${lb[i]}</text>`});
+ $(el).innerHTML=s+"</svg>"}
+const TB={};
+function table(id,cols,rows){TB[id]={cols,rows};const q=$("q_"+id);if(q)q.oninput=()=>draw(id);draw(id)}
+function rowsOf(id){const {cols,rows}=TB[id],q=($("q_"+id)?.value||"").toLowerCase();return rows.filter(r=>!q||cols.some(c=>String(r[c[0]]??"").toLowerCase().includes(q)))}
+function draw(id){const {cols}=TB[id],d=rowsOf(id);
+ $("t_"+id).innerHTML=d.length?`<table class="t"><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join("")}</tr></thead><tbody>${d.slice(0,10).map(r=>`<tr>${cols.map(c=>`<td class="${c[2]?"n":""}">${r[c[0]]??""}</td>`).join("")}</tr>`).join("")}</tbody></table>`:'<div class="empty">Tidak ada data yang cocok.</div>';
+ $("c_"+id).textContent=`Menampilkan ${Math.min(10,d.length)} dari ${fmt(d.length)} baris (tampilan dibatasi 10 baris pertama; unduh CSV untuk data lengkap).`}
+function csv(id){const {cols}=TB[id],d=rowsOf(id),e=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+ const s=[cols.map(c=>e(c[1])).join(","),...d.map(r=>cols.map(c=>e(r[c[0]])).join(","))].join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+s],{type:"text/csv"}));a.download=`beasiswa_${id}_2026.csv`;document.body.appendChild(a);a.click();a.remove()}
+document.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>csv(b.dataset.dl));
+
+// ---------- Data beasiswa (dummy) ----------
+const SD=["Pemerintah","Internal BLU","Kemenag","Mitra / CSR"],SC=["var(--l)","var(--lk)","var(--gb)","var(--js)"];
+// [nama, tahun, idx sumber beasiswa, kuota, pendaftar, penerima, nominal per penerima (Rp/tahun)]
+const B=[["KIP Kuliah 2024",2024,0,600,1480,560,12e6],["KIP Kuliah 2025",2025,0,650,1620,610,12e6],["KIP Kuliah 2026",2026,0,700,1890,420,12e6],
+["Beasiswa BLU 2025",2025,1,200,760,180,7.5e6],["Beasiswa BLU 2026",2026,1,220,810,150,7.5e6],["Beasiswa Prestasi Akademik 2026",2026,1,150,520,120,5e6],["Beasiswa Tahfidz 2026",2026,1,80,240,70,6e6],
+["PBSB Kemenag 2025",2025,2,100,390,95,18e6],["Beasiswa Bank Syariah 2026",2026,3,60,330,48,9e6],["Beasiswa Baznas Dhuafa 2025",2025,3,90,280,85,6.5e6]];
+// Kategori pendaftar (dummy): proporsi per beasiswa ditentukan dari jenis programnya
+const KT=["Ekonomi Kurang Mampu (Afirmasi)","Prestasi Akademik","Prestasi Non-Akademik","Tahfidz Al-Qur'an","Disabilitas","Daerah 3T"],KTC=["var(--l)","var(--lk)","var(--fk)","var(--gb)","var(--js)","#e5697a"];
+const KTW=n=>/KIP/.test(n)?[70,10,5,5,3,7]:/Prestasi/.test(n)?[0,80,15,5,0,0]:/Tahfidz/.test(n)?[5,0,0,95,0,0]:/Baznas|Dhuafa/.test(n)?[85,0,0,5,5,5]:/BLU/.test(n)?[40,25,15,10,4,6]:[30,40,15,10,2,3];
+const alloc=(tot,w)=>{const s=w.reduce((a,b)=>a+b,0),v=w.map(x=>Math.floor(x/s*tot));let d=tot-v.reduce((a,b)=>a+b,0);const o=w.map((x,i)=>[x/s*tot-v[i],i]).sort((a,b)=>b[0]-a[0]);for(let k=0;k<d;k++)v[o[k][1]]++;return v};
+const FK={"Ilmu Tarbiyah dan Keguruan":["Pendidikan Agama Islam","Pendidikan Matematika"],"Syariah dan Hukum":["Ilmu Hukum","Hukum Keluarga"],"Ushuluddin":["Ilmu Hadis","Studi Agama-Agama"],"Adab dan Humaniora":["Sastra Inggris","Ilmu Perpustakaan"],"Dakwah dan Ilmu Komunikasi":["Jurnalistik","Manajemen Dakwah"],"Ekonomi dan Bisnis":["Akuntansi","Perbankan Syariah"],"Sains dan Teknologi":["Teknik Informatika","Biologi"],"Ilmu Kesehatan":["Farmasi","Kesehatan Masyarakat"],"Psikologi":["Psikologi"],"Ilmu Sosial dan Ilmu Politik":["Sosiologi","Ilmu Politik"],"Kedokteran":["Pendidikan Dokter"]};
+const FKN=Object.keys(FK),FKW=FKN.map(()=>1+R()*3);
+const RC=[];let nn=0;
+B.forEach(b=>{for(let n=0;n<b[5];n++){const f=pick(FKN,FKW),ang=pick([2022,2023,2024,2025],[15,25,30,30]);
+ RC.push({nim:String(11000000000+ang*100000+nn++),nama:nama(),f,p:pick(FK[f]),ang,g:R()<.6?"Perempuan":"Laki-laki",gs:"",b:b[0],si:b[2],sd:SD[b[2]],nom:b[6],nomf:rp(b[6])})}});
+RC.forEach(m=>m.gs=m.g[0]);
+for(let i=RC.length-1;i>0;i--){const k=ri(i+1);[RC[i],RC[k]]=[RC[k],RC[i]]}
+const YR=[2021,2022,2023,2024,2025,2026],PD0=[5200,5750,6400,7050,7600],PN0=[1500,1680,1900,2120,2250],NM0=[14.2,16.5,19.4,22.1,23.6];
+const ALL={d:B.reduce((s,b)=>s+b[4],0),n:RC.length,m:RC.reduce((s,m)=>s+m.nom,0)};
+
+// ---------- Filter ----------
+const F={sd:"",bs:"",fk:"",g:""};
+const fillSel=(id,items,first)=>{$(id).innerHTML=`<option value="">${first}</option>`+items.map(x=>`<option value="${x}">${x}</option>`).join("")};
+const FS=["f_sd","f_bs","f_fk","f_g"],markSel=id=>$(id).classList.toggle("sel",$(id).value!=="");
+fillSel("f_sd",SD,"Semua sumber beasiswa");fillSel("f_bs",B.map(b=>b[0]),"Semua beasiswa ("+B.length+")");fillSel("f_fk",FKN,"Semua fakultas ("+FKN.length+")");fillSel("f_g",["Laki-laki","Perempuan"],"Semua");
+FS.forEach(id=>{$(id).onchange=()=>markSel(id);markSel(id)});
+const readF=()=>{F.sd=$("f_sd").value;F.bs=$("f_bs").value;F.fk=$("f_fk").value;F.g=$("f_g").value};
+$("ap").onclick=()=>{readF();render()};
+$("cl").onclick=()=>{FS.forEach(id=>{$(id).value="";markSel(id)});readF();render()};
+
+// ---------- Render ----------
+function render(){
+ const Bf=B.filter(b=>(!F.sd||SD[b[2]]==F.sd)&&(!F.bs||b[0]==F.bs)),cur=RC.filter(m=>(!F.sd||m.sd==F.sd)&&(!F.bs||m.b==F.bs)&&(!F.fk||m.f==F.fk)&&(!F.g||m.g==F.g)),narrow=!!(F.fk||F.g);
+ const sum=i=>Bf.reduce((s,b)=>s+b[i],0),kuota=sum(3),daftar=sum(4),terima=sum(5),nomT=cur.reduce((s,m)=>s+m.nom,0);
+ kpis("k0",[["Beasiswa",fmt(Bf.length),"Jumlah tawaran aktif"],["Mahasiswa",fmt(cur.length),"Mahasiswa Penerima Beasiswa"],["Nominal Beasiswa",rp(nomT),"Total nominal beasiswa aktif"]]);
+ // 4. Bar pendaftar
+ hb("bd",Bf.map(b=>[b[0],b[4],SC[b[2]]]).sort((a,b)=>b[1]-a[1]),fmt);
+ leg("bdl",SD,SC);
+ // 5. Pie kuota
+ const KC=["var(--l)","var(--gb)"];
+ pieSafe("pq","pqt",[terima,kuota-terima],KC,["Kuota digunakan "+fmt(terima),"Sisa kuota "+fmt(kuota-terima)],"pql");
+ if(kuota)$("pqt").innerHTML=fp(pct(terima,kuota))+"<br>terpakai";
+ $("nq").textContent="Total kuota: "+fmt(kuota)+(narrow?" · tidak terpengaruh filter fakultas / gender":"");
+ // Komposisi kategori pendaftar & sumber beasiswa (basis: pendaftar)
+ const kp=KT.map(()=>0);Bf.forEach(b=>alloc(b[4],KTW(b[0])).forEach((v,i)=>kp[i]+=v));
+ const kk=KT.map((_,i)=>i).filter(i=>kp[i]>0);
+ pieSafe("pkp","pkpt",kk.map(i=>kp[i]),kk.map(i=>KTC[i]),kk.map(i=>KT[i]),"pkpl");
+ $("nkp").textContent="Basis: "+fmt(daftar)+" pendaftar"+(narrow?" · tidak terpengaruh filter fakultas / gender":"");
+ const sb=SD.map((_,i)=>Bf.filter(b=>b[2]==i).reduce((a,b)=>a+b[4],0)),sk=SD.map((_,i)=>i).filter(i=>sb[i]>0);
+ pieSafe("psb","psbt",sk.map(i=>sb[i]),sk.map(i=>SC[i]),sk.map(i=>SD[i]),"psbl");
+ $("nsb").textContent="Basis: jumlah pendaftar per sumber beasiswa"+(narrow?" · tidak terpengaruh filter fakultas / gender":"");
+ // Turunan
+ bars("bsel",Bf.map(b=>[b[0],b[5],b[4]-b[5]]),["var(--lk)","#b8c2cc"],false,r=>fp(pct(r[1],r[1]+r[2])));
+ leg("bsl",["Diterima","Tidak diterima"],["var(--lk)","#b8c2cc"]);
+ bars("bkq",Bf.map(b=>[b[0],b[5],b[3]-b[5]]),KC,true,r=>fp(pct(r[1],r[1]+r[2])));
+ leg("bkl",["Kuota digunakan","Sisa kuota"],KC);
+ const nb={};cur.forEach(m=>{(nb[m.b]=nb[m.b]||[m.b,0,SC[m.si]])[1]+=m.nom});
+ hb("bnm",Object.values(nb).sort((a,b)=>b[1]-a[1]),rp);
+ const GN=["Laki-laki","Perempuan"];pieSafe("pg","pgt",GN.map(g=>cur.filter(m=>m.g==g).length),["#4a6fa5","#e58fa8"],GN,"pgl");
+ hb("bfk",cnt(cur,m=>m.f).map(([k,v])=>[k,v,"var(--accent)"]),fmt);
+ hb("bsd",SD.map((s,i)=>[s,cur.filter(m=>m.si==i).length,SC[i]]).sort((a,b)=>b[1]-a[1]),fmt);
+ table("bs",[["b","Beasiswa"],["th","Tahun"],["sd","Sumber Beasiswa"],["k","Kuota",1],["d","Pendaftar",1],["n","Penerima",1],["s","Sisa Kuota",1],["r","Persaingan",1],["np","Nominal / Penerima",1],["nt","Total Nominal",1]],
+  Bf.map(b=>({b:b[0],th:b[1],sd:SD[b[2]],k:fmt(b[3]),d:fmt(b[4]),n:fmt(b[5]),s:fmt(b[3]-b[5]),r:(b[4]/b[3]).toFixed(1).replace(".",",")+" : 1",np:rp(b[6]),nt:rp(b[5]*b[6])})));
+ table("mhs",[["nim","NIM"],["nama","Nama"],["f","Fakultas"],["p","Program Studi"],["ang","Angkatan"],["gs","L/P"],["b","Beasiswa"],["sd","Sumber Beasiswa"],["nomf","Nominal / Tahun"]],cur);
+ // ===== Perbandingan & Tren =====
+ pieSafe("pk","pkt",SD.map((s,i)=>cur.filter(m=>m.si==i).length),SC,SD,"pkl");
+ const kd=daftar/ALL.d,kn=cur.length/ALL.n,km=nomT/ALL.m,r1=v=>Math.round(v*10)/10;
+ const PD=[...PD0.map(v=>Math.round(v*kd)),daftar],PN=[...PN0.map(v=>Math.round(v*kn)),cur.length],NM=[...NM0.map(v=>r1(v*km)),r1(nomT/1e9)];
+ line("ln1",YR,PD,"var(--l)",-1);line("ln2",YR,PN,"var(--accent)",-1);line("ln3",YR,NM,"var(--lk)",-1);
+ table("tren",[["th","Tahun"],["d","Pendaftar",1],["n","Penerima",1],["m","Total Nominal (Rp miliar)",1],["s","Rasio Diterima (%)",1],["c","Perubahan Penerima (%)",1]],
+  YR.map((y,k)=>({th:y,d:fmt(PD[k]),n:fmt(PN[k]),m:fmt(NM[k]),s:fp(pct(PN[k],PD[k])),c:k&&PN[k-1]?fp(pct(PN[k]-PN[k-1],PN[k-1])):"-"})));
+}
+render();
+
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==b.dataset.t))});
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard KKN</title>
+<style>
+
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+/* tambahan untuk datatable, funnel, dan peta (memakai token yang sama) */
+.dl{height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
+.tblwrap{overflow:auto;margin-top:12px;border:1px solid var(--line)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.t th{color:var(--mute);font-weight:600;background:var(--panel)}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+.fn{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.fn div{height:46px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:600;min-width:120px;text-align:center;line-height:1.3}
+.wide .br{grid-template-columns:minmax(110px,190px) minmax(0,1fr) 58px}
+.map svg{display:block;width:100%;height:auto;margin-top:12px}
+.ec{position:relative;min-height:300px}.ec svg{margin-top:12px}
+.ectt{position:absolute;margin-top:12px;background:var(--panel);color:var(--text);border-radius:4px;padding:8px 12px;font-size:12px;line-height:1.4;box-shadow:0 2px 12px rgba(0,0,0,.22);pointer-events:none;white-space:nowrap;z-index:3}
+@media(max-width:1100px){aside{width:240px}.row2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi h4{font-size:14px}.kpi .n{font-size:28px}.logo{font-size:19px}.logo small{font-size:11px}}
+
+/* tambahan khusus dashboard KKN (memakai token yang sama) */
+.g3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.cmp .r{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}
+.cmp .y{font-size:12px;color:var(--mute);font-weight:600}
+.cmp .v{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.1;margin-top:2px}
+.cmp .ar{font-size:22px;color:var(--mute)}
+.cmp .d{display:inline-block;margin-top:16px;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;background:color-mix(in srgb,var(--lk) 16%,var(--panel));color:var(--lk)}
+.cmp .d.na{background:var(--bg);color:var(--mute)}
+.f select.sel{color:var(--text)}
+.cmp .d.neg{background:color-mix(in srgb,#e5697a 16%,var(--panel));color:#e5697a}
+.vc{display:flex;align-items:flex-end;gap:12px;height:250px;margin-top:20px;padding:0 4px}
+.vc .c{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.vc .c b{font-size:12px;font-weight:700;margin-bottom:4px}
+.vc .c i{display:block;width:100%;max-width:64px;border-radius:3px 3px 0 0}
+.vc .c span{margin-top:8px;font-size:12px;color:var(--mute)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chips button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:999px;padding:6px 14px;font-size:13px;font-family:inherit;cursor:pointer}
+.chips button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.ins{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.ins li{padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--accent);font-size:13px;line-height:1.5}
+.sub{font-size:13px;color:var(--mute);margin:0 0 4px}.sub b{color:var(--text)}
+
+.rowK{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1100px){.rowK{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Periode KKN</label><select id="f_y"></select></div>
+  <div class="f"><label>Jenis KKN</label><select id="f_jn"></select></div>
+  <div class="f"><label>Fakultas</label><select id="f_fk"></select></div>
+  <div class="f"><label>Program Studi</label><select id="f_pr"></select></div>
+  <div class="f"><label>Tahun Angkatan</label><select id="f_ang"></select></div>
+  <div class="f"><label>Jenis Kelamin</label><select id="f_g"></select></div>
+  <div class="f"><label>Provinsi / Wilayah Lokasi</label><select id="f_w"></select></div>
+  <div class="f"><label>Jabatan Fungsional DPL</label><select id="f_jf"></select></div>
+  <div class="btns"><button class="a" id="ap">APPLY FILTERS</button><button class="c" id="cl">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[KKN] Dashboard KKN</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ringkasan KKN</button><button data-t="t1">Perbandingan &amp; Tren</button></div>
+
+<section class="panel on" id="t0">
+  <div class="sub">Periode KKN Aktif: <b id="per"></b></div>
+  <div class="grid" id="k0"></div>
+  <div class="row3">
+    <div class="card"><h4>Komparasi Gender<span>⋮</span></h4><div class="pie" id="pg"><em id="pgt"></em></div><div class="leg" id="pgl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Mahasiswa per Jenis KKN<span>⋮</span></h4><div class="bars" id="bjn"></div><div class="note" id="njn"></div></div>
+    <div class="card"><h4>DPL per Jabatan Fungsional<span>⋮</span></h4><div class="bars" id="bjf"></div></div>
+  </div>
+  <div class="row3" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr))">
+    <div class="card"><h4>Sebaran Mahasiswa — KKN Reguler<span>⋮</span></h4><div class="note" style="text-align:right" id="ts_0"></div><div class="bars" id="bs_0"></div></div>
+    <div class="card"><h4>Sebaran Mahasiswa — KKN In Campus<span>⋮</span></h4><div class="note" style="text-align:right" id="ts_1"></div><div class="bars" id="bs_1"></div></div>
+    <div class="card"><h4>Sebaran Mahasiswa — KKN Internasional<span>⋮</span></h4><div class="note" style="text-align:right" id="ts_2"></div><div class="bars" id="bs_2"></div></div>
+    <div class="card"><h4>Sebaran Mahasiswa — KKN Tematik<span>⋮</span></h4><div class="note" style="text-align:right" id="ts_3"></div><div class="bars" id="bs_3"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Detail Sebaran Lokasi KKN<span>⋮</span></h4><div class="tools"><input class="q" id="q_lok" placeholder="Cari jenis / lokasi / provinsi..."><button class="dl" data-dl="lok">Unduh CSV</button></div><div class="tblwrap" id="t_lok"></div><div class="note" id="c_lok"></div></div>
+  <div class="card" style="margin-top:16px"><h4>Detail Data Mahasiswa KKN<span>⋮</span></h4><div class="tools"><input class="q" id="q_mhs" placeholder="Cari NIM / nama / prodi / lokasi / DPL..."><button class="dl" data-dl="mhs">Unduh CSV</button></div><div class="tblwrap" id="t_mhs"></div><div class="note" id="c_mhs"></div></div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="sub">Tren 2021–2026 · tahun terpilih ditebalkan: <b id="cmpy"></b></div>
+  <div class="row3 rowK" style="margin-top:12px">
+    <div class="card"><h4>Jumlah Peserta KKN Total 2021–2026<span>⋮</span></h4><div class="vc" id="ln0"></div></div>
+    <div class="card"><h4>Jumlah Peserta KKN Nasional 2021–2026<span>⋮</span></h4><div class="vc" id="ln1"></div></div>
+    <div class="card"><h4>Jumlah Peserta KKN Internasional 2021–2026<span>⋮</span></h4><div class="vc" id="ln2"></div></div>
+  </div>
+  <div class="note">Total = KKN Nasional + KKN Internasional; KKN Nasional = Reguler + In Campus + Tematik.</div>
+  <div class="card" style="margin-top:16px"><h4>Data Tren Peserta KKN<span>⋮</span></h4><div class="tools"><input class="q" id="q_tren" placeholder="Cari tahun..."><button class="dl" data-dl="tren">Unduh CSV</button></div><div class="tblwrap" id="t_tren"></div><div class="note" id="c_tren"></div></div>
+</section>
+</div>
+</main>
+</div>
+<script>
+// Data dummy: ganti dengan data asli E-Semesta/Superset. KKN Nasional = Reguler + In Campus + Tematik.
+// Total peserta = KKN Nasional + KKN Internasional (angka 2021–2026 mengikuti laporan PPM UIN Jakarta).
+const $=id=>document.getElementById(id),fmt=n=>(n||0).toLocaleString("id-ID"),pct=(a,b)=>b?(a/b*100):null,fp=v=>v==null?"-":v.toFixed(2).replace(".",",")+"%";
+let TA0=2026;
+const PR=[["AGRIBISNIS","SAINS DAN TEKNOLOGI","S1"],["AKUNTANSI","EKONOMI DAN BISNIS","S1"],["AQIDAH DAN FILSAFAT ISLAM","USHULUDDIN","S1"],["BAHASA DAN SASTRA ARAB","ADAB DAN HUMANIORA","S1"],["BIMBINGAN PENYULUHAN ISLAM","DAKWAH DAN ILMU KOMUNIKASI","S1"],["BIOLOGI","SAINS DAN TEKNOLOGI","S1"],["DIRASAT ISLAMIYAH","DIRASAT ISLAMIYAH","S1"],["DOKTOR PENGKAJIAN ISLAM","SEKOLAH PASCASARJANA","S3"],["EKONOMI PEMBANGUNAN","EKONOMI DAN BISNIS","S1"],["EKONOMI SYARIAH","EKONOMI DAN BISNIS","S1"],["FARMASI","ILMU KESEHATAN","S1"],["FISIKA","SAINS DAN TEKNOLOGI","S1"],["HUKUM EKONOMI SYARIAH (MU'AMALAH)","SYARIAH DAN HUKUM","S1"],["HUKUM KELUARGA (AKHWAL SYAKSIYAH)","SYARIAH DAN HUKUM","S1"],["HUKUM TATA NEGARA (SIYASAH)","SYARIAH DAN HUKUM","S1"],["ILMU AL-QUR'AN DAN TAFSIR","USHULUDDIN","S1"],["ILMU HADIS","USHULUDDIN","S1"],["ILMU HUBUNGAN INTERNASIONAL","ILMU SOSIAL DAN ILMU POLITIK","S1"],["ILMU HUKUM","SYARIAH DAN HUKUM","S1"],["ILMU KEPERAWATAN","ILMU KESEHATAN","S1"],["ILMU PERPUSTAKAAN","ADAB DAN HUMANIORA","S1"],["ILMU POLITIK","ILMU SOSIAL DAN ILMU POLITIK","S1"],["JURNALISTIK","DAKWAH DAN ILMU KOMUNIKASI","S1"],["KESEHATAN MASYARAKAT","ILMU KESEHATAN","S1"],["KESEJAHTERAAN SOSIAL","DAKWAH DAN ILMU KOMUNIKASI","S1"],["KIMIA","SAINS DAN TEKNOLOGI","S1"],["KOMUNIKASI PENYIARAN ISLAM","DAKWAH DAN ILMU KOMUNIKASI","S1"],["MAGISTER EKONOMI SYARIAH","SEKOLAH PASCASARJANA","S2"],["MAGISTER PENDIDIKAN AGAMA ISLAM","SEKOLAH PASCASARJANA","S2"],["MAGISTER PENGKAJIAN ISLAM","SEKOLAH PASCASARJANA","S2"],["MAGISTER TEKNOLOGI INFORMASI","SEKOLAH PASCASARJANA","S2"],["MANAJEMEN","EKONOMI DAN BISNIS","S1"],["MANAJEMEN DAKWAH","DAKWAH DAN ILMU KOMUNIKASI","S1"],["MANAJEMEN PENDIDIKAN","ILMU TARBIYAH DAN KEGURUAN","S1"],["MATEMATIKA","SAINS DAN TEKNOLOGI","S1"],["PENDIDIKAN AGAMA ISLAM","ILMU TARBIYAH DAN KEGURUAN","S1"],["PENDIDIKAN BAHASA ARAB","ILMU TARBIYAH DAN KEGURUAN","S1"],["PENDIDIKAN DOKTER","KEDOKTERAN","S1"],["PENDIDIKAN GURU MADRASAH IBTIDAIYAH","ILMU TARBIYAH DAN KEGURUAN","S1"],["PENDIDIKAN ISLAM ANAK USIA DINI","ILMU TARBIYAH DAN KEGURUAN","S1"],["PENDIDIKAN MATEMATIKA","ILMU TARBIYAH DAN KEGURUAN","S1"],["PENDIDIKAN PROFESI GURU","ILMU TARBIYAH DAN KEGURUAN","Profesi"],["PERBANDINGAN MAZHAB","SYARIAH DAN HUKUM","S1"],["PERBANKAN SYARIAH","EKONOMI DAN BISNIS","S1"],["PROFESI DOKTER","KEDOKTERAN","Profesi"],["PROFESI NERS","ILMU KESEHATAN","Profesi"],["PSIKOLOGI","PSIKOLOGI","S1"],["SASTRA INGGRIS","ADAB DAN HUMANIORA","S1"],["SEJARAH DAN PERADABAN ISLAM","ADAB DAN HUMANIORA","S1"],["SISTEM INFORMASI","SAINS DAN TEKNOLOGI","S1"],["SOSIOLOGI","ILMU SOSIAL DAN ILMU POLITIK","S1"],["STUDI AGAMA-AGAMA","USHULUDDIN","S1"],["TADRIS BAHASA INGGRIS","ILMU TARBIYAH DAN KEGURUAN","S1"],["TADRIS BIOLOGI","ILMU TARBIYAH DAN KEGURUAN","S1"],["TARJAMAH","ADAB DAN HUMANIORA","S1"],["TEKNIK INFORMATIKA","SAINS DAN TEKNOLOGI","S1"],["TEKNIK PERTAMBANGAN","SAINS DAN TEKNOLOGI","S1"]];
+const ND=["Ahmad","Muhammad","Siti","Nur","Dewi","Rina","Agus","Fitri","Aisyah","Yusuf","Rizki","Nadia","Fajar","Intan","Bayu","Maya","Taufik","Wulan","Iman","Sari"],NB=["Pratama","Safitri","Hidayat","Lestari","Ramadhan","Anggraini","Nugroho","Fadillah","Permata","Kurniawan","Rahmawati","Maulana","Gunawan","Hasanah"];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(20261029),ri=n=>Math.floor(R()*n),pick=(it,w)=>{if(!w)return it[ri(it.length)];let s=w.reduce((a,b)=>a+b,0),x=R()*s;for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]}return it[it.length-1]};
+const nama=()=>pick(ND)+" "+pick(NB);
+// ---------- Primitives (sama dengan mockup SDM) ----------
+function bars(el,rows,cols,norm,lab){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot));
+ $(el).innerHTML=rows.map(r=>{const t=tot(r);return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${norm?100:t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?(norm?"":r[i+1]):""}</i>`).join("")}</div><div class="tt">${lab?lab(r):t}</div></div>`}).join("")}
+function hbar(el,rows,fm){if(!rows.length){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}const mx=Math.max(...rows.map(r=>r[1]));
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${fm?fm(r[1]):r[1]}</div></div>`).join("")}
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${fmt(tot)}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+const kpis=(el,items)=>{$(el).innerHTML=items.map(([h,n,s])=>`<div class="card kpi"><h4>${h}</h4><div class="n">${n}</div><div class="s">${s||""}</div></div>`).join("")};
+const agg=(data,kf,cf,cats,keys)=>{const m={};(keys||[]).forEach(k=>m[k]=cats.map(()=>0));data.forEach(r=>{const k=kf(r);(m[k]=m[k]||cats.map(()=>0))[cats.indexOf(cf(r))]++});
+ return Object.entries(m).map(([k,v])=>[k,...v]).filter(r=>r.slice(1).some(x=>x>0)).sort((a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0))};
+const cnt=(data,kf)=>{const m={};data.forEach(r=>{const k=kf(r);m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+// ---------- Datatable (10 baris pertama + unduh CSV seluruh hasil pencarian) ----------
+const TB={};
+function table(id,cols,rows){TB[id]={cols,rows};const q=$("q_"+id);if(q)q.oninput=()=>draw(id);draw(id)}
+function rowsOf(id){const {cols,rows}=TB[id],q=($("q_"+id)?.value||"").toLowerCase();return rows.filter(r=>!q||cols.some(c=>String(r[c[0]]??"").toLowerCase().includes(q)))}
+function draw(id){const {cols,rows}=TB[id],d=rowsOf(id);
+ $("t_"+id).innerHTML=d.length?`<table class="t"><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join("")}</tr></thead><tbody>${d.slice(0,10).map(r=>`<tr>${cols.map(c=>`<td class="${c[2]?"n":""}">${r[c[0]]??""}</td>`).join("")}</tr>`).join("")}</tbody></table>`:'<div class="empty">Tidak ada data yang cocok.</div>';
+ $("c_"+id).textContent=`Menampilkan ${Math.min(10,d.length)} dari ${fmt(d.length)} baris (tampilan dibatasi 10 baris pertama; unduh CSV untuk data lengkap).`}
+function csv(id){const {cols}=TB[id],d=rowsOf(id),e=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+ const s=[cols.map(c=>e(c[1])).join(","),...d.map(r=>cols.map(c=>e(r[c[0]])).join(","))].join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+s],{type:"text/csv"}));a.download=`kkn_${id}_${TA0}.csv`;document.body.appendChild(a);a.click();a.remove()}
+document.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>csv(b.dataset.dl));
+
+
+// ---------- Data KKN (dummy 2021-2026) ----------
+const PS=PR.filter(p=>p[2]=="S1"&&p[1]!="SEKOLAH PASCASARJANA");
+const JN=["Reguler","In Campus","Internasional","Tematik"],JC=["var(--l)","var(--lk)","var(--gb)","var(--js)"];
+const TL={"Reguler":"Kab/Kota","In Campus":"Unit/Lembaga","Internasional":"Negara","Tematik":"Kampus Penanggung Jawab"};
+const LOC={
+"Reguler":[["Kab. Lebak","Banten",9],["Kab. Pandeglang","Banten",8],["Kab. Serang","Banten",7],["Kab. Tangerang","Banten",6],["Kota Serang","Banten",3],["Kab. Bogor","Jawa Barat",8],["Kab. Sukabumi","Jawa Barat",7],["Kab. Cianjur","Jawa Barat",7],["Kab. Garut","Jawa Barat",6],["Kab. Bekasi","Jawa Barat",5],["Kab. Karawang","Jawa Barat",5],["Kab. Subang","Jawa Barat",4],["Kab. Indramayu","Jawa Barat",4],["Kab. Cirebon","Jawa Barat",4],["Kab. Kuningan","Jawa Barat",3],["Kab. Majalengka","Jawa Barat",3],["Kab. Sumedang","Jawa Barat",3],["Kab. Pangandaran","Jawa Barat",3],["Kab. Tasikmalaya","Jawa Barat",4],["Kab. Banyumas","Jawa Tengah",3],["Kab. Cilacap","Jawa Tengah",3],["Kab. Magelang","Jawa Tengah",2],["Kab. Wonosobo","Jawa Tengah",2],["Kab. Gunungkidul","DI Yogyakarta",3],["Kab. Kulon Progo","DI Yogyakarta",2],["Kab. Bantul","DI Yogyakarta",2],["Kab. Pesawaran","Lampung",3],["Kab. Tanggamus","Lampung",3],["Kab. Lampung Selatan","Lampung",3],["Kab. Kepulauan Seribu","DKI Jakarta",2],["Kab. Lombok Utara","Nusa Tenggara Barat",2],["Kab. Bangka","Kep. Bangka Belitung",2]],
+"In Campus":[["Perpustakaan Utama","Kampus UIN Jakarta",5],["PTIPD","Kampus UIN Jakarta",4],["Pusat Bahasa dan Budaya","Kampus UIN Jakarta",3],["Klinik Pratama UIN Jakarta","Kampus UIN Jakarta",3],["Pusat Karir dan Kewirausahaan","Kampus UIN Jakarta",3],["Lembaga Penjaminan Mutu","Kampus UIN Jakarta",2],["Pusat Layanan Disabilitas","Kampus UIN Jakarta",2],["UIN Jakarta Press","Kampus UIN Jakarta",2]],
+"Internasional":[["Malaysia","Asia Tenggara",30],["Thailand","Asia Tenggara",24],["Singapura","Asia Tenggara",8],["Brunei Darussalam","Asia Tenggara",6],["Filipina","Asia Tenggara",5],["Mesir","Timur Tengah",8],["Turkiye","Eropa/Asia",6],["Maroko","Afrika Utara",4]],
+"Tematik":[["UIN Ar-Raniry Banda Aceh","Aceh",3],["UIN Sunan Kalijaga Yogyakarta","DI Yogyakarta",3],["UIN Walisongo Semarang","Jawa Tengah",3],["UIN Alauddin Makassar","Sulawesi Selatan",3],["UIN Sumatera Utara Medan","Sumatera Utara",3]]};
+const YR=[2021,2022,2023,2024,2025,2026],TN0=[4550,4377,4545,4218,3951,4855],TI0=[0,24,72,63,59,95],IC0=[180,160,140,130,125,120],TM0=[0,5,8,10,12,15];
+const CNT=YR.map((y,i)=>[TN0[i]-IC0[i]-TM0[i],IC0[i],TI0[i],TM0[i]]); // urutan = JN
+const KQ=YR.map((y,i)=>y==2026?[5000,150,120,30]:CNT[i].map(c=>Math.ceil(c*1.07/10)*10));
+const FKK=[...new Set(PS.map(p=>p[1]))].sort(),FW=FKK.map(()=>1+R()*3);
+const GL=["M.Ag.","M.Si.","M.Pd.","M.A.","M.Hum.","Ph.D."],JF=["Asisten Ahli","Lektor","Lektor Kepala","Guru Besar","Tenaga Pengajar"];
+let did=0;const DPLY={};
+YR.forEach((y,i)=>{const n=Math.round(CNT[i].reduce((a,b)=>a+b,0)/15);DPLY[y]=[];for(let k=0;k<n;k++)DPLY[y].push({id:did++,nama:nama()+", "+pick(GL),f:pick(FKK,FW),jf:pick(JF,[10,34,34,7,15])})});
+const MH=[];let nn=0;
+YR.forEach((y,yi)=>JN.forEach((j,ji)=>{const Lc=LOC[j],w=Lc.map(x=>x[2]);for(let n=0;n<CNT[yi][ji];n++){
+ const p=PS[ri(PS.length)],l=pick(Lc,w),d=DPLY[y][ri(DPLY[y].length)],ang=pick([y-3,y-4,y-2],[70,25,5]);
+ MH.push({y,nim:String(11000000000+ang*100000+nn++),nama:nama(),f:p[1],p:p[0],ang,g:R()<.58?"Perempuan":"Laki-laki",j,tl:TL[j],l:l[0],w:l[1],kel:"KKN"+y+"-"+j[0]+String(1+ri(150)).padStart(3,"0"),dpl:d.nama,did:d.id,df:d.f,jf:d.jf})}}));
+for(let i=MH.length-1;i>0;i--){const k=ri(i+1);[MH[i],MH[k]]=[MH[k],MH[i]]}
+
+// ---------- Filter ----------
+const F={y:2026,jn:"",fk:"",pr:"",ang:"",g:"",w:"",jf:""};
+const fillSel=(id,items,first)=>{$(id).innerHTML=(first===null?"":`<option value="">${first}</option>`)+items.map(x=>Array.isArray(x)?`<option value="${x[0]}">${x[1]}</option>`:`<option value="${x}">${x}</option>`).join("")};
+const markSel=id=>{const e=$(id);if(e.classList)e.classList.toggle("sel",e.value!=="")};
+const uniq=a=>[...new Set(a)];
+const prodiOf=fk=>uniq(PS.filter(p=>!fk||p[1]==fk).map(p=>p[0])).sort();
+const angAll=uniq(MH.map(m=>m.ang)).sort((a,b)=>b-a);
+const wAll=uniq(Object.values(LOC).flatMap(L=>L.map(x=>x[1]))).sort();
+fillSel("f_y",[...YR].reverse().map(y=>[y,"KKN "+y]),null);
+fillSel("f_jn",JN,"Semua jenis KKN");fillSel("f_fk",FKK,"Semua fakultas ("+FKK.length+")");fillSel("f_pr",prodiOf(""),"Semua program studi ("+prodiOf("").length+")");
+fillSel("f_ang",angAll,"Semua angkatan");fillSel("f_g",["Laki-laki","Perempuan"],"Semua");
+fillSel("f_w",wAll,"Semua wilayah ("+wAll.length+")");fillSel("f_jf",JF,"Semua jabatan");
+$("f_y").value="2026";
+const FS=["f_y","f_jn","f_fk","f_pr","f_ang","f_g","f_w","f_jf"];
+FS.forEach(id=>{$(id).onchange=()=>markSel(id)});
+$("f_fk").onchange=()=>{markSel("f_fk");const pr=prodiOf($("f_fk").value);fillSel("f_pr",pr,"Semua program studi ("+pr.length+")");markSel("f_pr")};
+FS.forEach(markSel);
+function readF(){F.y=+$("f_y").value;["jn","fk","pr","ang","g","w","jf"].forEach(k=>F[k]=$("f_"+k).value)}
+$("ap").onclick=()=>{readF();render()};
+$("cl").onclick=()=>{fillSel("f_pr",prodiOf(""),"Semua program studi ("+prodiOf("").length+")");FS.forEach(id=>{$(id).value=id=="f_y"?"2026":"";markSel(id)});readF();render()};
+const pass=m=>(!F.jn||m.j==F.jn)&&(!F.fk||m.f==F.fk)&&(!F.pr||m.p==F.pr)&&(!F.ang||m.ang==+F.ang)&&(!F.g||m.g==F.g)&&(!F.w||m.w==F.w)&&(!F.jf||m.jf==F.jf);
+
+// ---------- Helper tampilan ----------
+const hb=(el,rows,fm)=>{if(!rows.length||rows.every(r=>!r[1])){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}hbar(el,rows,fm)};
+const pieSafe=(el,lab,vals,cols,names,t)=>{if(!vals.some(v=>v>0)){$(el).style.background="var(--line)";$(lab).innerHTML="Total<br>0";$(t).innerHTML="";return}pie(el,lab,vals,cols,names,t)};
+// ---------- Line chart bergaya Apache Superset 3.0.2 (ECharts Timeseries Line) ----------
+// Ciri khas: tanpa area fill, garis 2px, tanpa marker/label nilai (marker muncul saat hover),
+// legend di atas (tengah), grid horizontal tipis, sumbu-Y format SMART_NUMBER (4.5k) dengan skala terpotong (truncate),
+// sumbu-X dengan garis + tick, crosshair putus-putus (cross axisPointer) dan tooltip per sumbu.
+const LS={};
+const sn=v=>{const a=Math.abs(v);if(a>=1e6)return+(v/1e6).toPrecision(3)+"M";if(a>=1e3)return+(v/1e3).toPrecision(3)+"k";return String(+v.toPrecision(3))};
+function niceStep(x){const e=Math.pow(10,Math.floor(Math.log10(x))),f=x/e;return(f<1.5?1:f<2.5?2:f<4?3:f<7?5:10)*e}
+function line(el,lb,v,c,name){const h=$(el);LS[el]=[lb,v,c,name];
+ if(!h._ro&&window.ResizeObserver){h._ro=new ResizeObserver(()=>{const w=Math.round(h.clientWidth);if(w&&w!==h._w)drawLine(el)});h._ro.observe(h)}
+ drawLine(el)}
+function drawLine(el){const h=$(el),[lb,v,c,name]=LS[el],W=Math.max(Math.round(h.clientWidth)||420,240),H=300;h._w=W;
+ let mn=Math.min(...v),mx=Math.max(...v);if(mn==mx){mn=mn-1;mx=mx+1}
+ const st=niceStep((mx-mn)/5),lo=Math.floor(mn/st+1e-9)*st,hi=Math.ceil(mx/st-1e-9)*st,nt=Math.round((hi-lo)/st),
+  tk=[...Array(nt+1)].map((_,k)=>+(lo+k*st).toFixed(6)),
+  pl=Math.max(...tk.map(t=>sn(t).length))*7+18,pr=26,pt=46,pb=32,n=v.length,
+  x=i=>pl+(n>1?i*(W-pl-pr)/(n-1):(W-pl-pr)/2),y=a=>pt+(1-(a-lo)/(hi-lo))*(H-pt-pb),
+  T="font-family:Inter,'Segoe UI',system-ui,Arial,sans-serif";
+ let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${name}" style="${T}">`;
+ // legend (tengah atas)
+ const lw=25+6+name.length*6.6,lx=(W-lw)/2;
+ s+=`<g><line x1="${lx}" x2="${lx+25}" y1="16" y2="16" style="stroke:${c};stroke-width:2"/><circle cx="${lx+12.5}" cy="16" r="4.5" style="fill:var(--panel);stroke:${c};stroke-width:2"/><text x="${lx+31}" y="20" style="fill:var(--text);font-size:12px">${name}</text></g>`;
+ // grid horizontal + label sumbu-Y
+ tk.forEach(t=>{s+=`<line x1="${pl}" x2="${W-pr}" y1="${y(t)}" y2="${y(t)}" style="stroke:var(--line);stroke-width:1"/><text x="${pl-8}" y="${y(t)+4}" text-anchor="end" style="fill:var(--mute);font-size:12px">${sn(t)}</text>`});
+ // sumbu-X: garis + tick + label
+ s+=`<line x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}" style="stroke:var(--mute);stroke-width:1"/>`;
+ lb.forEach((l,i)=>{s+=`<line x1="${x(i)}" x2="${x(i)}" y1="${H-pb}" y2="${H-pb+5}" style="stroke:var(--mute);stroke-width:1"/><text x="${x(i)}" y="${H-pb+22}" text-anchor="middle" style="fill:var(--mute);font-size:12px">${l}</text>`});
+ // garis seri (tanpa area, tanpa marker)
+ s+=`<polyline points="${v.map((a,i)=>x(i)+","+y(a)).join(" ")}" style="fill:none;stroke:${c};stroke-width:2;stroke-linejoin:round;stroke-linecap:round"/>`;
+ // lapisan hover: crosshair, marker, label sumbu
+ s+=`<g id="${el}_h" style="display:none;pointer-events:none"><line class="cv" y1="${pt}" y2="${H-pb}" style="stroke:var(--mute);stroke-width:1;stroke-dasharray:3 3"/><line class="ch" x1="${pl}" x2="${W-pr}" style="stroke:var(--mute);stroke-width:1;stroke-dasharray:3 3"/><circle class="cp" r="5" style="fill:${c};stroke:var(--panel);stroke-width:2"/><rect class="rx" height="20" rx="2" style="fill:#6E7079"/><text class="tx" text-anchor="middle" style="fill:#fff;font-size:12px"></text><rect class="ry" height="20" rx="2" style="fill:#6E7079"/><text class="ty" text-anchor="end" style="fill:#fff;font-size:12px"></text></g>`;
+ s+=`<rect class="ov" x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}" style="fill:transparent;touch-action:pan-y"/></svg><div class="ectt" style="display:none"></div>`;
+ h.innerHTML=s;
+ const svg=h.querySelector("svg"),g=$(el+"_h"),tt=h.querySelector(".ectt"),q=k=>g.querySelector(k);
+ const mv=e=>{const r=svg.getBoundingClientRect(),k=W/r.width,mx_=(e.clientX-r.left)*k,my=Math.min(Math.max((e.clientY-r.top)*k,pt),H-pb);
+  let i=n>1?Math.round((mx_-pl)/((W-pl-pr)/(n-1))):0;i=Math.max(0,Math.min(n-1,i));
+  const px=x(i),py=y(v[i]),yv=lo+(1-(my-pt)/(H-pt-pb))*(hi-lo);
+  g.style.display="";q(".cv").setAttribute("x1",px);q(".cv").setAttribute("x2",px);
+  q(".ch").setAttribute("y1",my);q(".ch").setAttribute("y2",my);q(".cp").setAttribute("cx",px);q(".cp").setAttribute("cy",py);
+  const xl=String(lb[i]),xw=xl.length*7+14;q(".rx").setAttribute("x",px-xw/2);q(".rx").setAttribute("y",H-pb+2);q(".rx").setAttribute("width",xw);
+  q(".tx").setAttribute("x",px);q(".tx").setAttribute("y",H-pb+16);q(".tx").textContent=xl;
+  const yl=fmt(Math.round(yv)),yw=yl.length*7+14;q(".ry").setAttribute("x",pl-yw-2);q(".ry").setAttribute("y",my-10);q(".ry").setAttribute("width",yw);
+  q(".ty").setAttribute("x",pl-9);q(".ty").setAttribute("y",my+4);q(".ty").textContent=yl;
+  tt.innerHTML=`<div style="font-weight:600;margin-bottom:6px">${lb[i]}</div><div style="display:flex;align-items:center;gap:8px"><i style="width:10px;height:10px;border-radius:50%;background:${c};display:inline-block"></i><span>${name}</span><b style="margin-left:auto;padding-left:16px">${fmt(v[i])}</b></div>`;
+  tt.style.display="block";const tw=tt.offsetWidth,th=tt.offsetHeight;let tl=px+14;if(tl+tw>W)tl=px-14-tw;tt.style.left=Math.max(0,tl)+"px";tt.style.top=Math.max(0,Math.min(py-th/2,H-th))+"px"};
+ const out=()=>{g.style.display="none";tt.style.display="none"};
+ const ov=h.querySelector(".ov");ov.onpointermove=mv;ov.onpointerdown=mv;ov.onpointerleave=out}
+
+// ---------- Render ----------
+const SB=[["Reguler","Kab / Kota"],["In Campus","Unit / Lembaga"],["Internasional","Negara"],["Tematik","Kampus Penanggung Jawab"]];
+// Grafik kolom vertikal dengan label nilai (seperti laporan); tahun terpilih ditebalkan
+function vbar(el,lb,v,c,hi){const mx=Math.max(...v,1);
+ $(el).innerHTML=lb.map((l,i)=>`<div class="c"><b style="${i==hi?"":"font-weight:600;color:var(--mute)"}">${fmt(v[i])}</b><i style="height:${Math.max(v[i]/mx*85,v[i]?1.5:.6)}%;background:${c};opacity:${i==hi?1:.55}" title="${l}: ${fmt(v[i])}"></i><span style="${i==hi?"color:var(--text);font-weight:700":""}">${l}</span></div>`).join("")}
+function render(){
+ TA0=F.y;
+ const base=MH.filter(pass),cur=base.filter(m=>m.y==F.y),yi=YR.indexOf(F.y),pi=yi-1;
+ $("per").textContent="KKN "+F.y;
+ const narrow=!!(F.fk||F.pr||F.ang||F.g||F.w||F.jf);
+ const dp=new Map();cur.forEach(m=>dp.set(m.did,m));const dv=[...dp.values()];
+ const jc=JN.map(j=>cur.filter(m=>m.j==j).length),kq=KQ[yi],kuota=JN.reduce((s,j,i)=>s+(!F.jn||F.jn==j?kq[i]:0),0);
+ // KPI
+ kpis("k0",[["Total Mahasiswa",fmt(cur.length),"Terdaftar aktif KKN "+F.y],["Jumlah DPL",fmt(dv.length),"Dari "+new Set(dv.map(m=>m.df)).size+" fakultas"],["Lokasi KKN",fmt(new Set(cur.map(m=>m.j+"|"+m.l)).size),"Lokasi penempatan aktif"],
+  narrow?["Kuota Terisi","-","Kuota dihitung per periode dan jenis KKN"]:["Kuota Terisi",fp(pct(cur.length,kuota)),fmt(cur.length)+" dari "+fmt(kuota)+" kuota"]]);
+ const GN=["Laki-laki","Perempuan"],GC=["#4a6fa5","#e58fa8"];
+ pieSafe("pg","pgt",GN.map(g=>cur.filter(m=>m.g==g).length),GC,GN,"pgl");
+ hb("bjn",JN.map((j,i)=>[j,jc[i],JC[i]]).sort((a,b)=>b[1]-a[1]),fmt);
+ $("njn").textContent=narrow?"":"Kuota terisi: "+JN.map((j,i)=>kq[i]>0&&(!F.jn||F.jn==j)?j+" "+fp(pct(jc[i],kq[i])):null).filter(Boolean).join(" · ");
+ hb("bjf",cnt(dv,m=>m.jf).map(([k,v])=>[k,v,"var(--accent)"]),fmt);
+ // Sebaran per jenis KKN
+ SB.forEach(([j,tl],i)=>{const rs=cur.filter(m=>m.j==j),g={};rs.forEach(m=>g[m.l]=(g[m.l]||0)+1);
+  hb("bs_"+i,Object.entries(g).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,JC[JN.indexOf(j)]]),fmt);$("ts_"+i).textContent=tl+" · Total: "+fmt(rs.length)});
+ // Tabel
+ const LKm={};cur.forEach(m=>{const k=m.j+"|"+m.l;(LKm[k]=LKm[k]||{j:m.j,l:m.l,w:m.w,n:0}).n++});
+ table("lok",[["j","Jenis KKN"],["tl","Tipe Lokasi"],["l","Lokasi"],["w","Provinsi / Wilayah"],["nf","Jumlah Mahasiswa",1]],
+  Object.values(LKm).sort((a,b)=>JN.indexOf(a.j)-JN.indexOf(b.j)||b.n-a.n).map(r=>({j:r.j,tl:TL[r.j],l:r.l,w:r.w,nf:fmt(r.n)})));
+ table("mhs",[["nim","NIM"],["nama","Nama"],["f","Fakultas"],["p","Program Studi"],["ang","Angkatan"],["gs","L/P"],["j","Jenis KKN"],["l","Lokasi"],["kel","Kelompok"],["dpl","DPL"]],cur.map(m=>({...m,gs:m.g[0]})));
+
+ // ===== Perbandingan & Tren (semua filter selain periode berlaku) =====
+ const tn=YR.map(()=>0),ti=YR.map(()=>0);base.forEach(m=>{(m.j=="Internasional"?ti:tn)[m.y-2021]++});const tt=tn.map((v,i)=>v+ti[i]);
+ $("cmpy").textContent="KKN "+F.y;
+ vbar("ln0",YR,tt,"#1a9bc4",yi);vbar("ln1",YR,tn,"#1e3a8a",yi);vbar("ln2",YR,ti,"#0f8a8f",yi);
+ table("tren",[["th","Tahun"],["r","Reguler",1],["ic","In Campus",1],["tm","Tematik",1],["n","KKN Nasional",1],["i","KKN Internasional",1],["t","Total Peserta",1],["c","Perubahan Total",1],["cp","Perubahan Total (%)",1]],
+  YR.map((y,k)=>{const by=j=>base.filter(m=>m.y==y&&m.j==j).length;return{th:y,r:fmt(by("Reguler")),ic:fmt(by("In Campus")),tm:fmt(by("Tematik")),n:fmt(tn[k]),i:fmt(ti[k]),t:fmt(tt[k]),c:k?(tt[k]-tt[k-1]>=0?"+":"−")+fmt(Math.abs(tt[k]-tt[k-1])):"-",cp:k&&tt[k-1]?fp(pct(tt[k]-tt[k-1],tt[k-1])):"-"}}));
+}
+render();
+
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==b.dataset.t))});
+</script>
+</body>
+</html>

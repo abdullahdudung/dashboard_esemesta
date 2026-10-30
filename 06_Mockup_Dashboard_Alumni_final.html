@@ -1,0 +1,198 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Alumni</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+@media(max-width:1100px){aside{width:240px}.row2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi h4{font-size:14px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Tahun</label><select id="f_th" style="color:var(--text)"></select></div>
+  <div class="f"><label>Angkatan</label><select><option>15 options</option></select></div>
+  <div class="f"><label>Fakultas</label><select><option>13 options</option></select></div>
+  <div class="f"><label>Prodi</label><select><option>90 options</option></select></div>
+  <div class="f"><label>Jenjang</label><select><option>5 options</option></select></div>
+  <div class="f"><label>Jalur Masuk</label><select><option>15 options</option></select></div>
+  <div class="f"><label>Status Pasca Lulus</label><select><option>6 options</option></select></div>
+  <div class="f"><label>Jenis Pekerjaan</label><select><option>8 options</option></select></div>
+  <div class="btns"><button class="a" id="ap">APPLY FILTERS</button><button class="c" id="cl">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[ALM] Dashboard Alumni dan Tracer Study</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="t0">Ringkasan Alumni</button><button data-t="t1">Status dan Pekerjaan</button><button data-t="t3">Jalur Masuk</button></div>
+
+<section class="panel on" id="t0">
+  <div class="grid" id="k0"></div>
+  <div class="row3">
+    <div class="card"><h4>Komposisi Alumni berdasarkan Jenjang<span>⋮</span></h4><div class="pie" id="pjj"><em id="pjjt"></em></div><div class="leg" id="pjjl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Status Pasca Lulus<span>⋮</span></h4><div class="pie" id="pst"><em id="pstt"></em></div><div class="leg" id="pstl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Alumni per Angkatan (berdasarkan Jenjang)<span>⋮</span></h4><div class="bars" id="bang"></div><div class="leg" id="lang"></div></div>
+    <div class="card"><h4>Jumlah Alumni per Fakultas (berdasarkan Jenjang)<span>⋮</span></h4><div class="bars" id="bfjj"></div><div class="leg" id="lfjj"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Jumlah Alumni per Prodi<span>⋮</span></h4>
+    <div class="tools"><input class="q" id="q" placeholder="90 records"></div>
+    <div class="bars" id="bpr"></div></div>
+</section>
+
+<section class="panel" id="t1">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Komposisi Jenis Pekerjaan (Alumni Bekerja/Wirausaha)<span>⋮</span></h4><div class="bars" id="bpk"></div><div class="leg" id="lpk"></div><div class="note" id="npk"></div></div>
+    <div class="card"><h4>Jenis Pekerjaan per Fakultas (Alumni Bekerja/Wirausaha)<span>⋮</span></h4><div class="bars" id="bkf"></div><div class="leg" id="lkf"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Status Pasca Lulus per Jenjang<span>⋮</span></h4><div class="bars" id="bsj"></div><div class="leg" id="lsj"></div></div>
+    <div class="card"><h4>Status Pasca Lulus per Fakultas<span>⋮</span></h4><div class="bars" id="bsf"></div><div class="leg" id="lsf"></div></div>
+  </div>
+  <div style="margin-top:16px"><div class="card"><h4>Status Pasca Lulus per Angkatan<span>⋮</span></h4><div class="bars" id="bsa"></div><div class="leg" id="lsa"></div></div></div>
+</section>
+
+<section class="panel" id="t3">
+  <div class="row3" style="margin-top:0">
+    <div class="card"><h4>Jumlah Alumni per Jalur Masuk<span>⋮</span></h4><div class="bars" id="bjm"></div><div class="leg" id="ljm"></div></div>
+    <div class="card"><h4>Status Pasca Lulus per Jalur Masuk<span>⋮</span></h4><div class="bars" id="bjs2"></div><div class="leg" id="ljs2"></div></div>
+  </div>
+  <div style="margin-top:16px"><div class="card"><h4>Jenis Pekerjaan per Jalur Masuk (Alumni Bekerja/Wirausaha)<span>⋮</span></h4><div class="bars" id="bjk"></div><div class="leg" id="ljk"></div></div></div>
+</section>
+</div>
+</main>
+</div>
+<script>
+// Data dummy: tiap baris = satu alumni (nim dan nama tidak ditampilkan). Ganti dengan data asli dari Superset.
+const $=id=>document.getElementById(id),sum=(a,i)=>a.reduce((s,r)=>s+r[i],0);
+const PR=[["AGRIBISNIS", "SAINS DAN TEKNOLOGI", "S1"], ["AKUNTANSI", "EKONOMI DAN BISNIS", "S1"], ["AKUNTANSI (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["AQIDAH DAN FILSAFAT ISLAM", "USHULUDDIN", "S1"], ["BAHASA DAN SASTRA ARAB", "ADAB DAN HUMANIORA", "S1"], ["BIMBINGAN PENYULUHAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["BIOLOGI", "SAINS DAN TEKNOLOGI", "S1"], ["DIRASAT ISLAMIYAH", "DIRASAT ISLAMIYAH", "S1"], ["DOKTOR PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S3"], ["DOKTOR PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S3"], ["EKONOMI PEMBANGUNAN", "EKONOMI DAN BISNIS", "S1"], ["EKONOMI SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["FARMASI", "ILMU KESEHATAN", "S1"], ["FISIKA", "SAINS DAN TEKNOLOGI", "S1"], ["HUKUM EKONOMI SYARIAH (MU'AMALAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM KELUARGA (AKHWAL SYAKSIYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM PIDANA ISLAM (JINAYAH)", "SYARIAH DAN HUKUM", "S1"], ["HUKUM TATA NEGARA (SIYASAH)", "SYARIAH DAN HUKUM", "S1"], ["ILMU AL-QUR'AN DAN TAFSIR", "USHULUDDIN", "S1"], ["ILMU HADIS", "USHULUDDIN", "S1"], ["ILMU HUBUNGAN INTERNASIONAL", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUBUNGAN INTERNASIONAL (KELAS INTERNASIONAL) (TA)", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU HUKUM", "SYARIAH DAN HUKUM", "S1"], ["ILMU KEPERAWATAN", "ILMU KESEHATAN", "S1"], ["ILMU PERPUSTAKAAN", "ADAB DAN HUMANIORA", "S1"], ["ILMU POLITIK", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["ILMU TASAWUF", "USHULUDDIN", "S1"], ["JURNALISTIK", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KESEHATAN MASYARAKAT", "ILMU KESEHATAN", "S1"], ["KESEJAHTERAAN SOSIAL", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["KIMIA", "SAINS DAN TEKNOLOGI", "S1"], ["KOMUNIKASI PENYIARAN ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MAGISTER AGRIBISNIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER AQIDAH DAN FILSAFAT ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER BAHASA DAN SASTRA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER DIRASAT ISLAMIYAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM EKONOMI SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER HUKUM KELUARGA (AHWAL SYAKHSIYYAH)", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU AL-QUR'AN DAN TAFSIR", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER ILMU POLITIK", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER KOMUNIKASI DAN PENYIARAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN DAKWAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER MANAJEMEN PENDIDIKAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN AGAMA ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA ARAB", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENDIDIKAN BAHASA INGGRIS", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PENGKAJIAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PERBANKAN SYARIAH", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER PSIKOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SEJARAH DAN KEBUDAYAAN ISLAM", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER SOSIOLOGI", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER STUDI AGAMA-AGAMA", "SEKOLAH PASCASARJANA", "S2"], ["MAGISTER TEKNOLOGI INFORMASI", "SEKOLAH PASCASARJANA", "S2"], ["MANAJEMEN", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN (KELAS INTERNASIONAL)", "EKONOMI DAN BISNIS", "S1"], ["MANAJEMEN DAKWAH", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["MANAJEMEN PENDIDIKAN", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["MATEMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["PENDIDIKAN AGAMA ISLAM", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN BAHASA ARAB", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN DOKTER", "KEDOKTERAN", "S1"], ["PENDIDIKAN GURU MADRASAH IBTIDAIYAH", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN ISLAM ANAK USIA DINI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN MATEMATIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["PENDIDIKAN PROFESI GURU", "ILMU TARBIYAH DAN KEGURUAN", "Profesi"], ["PENGEMBANGAN MASYARAKAT ISLAM", "DAKWAH DAN ILMU KOMUNIKASI", "S1"], ["PERBANDINGAN MAZHAB", "SYARIAH DAN HUKUM", "S1"], ["PERBANKAN SYARIAH", "EKONOMI DAN BISNIS", "S1"], ["PROFESI APOTEKER", "ILMU KESEHATAN", "Profesi"], ["PROFESI DOKTER", "KEDOKTERAN", "Profesi"], ["PROFESI NERS", "ILMU KESEHATAN", "Profesi"], ["PSIKOLOGI", "PSIKOLOGI", "S1"], ["SASTRA INGGRIS", "ADAB DAN HUMANIORA", "S1"], ["SEJARAH DAN PERADABAN ISLAM", "ADAB DAN HUMANIORA", "S1"], ["SISTEM INFORMASI", "SAINS DAN TEKNOLOGI", "S1"], ["SISTEM INFORMASI (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["SOSIOLOGI", "ILMU SOSIAL DAN ILMU POLITIK", "S1"], ["STUDI AGAMA-AGAMA", "USHULUDDIN", "S1"], ["TADRIS BAHASA INDONESIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BAHASA INGGRIS", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS BIOLOGI", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS FISIKA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS ILMU PENGETAHUAN SOSIAL", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TADRIS KIMIA", "ILMU TARBIYAH DAN KEGURUAN", "S1"], ["TARJAMAH", "ADAB DAN HUMANIORA", "S1"], ["TEKNIK INFORMATIKA", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK INFORMATIKA (KELAS INTERNASIONAL)", "SAINS DAN TEKNOLOGI", "S1"], ["TEKNIK PERTAMBANGAN", "SAINS DAN TEKNOLOGI", "S1"]];
+const FKN=["ADAB DAN HUMANIORA", "DAKWAH DAN ILMU KOMUNIKASI", "DIRASAT ISLAMIYAH", "EKONOMI DAN BISNIS", "ILMU KESEHATAN", "ILMU SOSIAL DAN ILMU POLITIK", "ILMU TARBIYAH DAN KEGURUAN", "KEDOKTERAN", "PSIKOLOGI", "SAINS DAN TEKNOLOGI", "SEKOLAH PASCASARJANA", "SYARIAH DAN HUKUM", "USHULUDDIN"];
+const JJ=["S1","S2","S3","Profesi","Sp-1"],JC=["var(--l)","var(--lk)","var(--gb)","var(--js)","#e5697a"];
+const SN=["Bekerja/Wirausaha","Melanjutkan Studi ke Jenjang Lebih Tinggi","Menganggur","Menuntut Ilmu di Pesantren","Lainnya","Belum Diset"],SC=["var(--lk)","var(--l)","#e5697a","var(--js)","#8f9aa6","#c3cad2"];
+const KN=["Pegawai Swasta","Wiraswasta/Wirausaha","Guru","Dosen","PNS (selain Guru, Dosen, Dokter/Medis)","Dokter/Tenaga Medis","Lainnya","Belum Diset"],KC=["var(--l)","var(--gb)","var(--lk)","var(--js)","#e5697a","var(--fk)","#8f9aa6","#c3cad2"];
+const DN=["Tetap Tinggal di Kota dimana PTKI Berada","Kembali ke Kota Asal","Pindah ke Kota Lain","Belum Diset"],DC=["var(--l)","var(--lk)","var(--gb)","#c3cad2"];
+const LN=["Double degree","Kerjasama","Khusus","Lokal","Lokal Non-Regular","PMDK PTN-BARAT","RPL","S1-UMPTKIN","SNBP","SNBT","SPANPTKIN","SPMB Bersama","SPMB Mandiri - Reguler","Seleksi PGMI","Tidak ada data"];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(20261005),pick=(it,w)=>{let s=w.reduce((a,b)=>a+b,0),x=R()*s;for(let i=0;i<it.length;i++){x-=w[i];if(x<0)return it[i]}return it[it.length-1]};
+// Tahun = tahun lulus (5 tahun terakhir). Angkatan diturunkan dari tahun lulus − masa studi.
+const TH=[2026,2025,2024,2023,2022],TW=[22,21,20,19,18],BD={2022:9,2023:11,2024:14,2025:20,2026:38};
+const DUR={S1:[[4,5,6,7],[40,35,15,10]],S2:[[2,3],[60,40]],S3:[[3,4,5],[30,45,25]],Profesi:[[1,2],[70,30]],"Sp-1":[[4,5],[60,40]]};
+const PW=PR.map(p=>p[2]=="S1"?3+R()*7:p[2]=="S2"?1+R()*1.5:p[2]=="S3"?.3+R()*.3:1+R()*.8);
+const AL=[];
+for(let n=0;n<9000;n++){const p=pick(PR,PW);let j=p[2];if(p[0]=="PROFESI DOKTER"&&R()<.3)j="Sp-1";
+ const t=pick(TH,TW),bd=BD[t];
+ const s=pick(SN,j=="S1"?[55,12,8,3,8,bd]:[70,12,4,1,5,bd*.6]);
+ let k="Belum Diset";
+ if(s==SN[0]){const w=[28,15,15,6,8,3,20,5];if(p[1]=="KEDOKTERAN"||p[1]=="ILMU KESEHATAN")w[5]=40;if(p[1]=="ILMU TARBIYAH DAN KEGURUAN")w[2]=45;if(j!="S1"){w[3]=25;w[2]=15}k=pick(KN,w)}
+ else if(R()<.15)k="Lainnya";
+ const d=pick(DN,[35,25,25,15]);
+ const lw=j=="S1"?[1,3,3,8,4,5,2,12,14,14,10,6,10,p[0]=="PENDIDIKAN GURU MADRASAH IBTIDAIYAH"?8:0,5]:[0,5,0,55,15,0,0,0,0,0,0,0,0,0,25];
+ AL.push({t,a:t-pick(...DUR[j]),f:p[1],p:p[0],j,s,k,d,m:pick(LN,lw)})}
+function bars(el,rows,cols){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot));
+ $(el).innerHTML=rows.map(r=>{const t=tot(r);return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?r[i+1]:""}</i>`).join("")}</div><div class="tt">${t}</div></div>`}).join("")}
+function hbar(el,rows){if(!rows.length){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}const mx=Math.max(...rows.map(r=>r[1]));
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${r[1]}</div></div>`).join("")}
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${tot.toLocaleString("id-ID")}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+// agregasi: baris per kunci, kolom per kategori
+function agg(data,keyFn,catFn,cats,keys,asc){const m={};(keys||[]).forEach(k=>m[k]=cats.map(()=>0));
+ data.forEach(r=>{const k=keyFn(r);(m[k]=m[k]||cats.map(()=>0))[cats.indexOf(catFn(r))]++});
+ const o=Object.entries(m).map(([k,v])=>[k,...v]);return o.sort(asc?(a,b)=>a[0]-b[0]:(a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0))}
+const stk=(id,rows,cols,names)=>{bars("b"+id,rows,cols);leg("l"+id,names,cols)};
+const pc=(id,data,catFn,cats,cols)=>{const v=cats.map(c=>data.filter(r=>catFn(r)==c).length),k=cats.map((_,i)=>i).filter(i=>v[i]>0); // kategori 0 tidak ditampilkan
+ pie("p"+id,"p"+id+"t",k.map(i=>v[i]),k.map(i=>cols[i]),k.map(i=>cats[i]),"p"+id+"l")};
+const fmt=n=>(n||0).toLocaleString("id-ID");
+const kpis=(el,items)=>{$(el).innerHTML=items.map(([h,n,s])=>`<div class="card kpi"><h4>${h}</h4><div class="n">${n}</div><div class="s">${s||""}</div></div>`).join("")};
+// Filter Tahun: pilihan tunggal (bukan multi-select), 5 tahun terakhir
+$("f_th").innerHTML=TH.map(y=>`<option value="${y}">${y}</option>`).join("");
+let D=AL,BK=[],pcount={};
+function render(){const y=+$("f_th").value;D=AL.filter(r=>r.t==y);BK=D.filter(r=>r.s==SN[0]);
+ const ANG=[...new Set(D.map(r=>r.a))].sort((a,b)=>a-b),resp=D.filter(r=>r.s!="Belum Diset").length;
+// Ringkasan
+ kpis("k0",[["Total Alumni",fmt(D.length),"Lulusan tahun "+y],["Total Responden",fmt(resp),"Alumni yang mengisi tracer study"],["% Tingkat Respon",D.length?(resp/D.length*100).toFixed(2).replace(".",",")+"%":"-","Total Responden ÷ Total Alumni × 100%"]]);
+ pc("jj",D,r=>r.j,JJ,JC);pc("st",D,r=>r.s,SN,SC);
+ stk("ang",agg(D,r=>r.a,r=>r.j,JJ,ANG,true),JC,JJ);
+ stk("fjj",agg(D,r=>r.f,r=>r.j,JJ,FKN),JC,JJ);
+ pcount={};D.forEach(r=>pcount[r.p]=(pcount[r.p]||0)+1);prodi();
+ // Status dan Pekerjaan
+ const kc=KN.map(k=>BK.filter(r=>r.k==k).length),ki=KN.map((_,i)=>i).filter(i=>kc[i]>0).sort((a,b)=>kc[b]-kc[a]);
+ bars("bpk",ki.map(i=>[KN[i],...KN.map((_,m)=>m==i?kc[i]:0)]),KC);leg("lpk",ki.map(i=>KN[i]),ki.map(i=>KC[i]));
+ $("npk").textContent="Total alumni bekerja/wirausaha: "+fmt(BK.length);
+ stk("kf",agg(BK,r=>r.f,r=>r.k,KN,FKN),KC,KN);
+ stk("sj",agg(D,r=>r.j,r=>r.s,SN,JJ),SC,SN);
+ stk("sf",agg(D,r=>r.f,r=>r.s,SN,FKN),SC,SN);
+ stk("sa",agg(D,r=>r.a,r=>r.s,SN,ANG,true),SC,SN);
+ // Jalur Masuk
+ const JM={};D.forEach(r=>JM[r.m]=(JM[r.m]||0)+1);
+ hbar("bjm",LN.map(n=>[n,JM[n]||0,"var(--accent)"]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]));
+ stk("js2",agg(D,r=>r.m,r=>r.s,SN,LN),SC,SN);
+ stk("jk",agg(BK,r=>r.m,r=>r.k,KN,LN),KC,KN);
+}
+function prodi(){const q=$("q").value.toLowerCase();hbar("bpr",Object.entries(pcount).filter(x=>x[0].toLowerCase().includes(q)).sort((a,b)=>b[1]-a[1]).map(x=>[x[0],x[1],"var(--accent)"]))}
+$("q").oninput=prodi;
+$("ap").onclick=render;$("cl").onclick=()=>{$("f_th").value=TH[0];render()};
+render();
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");["t0","t1","t3"].forEach(id=>$(id).classList.toggle("on",id==b.dataset.t))});
+</script>
+</body>
+</html>
+
+</body></html>

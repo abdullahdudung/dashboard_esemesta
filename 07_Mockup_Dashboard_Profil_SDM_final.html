@@ -1,0 +1,230 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Profil SDM</title>
+<style>
+:root{--bg:#f4f6f8;--panel:#fff;--line:#e3e7eb;--text:#1f2a37;--mute:#8a94a0;--accent:#1a9bc4;--aa:#8fd0e8;--l:#1e88f5;--lk:#3b8f62;--gb:#f0b429;--fu:#1e88f5;--fk:#5bc48a;--jp:#f6dc7a;--js:#a78bda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}}
+:root[data-theme="dark"]{--bg:#12171c;--panel:#1a2128;--line:#2a343d;--text:#e6ebf0;--mute:#8b97a3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;font-size:14px}
+.top{height:66px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:800;font-size:22px;line-height:1;color:#0c7ea3;letter-spacing:.5px}.logo small{display:block;font-size:12px;font-weight:600;color:var(--text);letter-spacing:0;margin-top:3px}
+.ft{display:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:4px;padding:8px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.wrap{display:flex;align-items:flex-start}
+aside{width:280px;flex:none;position:sticky;top:0;height:calc(100vh - 66px);overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column}
+aside h3{margin:0 0 20px;font-size:18px;font-weight:600;display:flex;justify-content:space-between}
+.f{margin-bottom:16px}.f label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.f select,.q{width:100%;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--text);padding:0 12px;font-size:14px;font-family:inherit}
+.f select{color:var(--mute);font-size:15px}
+.btns{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:12px}
+.btns .a{background:#e3e6ea;color:#555;border:0;padding:10px 22px;border-radius:4px;font-weight:600;font-size:13px}
+.btns .c{background:none;border:0;color:var(--mute);font-weight:600;font-size:13px}
+main{flex:1;min-width:0}
+.head{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.head h1{margin:0;font-size:clamp(17px,2.2vw,24px);font-weight:600}
+.dots{border:1px solid var(--text);background:none;color:var(--text);border-radius:4px;width:40px;height:38px;font-weight:700;flex:none}
+.body{padding:clamp(12px,2.5vw,28px) clamp(12px,3vw,38px)}
+.tabs{background:var(--panel);display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:16px 4px 14px;font-size:16px;color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-color:#2b4a6b}
+.panel{display:none;margin-top:20px}.panel.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.row2{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.r3c{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))!important}
+.r4c{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(max-width:1200px){.r4c{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:620px){.r4c{grid-template-columns:minmax(0,1fr)!important}}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px;min-width:0;container-type:inline-size}
+.card h4{margin:0;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card h4 span{color:var(--mute);font-size:20px;line-height:.8}
+.kpi{min-height:120px}.kpi .n{font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1;margin-top:20px}.kpi .s{color:var(--mute);margin-top:8px;font-size:13px}
+.bars{margin-top:16px;max-height:520px;overflow:auto;padding-right:4px}
+.br{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 40px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.br .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.br .tr{display:flex;height:22px}.br .tr i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#fff;min-width:0;overflow:hidden}
+.br .tt{text-align:right;font-weight:600}
+@container (max-width:460px){.br{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:12px}.br .lb{grid-column:1/-1;white-space:normal}}
+.leg{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px}.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.pie{width:min(190px,70%);aspect-ratio:1;border-radius:50%;margin:24px auto 12px;position:relative}
+.pie::after{content:"";position:absolute;inset:20%;background:var(--panel);border-radius:50%}
+.pie em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;z-index:1;text-align:center;font-size:15px}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}.tools .q{flex:1 1 170px;min-width:0;width:auto}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+@media(max-width:1100px){aside{width:240px}.row2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.wrap{flex-direction:column;align-items:stretch}.ft{display:block}aside{display:none;position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line)}aside.open{display:flex}.btns{flex-direction:row;justify-content:center}.tabs{padding:0 12px;gap:20px}.card{padding:14px}.grid,.row2,.row3{gap:12px}.row2,.row3{margin-top:12px}.panel{margin-top:12px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi h4{font-size:14px}.logo{font-size:19px}.logo small{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">UIN<small>Syarif Hidayatullah Jakarta</small></div><button class="ft" id="ft">Filters</button></header>
+<div class="wrap">
+<aside id="side">
+  <h3>Filters <span>⇤</span></h3>
+  <div class="f"><label>Kelompok Pegawai</label><select><option>2 options</option></select></div>
+  <div class="f"><label>Jenis Pegawai</label><select><option>9 options</option></select></div>
+  <div class="f"><label>Kategori Pegawai</label><select><option>3 options</option></select></div>
+  <div class="f"><label>Sub Kategori Pegawai</label><select><option>7 options</option></select></div>
+  <div class="f"><label>Unit Kerja</label><select><option>150 options</option></select></div>
+  <div class="f"><label>Jenis Jabfung</label><select><option>6 options</option></select></div>
+  <div class="f"><label>Nama Jabfung</label><select><option>231 options</option></select></div>
+  <div class="f"><label>Status Kepegawaian</label><select><option>10 options</option></select></div>
+  <div class="f"><label>Pendidikan Terakhir</label><select><option>5 options</option></select></div>
+  <div class="f"><label>Jenis Kelamin</label><select><option>2 options</option></select></div>
+  <div class="btns"><button class="a">APPLY FILTERS</button><button class="c">CLEAR ALL</button></div>
+</aside>
+<main>
+<div class="head"><h1>[SDM] Dashboard Profil Sumber Daya Manusia</h1><button class="dots">···</button></div>
+<div class="body">
+<div class="tabs" id="tabs"><button class="on" data-t="ps">Ringkasan Pegawai</button><button data-t="p0">Dosen</button><button data-t="p1">Tendik</button><button data-t="p2">Nakes</button></div>
+
+<section class="panel on" id="ps">
+  <div class="row3 r3c" style="margin-top:0">
+    <div class="card"><h4>Komposisi Status Pegawai<span>⋮</span></h4><div class="pie" id="pss"><em id="psst"></em></div><div class="leg" id="pssl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Pegawai: Dosen, Tendik, dan Nakes<span>⋮</span></h4><div class="pie" id="ps1"><em id="ps1t"></em></div><div class="leg" id="ps1l" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jenis Kelamin Pegawai<span>⋮</span></h4><div class="pie" id="ps2"><em id="ps2t"></em></div><div class="leg" id="ps2l" style="justify-content:center"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Jumlah Pegawai per Unit Kerja (Dosen, Tendik, dan Nakes)<span>⋮</span></h4><div class="bars" id="bs"></div><div class="leg" id="ls"></div></div>
+</section>
+
+<section class="panel" id="p0">
+  <div class="row3 r4c" style="margin-top:0">
+    <div class="card"><h4>Komposisi Status Pegawai Dosen<span>⋮</span></h4><div class="pie" id="psd"><em id="psdt"></em></div><div class="leg" id="psdl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jabatan Fungsional Dosen<span>⋮</span></h4><div class="pie" id="pd"><em id="pdt"></em></div><div class="leg" id="pl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jenis Kelamin Dosen<span>⋮</span></h4><div class="pie" id="pdg"><em id="pdgt"></em></div><div class="leg" id="pdgl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Pendidikan Dosen<span>⋮</span></h4><div class="pie" id="pdp"><em id="pdpt"></em></div><div class="leg" id="pdpl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Dosen berdasarkan Pendidikan per Fakultas<span>⋮</span></h4><div class="bars" id="bde"></div><div class="leg" id="lde"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Dosen berdasarkan Jabatan Fungsional per Fakultas<span>⋮</span></h4><div class="bars" id="bd1"></div><div class="leg" id="ld1"></div></div>
+    <div class="card"><h4>Jumlah Dosen berdasarkan Jabatan Fungsional per Prodi<span>⋮</span></h4><div class="bars" id="bd2"></div><div class="leg" id="ld2"></div></div>
+  </div>
+</section>
+
+<section class="panel" id="p1">
+  <div class="row3 r4c" style="margin-top:0">
+    <div class="card"><h4>Komposisi Status Pegawai Tendik<span>⋮</span></h4><div class="pie" id="pst"><em id="pstt"></em></div><div class="leg" id="pstl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jenis Jabfung Tendik<span>⋮</span></h4><div class="pie" id="pt"><em id="ptt"></em></div><div class="leg" id="ptl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jenis Kelamin Tendik<span>⋮</span></h4><div class="pie" id="ptg"><em id="ptgt"></em></div><div class="leg" id="ptgl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Pendidikan Tendik<span>⋮</span></h4><div class="pie" id="ptp"><em id="ptpt"></em></div><div class="leg" id="ptpl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Tendik berdasarkan Pendidikan per Unit Kerja<span>⋮</span></h4><div class="bars" id="bte"></div><div class="leg" id="lte"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Jumlah Tendik berdasarkan Jenis Jabfung per Unit Kerja<span>⋮</span></h4><div class="bars" id="bt"></div><div class="leg" id="lt"></div></div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Tendik berdasarkan Nama Jabfung<span>⋮</span></h4>
+      <div class="tools"><input class="q" id="q" placeholder="230 records">
+        <!-- <select class="q" id="jf"><option value="">Semua jenis jabfung</option><option>Fungsional Umum</option><option>Fungsional Khusus</option><option>Jabatan Pelaksana</option><option>Jabatan Struktural</option></select> -->
+      </div>
+      <div class="bars" id="bn"></div>
+    </div>
+    <div class="card"><h4>Jumlah Tendik berdasarkan Rumpun Jabfung<span>⋮</span></h4><div class="bars" id="bru"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p2">
+  <div class="row3 r4c" style="margin-top:0">
+    <div class="card"><h4>Komposisi Status Pegawai Nakes<span>⋮</span></h4><div class="pie" id="psn"><em id="psnt"></em></div><div class="leg" id="psnl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Profesi Nakes<span>⋮</span></h4><div class="pie" id="pn"><em id="pnt"></em></div><div class="leg" id="pnl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Jenis Kelamin Nakes<span>⋮</span></h4><div class="pie" id="png"><em id="pngt"></em></div><div class="leg" id="pngl" style="justify-content:center"></div></div>
+    <div class="card"><h4>Komposisi Pendidikan Nakes<span>⋮</span></h4><div class="pie" id="pnp"><em id="pnpt"></em></div><div class="leg" id="pnpl" style="justify-content:center"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><h4>Jumlah Nakes berdasarkan Pendidikan per Unit Kerja<span>⋮</span></h4><div class="bars" id="bne"></div><div class="leg" id="lne"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Jumlah Nakes berdasarkan Profesi per Unit Kerja<span>⋮</span></h4><div class="bars" id="bnu"></div><div class="leg" id="lnu"></div></div>
+  <div class="card" style="margin-top:16px"><h4>Jumlah Nakes berdasarkan Nama Jabfung<span>⋮</span></h4><div class="bars" id="bnn"></div><div class="leg" id="lnn"></div></div>
+</section>
+</div>
+</main>
+</div>
+<script>
+// Data dummy: ganti dengan data asli
+const $=id=>document.getElementById(id),sum=(a,i)=>a.reduce((s,r)=>s+r[i],0);
+// Dosen: [nama, AA, L, LK, GB, CPNS Dosen, Tenaga Pengajar]
+const FK=[["Adab dan Humaniora",14,22,16,4,3,2],["Dakwah dan Ilmu Komunikasi",12,20,14,3,2,3],["Dirasat Islamiyah",6,10,9,3,1,1],["Ekonomi dan Bisnis",18,26,15,2,4,3],["Ilmu Kesehatan",20,24,10,1,5,2],["Ilmu Tarbiyah dan Keguruan",28,42,30,7,6,5],["Kedokteran",22,18,8,2,4,6],["Psikologi",10,16,9,2,2,1],["Sains dan Teknologi",30,38,20,4,5,4],["Syariah dan Hukum",16,28,25,9,2,2],["Ushuluddin",9,14,12,5,1,1],["Ilmu Sosial dan Ilmu Politik",11,15,8,1,2,2]];
+const PR=[["Sastra Arab",5,8,6,2,1,1],["Sastra Inggris",6,9,5,1,1,0],["Bahasa dan Sastra Indonesia",3,5,5,1,0,1],["Ilmu Komunikasi",7,10,6,1,1,1],["Manajemen",8,11,6,1,2,1],["Akuntansi",6,9,5,0,1,1],["Pendidikan Agama Islam",9,14,12,3,2,1],["PGMI",7,10,8,2,1,2],["Teknik Informatika",8,10,5,1,2,1],["Sistem Informasi",7,9,4,1,1,1],["Kimia",6,8,5,1,1,1],["Hukum Keluarga",5,9,8,3,1,0],["Perbandingan Mazhab",4,7,7,3,0,1],["Psikologi",10,16,9,2,2,1],["Farmasi",7,9,4,0,2,1]];
+const DN=["AA (Asisten Ahli)","L (Lektor)","LK (Lektor Kepala)","GB (Guru Besar)","CPNS Dosen","Tenaga Pengajar"],CD=["var(--aa)","var(--l)","var(--lk)","var(--gb)","#8f9aa6","#c3cad2"];
+// Tendik: [nama, Fungsional Umum, Fungsional Khusus, Jabatan Pelaksana, Jabatan Struktural, tipe]
+const TU=[["Biro AUK",10,8,6,3,"r"],["Biro AAKK",8,6,5,3,"r"],["Perpustakaan Utama",3,14,2,2,"r"],["LPPM",4,3,3,1,"r"],["LPM",3,2,2,1,"r"],["Pusat Teknologi Informasi dan Pangkalan Data",3,9,4,1,"r"],["Fakultas Adab dan Humaniora",8,5,4,3,"f"],["Fakultas Dakwah dan Ilmu Komunikasi",7,5,4,3,"f"],["Fakultas Ekonomi dan Bisnis",9,6,5,3,"f"],["Fakultas Ilmu Kesehatan",6,10,4,3,"f"],["Fakultas Ilmu Tarbiyah dan Keguruan",12,8,7,4,"f"],["Fakultas Kedokteran",6,14,6,3,"f"],["Fakultas Psikologi",5,5,3,3,"f"],["Fakultas Sains dan Teknologi",10,12,6,4,"f"],["Fakultas Syariah dan Hukum",9,6,5,3,"f"],["Fakultas Ushuluddin",6,4,3,3,"f"],["Fakultas Dirasat Islamiyah",4,3,2,3,"f"],["Fakultas Ilmu Sosial dan Ilmu Politik",6,4,3,3,"f"]];
+const TN=["Fungsional Umum","Fungsional Khusus","Jabatan Pelaksana","Jabatan Struktural"],CT=["var(--fu)","var(--fk)","var(--jp)","var(--js)"];
+const L="U:Pengadministrasi|U:Pelaksana|U:Teknisi|U:Pengemudi|U:Petugas Keamanan|U:Pramubakti|U:Pengelola Keuangan|U:Pengelola Kepegawaian|U:Pengelola Perpustakaan|U:Pengelola Sistem Informasi|U:Analis Keuangan|U:Analis Sistem Informasi|U:Analis Kemahasiswaan|U:Bendahara|U:Verifikator Keuangan|K:Pustakawan Ahli Pertama|K:Pustakawan Ahli Muda|K:Pustakawan Ahli Madya|K:Pustakawan Pelaksana Lanjutan|K:Pustakawan Penyelia|K:Arsiparis Terampil Pelaksana|K:Arsiparis Ahli Pertama|K:Pranata Laboratorium Pendidikan Ahli Pertama|K:Pranata Laboratorium Pendidikan Ahli Muda|K:Pranata Komputer Ahli Pertama|K:Pranata Humas Ahli Muda|K:Perencana Ahli Muda|K:Analis Kepegawaian Ahli Muda|K:Analis Kebijakan Ahli Muda|P:Pengelola Layanan Operasional|P:Operator Layanan Operasional|P:Pengadministrasi Perkantoran|P:Pengolah Data dan Informasi|P:Operator Laboratorium|S:Kepala Biro|S:Kepala Bagian|S:Kepala Sub Bagian";
+const JN={U:"Fungsional Umum",K:"Fungsional Khusus",P:"Jabatan Pelaksana",S:"Jabatan Struktural"};
+const TL=L.split("|").map((s,i)=>[s.slice(2),JN[s[0]],(i*7)%23+2]);
+const RM=[["Jabatan Struktural", "^Kepala"], ["Pengawasan dan Mutu", "Auditor|Audit Mutu"], ["Perpustakaan", "Pustakawan|Perpustakaan|Pustaka Elektronik"], ["Kearsipan", "Arsiparis"], ["Kesehatan", "Dokter|Bidan|Perawat|Apoteker|Radiografer|Medis|Sanitas|Sanitarian|Nutrisionis|Fisioterapis|Terapis|Analis Kesehatan|Pengadministrasi Kesehatan|Laboratorium Kesehatan"], ["Laboratorium", "Laboratorium|Analis Kimia"], ["Akademik dan Kemahasiswaan", "Kemahasiswaan|Mahasiswa|Akademik|Alumni|Beasiswa"], ["Pendidikan dan Penelitian", "Peneliti|Tenaga Pendidik|Teknologi Pembelajaran|Penyuluh Agama"], ["Perencanaan dan Kebijakan", "Perencana|Perencanaan|Rencana Program|Monitoring, Evaluasi|Kebijakan|Pelaksanaan Program dan Anggaran"], ["Keuangan dan Anggaran", "Keuangan|Bendahara|Perbendaharaan|Akuntansi|Anggaran|Gaji|Pendapatan|Verifikator"], ["TI dan Data", "Komputer|Sistem Informasi|Teknologi Informasi|Sistem dan Jaringan|Situs|Data Base|Statistisi|matematika|Data dan Informasi|^Pengelola Data$"], ["Kepegawaian dan SDM", "Kepegawaian|SDM|Sumber Daya Manusia|Analis Jabatan|Kesejahteraan"], ["Hukum dan Organisasi", "Hukum|Peraturan|Perundang|Organisasi dan Tata Laksana"], ["Kerja Sama dan Humas", "Kemitraan|Kerjasama|Humas|Hubungan Masyarakat|Bahan Informasi|Dokumentasi"], ["Pengadaan dan Aset", "Pengadaan|Barang Milik Negara|Sarana dan Prasarana"], ["Administrasi Perkantoran", "^Pengadministrasi|Pengelola Surat|Tenaga Administrasi|^Pelaksana$|Layanan Operasional|Umum Operasional|Penata Layanan"], ["Penunjang Umum", "Pengemudi|Pramusaji|Pramukantor|Keamanan|Pramubakti|Jamuan|Wisma|Asrama|^Teknisi$"]];
+const rumpun=n=>(RM.find(r=>new RegExp(r[1],'i').test(n))||['Belum terpetakan'])[0];
+function bars(el,rows,cols){const tot=r=>r.slice(1,1+cols.length).reduce((a,b)=>a+b,0),mx=Math.max(...rows.map(tot));
+ $(el).innerHTML=rows.map(r=>{const t=tot(r);return `<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${t/mx*100}%">${cols.map((c,i)=>`<i style="background:${c};flex:${r[i+1]}">${r[i+1]/t>.09?r[i+1]:""}</i>`).join("")}</div><div class="tt">${t}</div></div>`}).join("")}
+function hbar(el,rows){if(!rows.length){$(el).innerHTML='<div class="empty">Tidak ada data yang cocok.</div>';return}const mx=Math.max(...rows.map(r=>r[1]));
+ $(el).innerHTML=rows.map(r=>`<div class="br"><div class="lb" title="${r[0]}">${r[0]}</div><div class="tr" style="width:${r[1]/mx*100}%"><i style="background:${r[2]};flex:1"></i></div><div class="tt">${r[1]}</div></div>`).join("")}
+function leg(el,n,c){$(el).innerHTML=n.map((x,i)=>`<span><b style="background:${c[i]}"></b>${x}</span>`).join("")}
+function pie(el,lab,vals,cols,names,t){let a=0,tot=vals.reduce((x,y)=>x+y,0),g=vals.map((v,i)=>{const s=a;a+=v/tot*100;return `${cols[i]} ${s}% ${a}%`});
+ $(el).style.background=`conic-gradient(${g.join(",")})`;$(lab).innerHTML=`Total<br>${tot}`;
+ $(t).innerHTML=names.map((n,i)=>`<span><b style="background:${cols[i]}"></b>${n} ${(vals[i]/tot*100).toFixed(1)}%</span>`).join("")}
+// Dosen
+const D=[1,2,3,4,5,6].map(i=>sum(FK,i)),DT=D.reduce((a,b)=>a+b,0);
+const GC=["#4a6fa5","#e58fa8"],GN=["Laki-laki","Perempuan"];
+pie("pd","pdt",D,CD,DN,"pl");const dm=Math.round(DT*.54);pie("pdg","pdgt",[dm,DT-dm],GC,GN,"pdgl");bars("bd1",FK,CD);bars("bd2",PR,CD);leg("ld1",DN,CD);leg("ld2",DN,CD);
+// Tendik
+const T=[1,2,3,4].map(i=>sum(TU,i)),TT=T.reduce((a,b)=>a+b,0);
+pie("pt","ptt",T,CT,TN,"ptl");const tm=Math.round(TT*.46);pie("ptg","ptgt",[tm,TT-tm],GC,GN,"ptgl");bars("bt",TU,CT);leg("lt",TN,CT);
+function nama(){const q=$("q")?.value.toLowerCase()||"",j=$("jf")?.value||"";
+ hbar("bn",TL.filter(x=>x[0].toLowerCase().includes(q)&&(!j||x[1]==j)).sort((a,b)=>b[2]-a[2]).map(x=>[x[0],x[2],CT[TN.indexOf(x[1])]]))}
+const qInput=$("q"),jfSelect=$("jf");
+if(qInput)qInput.oninput=nama;
+if(jfSelect)jfSelect.onchange=nama;
+nama();
+const m={};TL.forEach(x=>{const k=rumpun(x[0]);m[k]=(m[k]||0)+x[2]});
+hbar("bru",Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,"var(--accent)"]));
+// Pendidikan Dosen (data dummy)
+const ED=["S3 (Doktor)","S2 (Magister)","S1 (Sarjana)"],EC=["var(--lk)","var(--l)","var(--gb)"],fr=[.35,.30,.40,.28,.20,.25,.30,.33,.38,.45,.42,.30];
+const FE=FK.map((r,i)=>{const t=r.slice(1).reduce((a,b)=>a+b,0),s3=Math.round(t*fr[i]),s1=Math.round(t*.03);return [r[0],s3,t-s3-s1,s1]}).sort((a,b)=>b[1]-a[1]);
+bars("bde",FE,EC);leg("lde",ED,EC);pie("pdp","pdpt",[sum(FE,1),sum(FE,2),sum(FE,3)],EC,ED,"pdpl");
+// Ringkasan (data dummy Nakes)
+const NK={"Fakultas Kedokteran":22,"Fakultas Ilmu Kesehatan":8,"RSSH":60,"RSHJ":10},NT=Object.values(NK).reduce((a,b)=>a+b,0);
+const UR={},PC=["#1a9bc4","#f0913a","#8a63d2"],PN=["Dosen","Tendik","Nakes"];
+FK.forEach(r=>{UR["Fakultas "+r[0]]=[r.slice(1).reduce((a,b)=>a+b,0),0,0]});
+TU.forEach(r=>{(UR[r[0]]=UR[r[0]]||[0,0,0])[1]=r[1]+r[2]+r[3]+r[4]});
+Object.entries(NK).forEach(([k,v])=>{(UR[k]=UR[k]||[0,0,0])[2]=v});
+bars("bs",Object.entries(UR).map(([k,v])=>[k,...v]).sort((a,b)=>b[1]+b[2]+b[3]-a[1]-a[2]-a[3]),PC);leg("ls",PN,PC);
+const nm=Math.round(NT*.3),TP=DT+TT+NT;
+pie("ps1","ps1t",[DT,TT,NT],PC,PN,"ps1l");pie("ps2","ps2t",[dm+tm+nm,TP-dm-tm-nm],GC,GN,"ps2l");
+// Pendidikan Tendik (data dummy)
+const EN=["S2 (Magister)","S3 (Doktor)","S1 (Sarjana)","D3/SMA ke bawah"],EK=["var(--l)","var(--lk)","var(--gb)","var(--js)"];
+const TE=Object.entries(UR).map(([k,v])=>[k,v[1]]).filter(x=>x[1]>0).map(([k,t],i)=>{const s2=Math.round(t*(.16+(i*7%13)/100)),s3=Math.round(t*.03),s1=Math.round(t*.42);return [k,s2,s3,s1,Math.max(t-s2-s3-s1,0)]}).sort((a,b)=>b[1]-a[1]);
+bars("bte",TE,EK);leg("lte",EN,EK);pie("ptp","ptpt",[1,2,3,4].map(i=>sum(TE,i)),EK,EN,"ptpl");
+// Nakes (data dummy; total sama dengan NK di Ringkasan)
+const NCN=["Dokter","Perawat","Bidan","Apoteker","Penunjang Medis"],NC=["var(--l)","var(--fk)","var(--gb)","var(--js)","#e5697a"];
+const NP={"RSSH":[12,25,8,6,9],"RSHJ":[2,4,1,1,2],"Fakultas Kedokteran":[3,6,2,3,8],"Fakultas Ilmu Kesehatan":[1,2,1,1,3]};
+const NU=Object.entries(NP).map(([k,v])=>[k,...v]).sort((a,b)=>b.slice(1).reduce((x,y)=>x+y,0)-a.slice(1).reduce((x,y)=>x+y,0));
+bars("bnu",NU,NC);leg("lnu",NCN,NC);pie("pn","pnt",[1,2,3,4,5].map(i=>sum(NU,i)),NC,NCN,"pnl");
+pie("png","pngt",[nm,NT-nm],GC,GN,"pngl");
+const NJ=[["Perawat",18,1],["Perawat Terampil",14,1],["Dokter Umum",10,0],["Dokter Ahli Pertama",8,0],["Bidan",6,2],["Bidan Terampil",3,2],["Bidan Ahli Pertama",3,2],["Apoteker",5,3],["Apoteker Ahli Pertama",2,3],["Asisten Apoteker Terampil",4,3],["Perawat Gigi",5,1],["Radiografer",5,4],["Perekam Medis Terampil",4,4],["Fisioterapis Ahli Pertama",3,4],["Analis Kesehatan",3,4],["Nutrisionis Ahli Pertama",3,4],["Tenaga Sanitasi Lingkungan Ahli Pertama",2,4],["Terapis Gigi dan Mulut Terampil",2,4]];
+hbar("bnn",NJ.sort((a,b)=>b[1]-a[1]).map(x=>[x[0],x[1],NC[x[2]]]));leg("lnn",NCN,NC);
+const NE=Object.entries(NK).sort((a,b)=>b[1]-a[1]).map(([k,t],i)=>{const s2=Math.round(t*(.12+i*.03)),s3=Math.round(t*.02),s1=Math.round(t*.5);return [k,s2,s3,s1,Math.max(t-s2-s3-s1,0)]});
+bars("bne",NE,EK);leg("lne",EN,EK);pie("pnp","pnpt",[1,2,3,4].map(i=>sum(NE,i)),EK,EN,"pnpl");
+// Status Pegawai (kategori = isian Jenis Pegawai; data dummy, total sama dengan jumlah Dosen/Tendik/Nakes)
+const SPN=["CPNS","DTK","NON ASN","PKWT","PNS","PPPK","PPPK Paruh Waktu","PT/DT","PTT/DTT"],SPC=["var(--aa)","#0c7ea3","#e5697a","#f0913a","var(--l)","var(--lk)","var(--fk)","var(--js)","#8f9aa6"];
+const alloc=(tot,w)=>{const s=w.reduce((a,b)=>a+b,0),v=w.map(x=>Math.floor(x/s*tot));let d=tot-v.reduce((a,b)=>a+b,0);const o=w.map((x,i)=>[x/s*tot-v[i],i]).sort((a,b)=>b[0]-a[0]);for(let k=0;k<d;k++)v[o[k%o.length][1]]++;return v};
+const SD=alloc(DT,[5,8,6,2,60,8,1,7,3]),ST=alloc(TT,[4,0,15,8,40,15,8,5,5]),SN=alloc(NT,[3,0,15,25,20,15,5,10,7]),SA=SPN.map((_,i)=>SD[i]+ST[i]+SN[i]);
+const spie=(id,v)=>{const k=SPN.map((_,i)=>i).filter(i=>v[i]>0);pie(id,id+"t",k.map(i=>v[i]),k.map(i=>SPC[i]),k.map(i=>SPN[i]),id+"l")};
+spie("pss",SA);spie("psd",SD);spie("pst",ST);spie("psn",SN);
+// Navigasi
+$("ft").onclick=()=>$("side").classList.toggle("open");
+const tb=document.querySelectorAll("#tabs button");
+tb.forEach(b=>b.onclick=()=>{tb.forEach(x=>x.classList.remove("on"));b.classList.add("on");["ps","p0","p1","p2"].forEach(id=>$(id).classList.toggle("on",id==b.dataset.t))});
+</script>
+</body>
+</html>
+
+</body></html>
